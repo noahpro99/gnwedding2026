@@ -171,15 +171,20 @@ up routing via labels — no `ports:` mapping needed.
       - ./gnwedding-data:/app/data    # SQLite persists across rebuilds
     labels:
       - traefik.enable=true
-      - traefik.http.routers.gnwedding2026.rule=Host(`gnwedding2026.com`) || Host(`www.gnwedding2026.com`)
+      - traefik.http.routers.gnwedding2026.rule=Host(`gnwedding2026.com`)
       - traefik.http.routers.gnwedding2026.entrypoints=https
       - traefik.http.routers.gnwedding2026.tls=true
       - traefik.http.routers.gnwedding2026.tls.certresolver=${CERT_RESOLVER}
       - traefik.http.services.gnwedding2026.loadbalancer.server.port=3000
 ```
 
-Public host: **gnwedding2026.com** (+ `www.`). SQLite file lives at
-`~/gnwedding-data/wedding.sqlite` and survives image rebuilds.
+Public host: **gnwedding2026.com** (apex only — there's no `www.` DNS
+record, and adding `www.` to the Host rule made Let's Encrypt 429 us out
+for an hour. Add a `www.` A record then extend the rule with
+`|| Host(\`www.gnwedding2026.com\`)` if you want both.)
+
+SQLite file lives at `~/gnwedding-data/wedding.sqlite` and survives
+image rebuilds.
 
 ### Backups
 

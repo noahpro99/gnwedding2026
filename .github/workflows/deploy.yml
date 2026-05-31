@@ -15,6 +15,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           command_timeout: 30m
+          script_stop: true
           script: |
             cd ~/repos/gnwedding2026
             git fetch
