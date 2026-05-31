@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* Lock the palette to fall colors only. The --color-*: initial line wipes
+   every default Tailwind color so any class outside this list (text-red-500,
+   bg-blue-200, white, black, etc.) will simply not resolve. */
+@theme {
+  --color-*: initial;
+
+  --color-cream:     #f5ead2;  /* page background */
+  --color-parchment: #ecdcb9;  /* card background, slightly darker than cream */
+  --color-amber:     #d4a458;  /* warm tan accent, borders */
+  --color-mustard:   #c98a1f;  /* warm yellow */
+  --color-pumpkin:   #d4762a;  /* secondary accent / hover */
+  --color-rust:      #a64a1c;  /* deep orange */
+  --color-burgundy:  #732424;  /* primary accent — buttons, headings */
+  --color-oxblood:   #4a1414;  /* darkest red — errors, deepest text */
+  --color-olive:     #6d6a3a;  /* muted fall green */
+  --color-walnut:    #5c3a22;  /* warm dark brown */
+  --color-ink:       #2b1810;  /* main text */
+  --color-gold:      #b18536;  /* fine eyebrow accent */
+
+  /* Everything is Times New Roman — body text, headings, and the names
+     that used to be cursive (the .font-script class is kept as an alias
+     so existing markup stays put, but it no longer renders as cursive). */
+  --font-serif:  "Times New Roman", Times, serif;
+  --font-script: "Times New Roman", Times, serif;
+}
+
+html, body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    letter-spacing: 0.02em;
+  }
+  /* Names / display headings: same font, italicized for a softer feel. */
+  .font-script {
+    font-family: var(--font-script);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+}

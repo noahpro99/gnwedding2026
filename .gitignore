@@ -1,0 +1,14 @@
+node_modules
+.output
+.vinxi
+.tanstack
+dist
+build
+.env
+.env.local
+*.log
+data/
+*.sqlite
+*.sqlite-journal
+src/routeTree.gen.ts
+.DS_Store
