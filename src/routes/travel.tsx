@@ -14,8 +14,8 @@ const HOTELS = [
     address: 'Roanoke, VA',
     blockCode: 'TBD',
     bookingUrl: 'https://www.marriott.com/',
-    notes: 'Room block reserved for the weekend of 10/24–10/25.',
-    nights: 'Block: Oct 24 – Oct 25',
+    notes: 'Room block held for the nights of Saturday Oct 24 and Sunday Oct 25.',
+    nights: 'Block: night of 10/24 + night of 10/25',
     pricePerNight: null,
   },
   {
@@ -25,7 +25,7 @@ const HOTELS = [
     bookingUrl: 'https://www.hilton.com/en/brands/home2-suites/',
     notes:
       'Suites with mini kitchens (plates, pots, pans) — great if you want to grab groceries at Kroger and settle in. Block details landing soon.',
-    nights: 'Block: Oct 24 – Oct 25',
+    nights: 'Block: night of 10/24 + night of 10/25',
     pricePerNight: 115,
   },
 ]
@@ -56,8 +56,11 @@ function Travel() {
     <section className="mx-auto max-w-4xl px-6 py-20">
       <SectionHeader eyebrow="Getting There" title="Travel" icon={Plane}>
         <p>
-          The wedding is the weekend of <strong>October 24, 2026</strong> at
-          Beliveau Winery in Virginia. Here's what you need to know.
+          The wedding is on <strong>Sunday, October 25, 2026</strong> at
+          Beliveau Winery in Virginia, with the ceremony at <strong>3:00 PM</strong>.
+          We've blocked the hotels below for the nights of{' '}
+          <strong>October 24</strong> and <strong>October 25</strong> so you can
+          arrive early and stay over.
         </p>
       </SectionHeader>
 
@@ -66,8 +69,7 @@ function Travel() {
         <span>Hotels</span>
       </h2>
       <p className="text-center text-ink/70 mb-8 max-w-xl mx-auto">
-        We've held room blocks for both options below for the night(s) of the
-        wedding.
+        Both options have rooms held for the nights of Oct 24 and Oct 25.
       </p>
 
       <div className="grid md:grid-cols-2 gap-6">
