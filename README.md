@@ -158,7 +158,10 @@ multi-stage with `oven/bun:1` for both build and runtime. The runtime stage
 serves both SSR (TanStack Start) and the static `dist/client/` via a thin
 `serve.ts` Bun wrapper. Container listens on `:3000`.
 
-### docker-compose entry to add to `~/docker-compose.yml` on the Pi
+### docker-compose entry on the Pi
+
+Lives in `~/docker-compose.yml` alongside the other services. Traefik picks
+up routing via labels — no `ports:` mapping needed.
 
 ```yaml
   gnwedding2026:
@@ -168,14 +171,14 @@ serves both SSR (TanStack Start) and the static `dist/client/` via a thin
       - ./gnwedding-data:/app/data    # SQLite persists across rebuilds
     labels:
       - traefik.enable=true
-      - traefik.http.routers.gnwedding2026.rule=Host(`<your-domain>`)
+      - traefik.http.routers.gnwedding2026.rule=Host(`gnwedding2026.com`) || Host(`www.gnwedding2026.com`)
       - traefik.http.routers.gnwedding2026.entrypoints=https
       - traefik.http.routers.gnwedding2026.tls=true
       - traefik.http.routers.gnwedding2026.tls.certresolver=${CERT_RESOLVER}
       - traefik.http.services.gnwedding2026.loadbalancer.server.port=3000
 ```
 
-Then `docker compose up -d gnwedding2026`. The SQLite file lives at
+Public host: **gnwedding2026.com** (+ `www.`). SQLite file lives at
 `~/gnwedding-data/wedding.sqlite` and survives image rebuilds.
 
 ### Backups
