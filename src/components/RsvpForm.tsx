@@ -1,23 +1,16 @@
 import { Check, X } from 'lucide-react'
-import { useMemo, useState } from 'react'
-import { GUESTS, findGuest } from '~/server/guests'
+import { useState } from 'react'
 import { submitRsvp } from '~/server/rsvp'
 
 export function RsvpForm({
   inviteId,
-  defaultGuestId,
 }: {
   inviteId?: string
   defaultGuestId?: string
 }) {
-  const partiesIndex = useMemo(() => groupByParty(GUESTS), [])
-  const [guestId, setGuestId] = useState<string>(defaultGuestId ?? '')
   const [attending, setAttending] = useState<'yes' | 'no' | null>(null)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'sent' | 'error'>('idle')
   const [error, setError] = useState<string | null>(null)
-
-  const guest = guestId ? findGuest(guestId) : undefined
-  const maxParty = guest?.maxParty ?? 1
 
   if (status === 'sent') {
     return (
@@ -37,8 +30,10 @@ export function RsvpForm({
       className="bg-parchment border border-amber rounded-3xl p-8 space-y-5"
       onSubmit={async (e) => {
         e.preventDefault()
-        if (!guestId) {
-          setError('Pick your name from the list.')
+        const fd = new FormData(e.currentTarget)
+        const primaryName = String(fd.get('primaryName') ?? '').trim()
+        if (!primaryName) {
+          setError('Please enter your name.')
           return
         }
         if (!attending) {
@@ -47,16 +42,16 @@ export function RsvpForm({
         }
         setStatus('submitting')
         setError(null)
-        const fd = new FormData(e.currentTarget)
+        const others = String(fd.get('guestNames') ?? '').trim()
+        const allNames = [primaryName, ...others.split('\n').map((n) => n.trim()).filter(Boolean)]
         try {
           await submitRsvp({
             data: {
-              guestId,
               inviteId,
-              primaryName: guest?.name ?? '',
+              primaryName,
+              guestNames: allNames,
               email: String(fd.get('email') ?? ''),
               attending: attending === 'yes',
-              partySize: Number(fd.get('partySize') ?? 1),
               dietary: String(fd.get('dietary') ?? ''),
               notes: String(fd.get('notes') ?? ''),
               needsTransport: fd.get('needsTransport') === 'on',
@@ -69,31 +64,19 @@ export function RsvpForm({
         }
       }}
     >
+      <Field label="Your name" name="primaryName" type="text" placeholder="First and last name" required />
+
       <label className="block">
         <span className="block uppercase tracking-widest text-xs text-ink/60 mb-1">
-          Your name
+          Others in your party
         </span>
-        <select
-          required
-          value={guestId}
-          onChange={(e) => setGuestId(e.target.value)}
+        <textarea
+          name="guestNames"
+          rows={3}
+          placeholder="One name per line"
           className="w-full bg-cream border border-amber focus:border-burgundy rounded-lg outline-none px-3 py-2 text-ink"
-        >
-          <option value="">Select your name…</option>
-          {partiesIndex.map(({ party, guests }) => (
-            <optgroup key={party} label={party}>
-              {guests.map((g) => (
-                <option key={g.id} value={g.id}>
-                  {g.name}
-                  {g.maxParty > 1 ? ` (party up to ${g.maxParty})` : ''}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
-        <span className="block mt-1 text-xs text-ink/55">
-          If your name is not listed, contact Gwen or Noah directly.
-        </span>
+        />
+        <span className="block mt-1 text-xs text-ink/50">Leave blank if you are attending alone.</span>
       </label>
 
       <fieldset>
@@ -103,11 +86,11 @@ export function RsvpForm({
         <div className="flex gap-3">
           <Choice value="yes" current={attending} onClick={setAttending}>
             <Check className="w-4 h-4" strokeWidth={2.5} />
-            Joyfully accept
+            Accept
           </Choice>
           <Choice value="no" current={attending} onClick={setAttending}>
             <X className="w-4 h-4" strokeWidth={2.5} />
-            Regretfully decline
+            Decline
           </Choice>
         </div>
       </fieldset>
@@ -116,18 +99,6 @@ export function RsvpForm({
 
       {attending === 'yes' && (
         <>
-          {maxParty > 1 ? (
-            <Field
-              label={`How many in your party? (up to ${maxParty})`}
-              name="partySize"
-              type="number"
-              min={1}
-              max={maxParty}
-              defaultValue="1"
-            />
-          ) : (
-            <input type="hidden" name="partySize" value={1} />
-          )}
           <Field label="Dietary restrictions or allergies" name="dietary" />
           <TextArea label="Additional notes" name="notes" />
           <label className="flex items-center gap-3 text-sm text-ink/80">
@@ -204,15 +175,4 @@ function TextArea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { l
       />
     </label>
   )
-}
-
-function groupByParty(
-  guests: ReadonlyArray<(typeof GUESTS)[number]>,
-): Array<{ party: string; guests: typeof guests }> {
-  const map = new Map<string, typeof guests>()
-  for (const g of guests) {
-    const existing = (map.get(g.party) ?? []) as typeof guests
-    map.set(g.party, [...existing, g] as typeof guests)
-  }
-  return Array.from(map.entries()).map(([party, guests]) => ({ party, guests }))
 }

@@ -50,6 +50,12 @@ db.run(`
   );
 `)
 
+try {
+  db.run(`ALTER TABLE rsvps ADD COLUMN guest_names TEXT;`)
+} catch {
+  // column already exists
+}
+
 db.run(`
   CREATE TABLE IF NOT EXISTS registry_claims (
     item_key TEXT PRIMARY KEY,

@@ -1,14 +1,12 @@
 import { createServerFn } from '@tanstack/react-start'
 import { db } from './db'
-import { findGuest } from './guests'
 
 export type RsvpPayload = {
-  guestId: string
   inviteId?: string
   primaryName: string
+  guestNames: string[]
   email?: string
   attending: boolean
-  partySize: number
   dietary?: string
   notes?: string
   needsTransport?: boolean
@@ -20,26 +18,19 @@ export const submitRsvp = createServerFn({ method: 'POST' })
       throw new Error('Invalid payload')
     }
     const d = data as Record<string, unknown>
-    const guestId = typeof d.guestId === 'string' ? d.guestId.trim() : ''
-    if (!guestId) throw new Error('Please pick your name from the list.')
-    const guest = findGuest(guestId)
-    if (!guest) throw new Error('We could not find that name on our list.')
-    const partySize = Number(d.partySize ?? 1)
-    if (!Number.isFinite(partySize) || partySize < 1) {
-      throw new Error('Party size must be at least 1')
-    }
-    if (partySize > guest.maxParty) {
-      throw new Error(
-        `Your invite covers up to ${guest.maxParty} guest${guest.maxParty === 1 ? '' : 's'}.`,
-      )
-    }
+    const primaryName = typeof d.primaryName === 'string' ? d.primaryName.trim() : ''
+    if (!primaryName) throw new Error('Please enter your name.')
+    const rawNames = Array.isArray(d.guestNames) ? d.guestNames : [primaryName]
+    const guestNames = rawNames
+      .map((n) => (typeof n === 'string' ? n.trim() : ''))
+      .filter(Boolean)
+    if (guestNames.length === 0) guestNames.push(primaryName)
     return {
-      guestId,
       inviteId: typeof d.inviteId === 'string' ? d.inviteId : undefined,
-      primaryName: guest.name,
+      primaryName,
+      guestNames,
       email: typeof d.email === 'string' ? d.email : undefined,
       attending: Boolean(d.attending),
-      partySize,
       dietary: typeof d.dietary === 'string' ? d.dietary : undefined,
       notes: typeof d.notes === 'string' ? d.notes : undefined,
       needsTransport: Boolean(d.needsTransport),
@@ -48,14 +39,15 @@ export const submitRsvp = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     db.run(
       `INSERT INTO rsvps
-        (invite_id, primary_name, email, attending, party_size, dietary, notes, needs_transport)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        (invite_id, primary_name, guest_names, email, attending, party_size, dietary, notes, needs_transport)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         data.inviteId ?? null,
         data.primaryName,
+        data.guestNames.join('\n'),
         data.email ?? null,
         data.attending ? 1 : 0,
-        data.partySize,
+        data.guestNames.length,
         data.dietary ?? null,
         data.notes ?? null,
         data.needsTransport ? 1 : 0,
