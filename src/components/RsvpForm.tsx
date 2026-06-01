@@ -23,7 +23,7 @@ export function RsvpForm({
     return (
       <div className="text-center bg-parchment border border-amber rounded-3xl p-10">
         <p className="font-script text-4xl text-burgundy">
-          {attending === 'yes' ? "Can't wait to celebrate with you!" : 'Thank you — we will miss you.'}
+          {attending === 'yes' ? 'We look forward to celebrating with you.' : 'Thank you. We will miss you.'}
         </p>
         <p className="mt-4 text-ink/70">
           Your RSVP was received. You can come back here to update it any time.
@@ -92,7 +92,7 @@ export function RsvpForm({
           ))}
         </select>
         <span className="block mt-1 text-xs text-ink/55">
-          Don't see your name? Reach out to Gwen or Noah directly.
+          If your name is not listed, contact Gwen or Noah directly.
         </span>
       </label>
 
@@ -129,7 +129,7 @@ export function RsvpForm({
             <input type="hidden" name="partySize" value={1} />
           )}
           <Field label="Dietary restrictions or allergies" name="dietary" />
-          <TextArea label="Anything else we should know?" name="notes" />
+          <TextArea label="Additional notes" name="notes" />
           <label className="flex items-center gap-3 text-sm text-ink/80">
             <input type="checkbox" name="needsTransport" className="accent-burgundy" />
             I would like shuttle transportation from the hotel

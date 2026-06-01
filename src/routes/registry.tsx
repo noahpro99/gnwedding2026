@@ -68,7 +68,7 @@ const REGISTRY: Section[] = [
   },
   {
     title: 'Maybe',
-    note: 'Smaller extras — only if the spirit moves you.',
+    note: 'Smaller items, entirely optional.',
     items: [
       { name: 'Oil dispenser / sprayer', price: 16 },
       { name: 'Electric kettle' },
@@ -99,10 +99,9 @@ function Registry() {
     <section className="mx-auto max-w-4xl px-6 py-20">
       <SectionHeader eyebrow="If you'd like to gift" title="Registry" icon={Gift}>
         <p>
-          Your presence is the only gift we need — truly. If you'd still like
-          to send something, here's what we're building up as we start our home
-          together. Claim an item with your initials so no two people pick the
-          same thing.
+          We do not expect gifts. If you would like to send something, below is
+          what we are putting together for our home. Claim an item with your
+          initials to avoid duplicates.
         </p>
       </SectionHeader>
 

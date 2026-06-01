@@ -24,7 +24,7 @@ const HOTELS = [
     blockCode: 'TBD',
     bookingUrl: 'https://www.hilton.com/en/brands/home2-suites/',
     notes:
-      'Suites with mini kitchens (plates, pots, pans) — great if you want to grab groceries at Kroger and settle in. Block details landing soon.',
+      'Suites with mini kitchens (plates, pots, pans). A good option if you plan to pick up groceries at the nearby Kroger. Block details coming soon.',
     nights: 'Block: night of 10/24 + night of 10/25',
     pricePerNight: 115,
   },
@@ -47,7 +47,7 @@ const AIRPORTS = [
     code: 'CLT',
     name: 'Charlotte Douglas',
     driveTime: '~3 hr drive',
-    note: 'Largest airport — best flight options if ROA is limited.',
+    note: 'Largest of the three; best selection of flights when ROA is limited.',
   },
 ]
 
@@ -114,7 +114,7 @@ function Travel() {
         <span>Airports</span>
       </h2>
       <p className="text-center text-ink/70 mb-8 max-w-xl mx-auto">
-        Three options depending on where you're flying in from.
+        Three options, depending on your departure city.
       </p>
 
       <div className="grid sm:grid-cols-3 gap-4">
@@ -138,8 +138,8 @@ function Travel() {
         <span>Transportation</span>
       </h2>
       <p className="text-center text-ink/70 mb-10 max-w-xl mx-auto">
-        If we coordinate a shuttle between the hotel blocks and the venue, let
-        us know you'd like a seat.
+        If we arrange shuttle service between the hotel blocks and the venue,
+        use this form to request a seat.
       </p>
       <TransportForm />
     </section>
@@ -178,7 +178,7 @@ function TransportForm() {
     >
       {status === 'sent' ? (
         <p className="text-center text-burgundy font-script text-2xl py-8">
-          Thank you — we'll save you a seat.
+          Thank you. We will reserve your seat.
         </p>
       ) : (
         <>

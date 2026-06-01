@@ -16,14 +16,17 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'Gwendolyn & Noah — October 25, 2026' },
+      { title: 'Gwendolyn & Noah · October 25, 2026' },
       {
         name: 'description',
         content:
           'Join us as we celebrate our wedding on October 25, 2026 at Beliveau Winery.',
       },
     ],
-    links: [{ rel: 'stylesheet', href: appCss }],
+    links: [
+      { rel: 'stylesheet', href: appCss },
+      { rel: 'icon', href: '/images/leaf.png', type: 'image/png' },
+    ],
   }),
   component: RootComponent,
   notFoundComponent: NotFound,

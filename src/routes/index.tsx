@@ -27,7 +27,7 @@ function Home() {
     <>
       <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
         <img
-          src="/images/hug.png"
+          src="/images/hug-edited.jpg"
           alt="Gwendolyn and Noah"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -76,32 +76,41 @@ function Home() {
         />
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-24 text-center">
-        <p className="uppercase tracking-[0.3em] text-xs text-gold mb-4">
-          Welcome
-        </p>
-        <h2 className="font-script text-5xl text-burgundy mb-4">
-          We're so glad you're here
-        </h2>
-        <div className="mb-8">
-          <LeafDivider />
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="text-center mb-16">
+          <p className="uppercase tracking-[0.3em] text-xs text-gold mb-4">
+            Welcome
+          </p>
+          <h2 className="font-script text-5xl text-burgundy mb-4">
+            Glad you are here
+          </h2>
+          <div className="mb-8 flex justify-center">
+            <LeafDivider />
+          </div>
+          <p className="text-ink/80 leading-relaxed text-lg max-w-2xl mx-auto">
+            We are getting married on Sunday, October 25 at Beliveau Winery in
+            Virginia. This site has everything you need: our story, hotel and
+            travel details, the weekend schedule, and the RSVP form.
+          </p>
         </div>
-        <p className="text-ink/80 leading-relaxed text-lg">
-          We are getting married on a Sunday in late October at Beliveau Winery
-          in Virginia. We could not be more excited to begin this next chapter
-          — and we want you with us. Look around for our story, travel info,
-          the schedule, and how to RSVP.
-        </p>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-24">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <QuickLink to="/our-story" icon={Heart} title="Our Story" body="How we got here." />
-          <QuickLink to="/travel" icon={Plane} title="Travel" body="Hotels, airports, shuttles." />
-          <QuickLink to="/itinerary" icon={Calendar} title="Itinerary" body="The weekend's plan." />
-          <QuickLink to="/wedding-party" icon={Users} title="Wedding Party" body="The people standing with us." />
-          <QuickLink to="/registry" icon={Gift} title="Registry" body="If you'd like to gift." />
-          <QuickLink to="/faq" icon={HelpCircle} title="FAQ" body="Common questions answered." />
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="rounded-2xl overflow-hidden border-4 border-amber/70 shadow-2xl shadow-walnut/20 ring-1 ring-amber/20">
+            <img
+              src="/images/us.jpg"
+              alt="Gwendolyn and Noah"
+              className="w-full object-cover"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <QuickLink to="/our-story" icon={Heart} title="Our Story" body="How we got here." />
+            <QuickLink to="/travel" icon={Plane} title="Travel" body="Hotels, airports, shuttles." />
+            <QuickLink to="/itinerary" icon={Calendar} title="Itinerary" body="The weekend schedule." />
+            <QuickLink to="/wedding-party" icon={Users} title="Wedding Party" body="The people standing with us." />
+            <QuickLink to="/registry" icon={Gift} title="Registry" body="Gift ideas, if you wish." />
+            <QuickLink to="/faq" icon={HelpCircle} title="FAQ" body="Common questions answered." />
+          </div>
         </div>
       </section>
 
@@ -117,10 +126,9 @@ function Home() {
             <LeafDivider />
           </div>
           <p className="text-ink/80 leading-relaxed mb-8">
-            Add your photos so we can relive the weekend through everyone's eyes.
+            Add your photos from the weekend to the shared album.
           </p>
           <PhotoAlbumButton />
-          <p className="mt-4 text-xs text-ink/60">Opens in Google Photos</p>
         </div>
       </section>
     </>
