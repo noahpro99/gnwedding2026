@@ -114,6 +114,42 @@ function Home() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-5xl px-6 pb-24">
+        <div className="text-center mb-10">
+          <p className="uppercase tracking-[0.3em] text-xs text-gold mb-4">
+            The Venue
+          </p>
+          <h2 className="font-script text-5xl text-burgundy mb-4">
+            Beliveau Winery
+          </h2>
+          <div className="mb-6 flex justify-center">
+            <LeafDivider />
+          </div>
+          <p className="text-ink/80 leading-relaxed text-lg max-w-2xl mx-auto">
+            Where we'll say "I do" — a winery in southwest Virginia, about 45
+            minutes from Roanoke. See the Travel page for hotels and airports.
+          </p>
+        </div>
+
+        <div className="rounded-3xl overflow-hidden border-4 border-amber/70 shadow-2xl shadow-walnut/20 ring-1 ring-amber/20">
+          <img
+            src="/images/belivaeu.png"
+            alt="Beliveau Winery"
+            className="w-full object-cover"
+          />
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link
+            to="/travel"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-burgundy text-cream uppercase tracking-widest text-sm rounded-full hover:bg-pumpkin transition-colors"
+          >
+            <Plane className="w-4 h-4" strokeWidth={2} />
+            <span>Travel &amp; Hotels</span>
+          </Link>
+        </div>
+      </section>
+
       <section className="bg-amber/30 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <p className="uppercase tracking-[0.3em] text-xs text-gold mb-4">
