@@ -5,10 +5,12 @@ import { submitRsvp } from '~/server/rsvp'
 export function RsvpForm({
   inviteId,
   plain = false,
+  onSent,
 }: {
   inviteId?: string
   defaultGuestId?: string
   plain?: boolean
+  onSent?: (attending: 'yes' | 'no') => void
 }) {
   const [attending, setAttending] = useState<'yes' | 'no' | null>(null)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'sent' | 'error'>('idle')
@@ -38,6 +40,7 @@ export function RsvpForm({
         },
       })
       setStatus('sent')
+      if (plain && onSent && attending) onSent(attending)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
       setStatus('error')
@@ -45,12 +48,11 @@ export function RsvpForm({
   }
 
   if (status === 'sent') {
+    if (plain) return null // parent animates the card away and shows confirmation
     const msg = attending === 'yes'
-      ? 'We look forward to celebrating with you.'
+      ? 'We look forward to celebrating with you!'
       : 'Thank you. We will miss you.'
-    return plain ? (
-      <p className="font-script text-2xl text-burgundy text-center leading-snug italic">{msg}</p>
-    ) : (
+    return (
       <div className="text-center bg-parchment border border-amber rounded-3xl p-10">
         <p className="font-script text-4xl text-burgundy">{msg}</p>
         <p className="mt-4 text-ink/70">Your RSVP was received. You can come back here to update it any time.</p>
