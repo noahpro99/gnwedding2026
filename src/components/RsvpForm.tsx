@@ -91,14 +91,6 @@ export function RsvpForm({
           <>
             <PaperLine label="Dietary" name="dietary" />
             <PaperArea  label="Notes" name="notes" />
-            <label className="flex items-center gap-2 pt-0.5 cursor-pointer">
-              <input
-                type="checkbox"
-                name="needsTransport"
-                className="appearance-none shrink-0 w-3 h-3 border border-ink/25 checked:bg-burgundy checked:border-burgundy transition-colors cursor-pointer"
-              />
-              <span className="text-[9px] md:text-[11px] uppercase tracking-[0.15em] text-ink/35">Shuttle from hotel</span>
-            </label>
           </>
         )}
 

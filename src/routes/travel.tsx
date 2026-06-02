@@ -135,11 +135,15 @@ function Travel() {
 
       <h2 className="mt-20 mb-2 font-script text-4xl text-burgundy text-center flex items-center justify-center gap-3">
         <Bus className="w-7 h-7" strokeWidth={1.5} />
-        <span>Transportation</span>
+        <span>Shuttle</span>
       </h2>
-      <p className="text-center text-ink/70 mb-10 max-w-xl mx-auto">
-        If we arrange shuttle service between the hotel blocks and the venue,
-        use this form to request a seat.
+      <p className="text-center text-ink/70 mb-2 max-w-xl mx-auto">
+        We're considering a shuttle between the hotel blocks and the venue.
+        If enough guests are interested, we'll arrange it.
+      </p>
+      <p className="text-center text-ink/50 text-sm mb-10 max-w-xl mx-auto">
+        This is an indication of interest only, not a confirmed booking.
+        We'll follow up once we know if there's enough demand.
       </p>
       <TransportForm />
     </section>
@@ -177,9 +181,10 @@ function TransportForm() {
       }}
     >
       {status === 'sent' ? (
-        <p className="text-center text-burgundy font-script text-2xl py-8">
-          Thank you. We will reserve your seat.
-        </p>
+        <div className="py-4 text-center">
+          <p className="text-burgundy font-script text-2xl">Thank you. We've noted your interest.</p>
+          <p className="text-ink/60 text-sm mt-2">We'll be in touch once we confirm whether a shuttle is running.</p>
+        </div>
       ) : (
         <>
           <Field label="Name" name="name" required />
