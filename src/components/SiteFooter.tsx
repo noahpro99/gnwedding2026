@@ -30,10 +30,10 @@ function CopyButton({
       <button
         type="button"
         onClick={(e) => e.stopPropagation()}
-        className="inline-flex items-center gap-2 px-4 h-10 rounded-full bg-olive/80 text-cream text-xs uppercase tracking-widest transition-colors"
+        className="inline-flex items-center gap-1.5 px-3 h-7 rounded-full bg-olive/80 text-cream text-[10px] uppercase tracking-widest transition-colors"
       >
-        <Icon className="w-3.5 h-3.5" strokeWidth={2} />
-        Copied to clipboard
+        <Icon className="w-3 h-3" strokeWidth={2} />
+        Copied
       </button>
     )
   }
@@ -44,27 +44,24 @@ function CopyButton({
       onClick={handleClick}
       aria-label={label}
       title={label}
-      className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-amber text-ink/50 hover:border-burgundy hover:text-burgundy transition-colors"
+      className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-amber/60 text-ink/40 hover:border-burgundy hover:text-burgundy transition-colors"
     >
-      <Icon className="w-4 h-4" strokeWidth={1.75} />
+      <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
     </button>
   )
 }
 
 export function SiteFooter() {
   return (
-    <footer id="contact" className="mt-24 border-t border-amber bg-cream shadow-[0_-4px_32px_rgba(92,58,34,0.06)]">
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        <div className="text-center">
-          <p className="font-script text-3xl text-burgundy">Gwendolyn &amp; Noah</p>
-          <p className="mt-2 text-sm text-ink/60 tracking-widest uppercase">
-            October 25, 2026 · Beliveau Winery
-          </p>
-          <div className="mt-5 flex items-center justify-center gap-3">
-            <span className="text-xs uppercase tracking-widest text-ink/50">Contact us</span>
-            <CopyButton value="noahpro@gmail.com" icon={Mail} label="Copy email" />
-            <CopyButton value="5403156063" icon={Phone} label="Copy phone number" />
-          </div>
+    <footer id="contact" className="mt-16 border-t border-amber/60 bg-cream">
+      <div className="mx-auto max-w-6xl px-6 py-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+        <span className="font-script text-lg text-burgundy italic">Gwendolyn &amp; Noah</span>
+        <span className="text-amber/60 text-xs">·</span>
+        <span className="text-[11px] uppercase tracking-widest text-ink/45">October 25, 2026 · Beliveau Winery</span>
+        <span className="text-amber/60 text-xs">·</span>
+        <div className="flex items-center gap-2">
+          <CopyButton value="noahpro@gmail.com" icon={Mail} label="Copy email" />
+          <CopyButton value="5403156063" icon={Phone} label="Copy phone number" />
         </div>
       </div>
     </footer>
