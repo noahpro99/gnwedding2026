@@ -95,11 +95,11 @@ function Home() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div className="rounded-2xl overflow-hidden border-4 border-amber/70 shadow-card ring-1 ring-amber/20">
+          <div className="rounded-2xl overflow-hidden border-4 border-amber/70 shadow-card ring-1 ring-amber/20" style={{ aspectRatio: '15 / 16' }}>
             <img
               src="/images/us.jpg"
               alt="Gwendolyn and Noah"
-              className="w-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
           </div>
 
