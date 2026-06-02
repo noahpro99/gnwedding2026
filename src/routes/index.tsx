@@ -95,7 +95,7 @@ function Home() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div className="rounded-2xl overflow-hidden border-4 border-amber/70 shadow-2xl shadow-walnut/20 ring-1 ring-amber/20">
+          <div className="rounded-2xl overflow-hidden border-4 border-amber/70 shadow-card ring-1 ring-amber/20">
             <img
               src="/images/us.jpg"
               alt="Gwendolyn and Noah"
@@ -149,7 +149,7 @@ function QuickLink({
   return (
     <Link
       to={to}
-      className="group block p-8 bg-parchment border border-amber rounded-2xl hover:border-burgundy transition-colors text-center"
+      className="group block p-8 bg-parchment border border-amber rounded-2xl hover:border-burgundy transition-colors text-center shadow-card"
     >
       <div className="inline-flex items-center justify-center w-14 h-14 mb-4 rounded-full bg-cream border border-amber group-hover:border-burgundy group-hover:bg-burgundy transition-colors">
         <Icon

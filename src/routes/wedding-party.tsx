@@ -68,7 +68,7 @@ function WeddingParty() {
 
 function MemberCard({ member }: { member: Member }) {
   return (
-    <div className="rounded-3xl bg-parchment shadow-lg shadow-walnut/10 overflow-hidden">
+    <div className="rounded-3xl bg-parchment shadow-card overflow-hidden">
       {/* Both photos side by side, full width — card's overflow-hidden clips all corners */}
       <div className="grid grid-cols-2 gap-px bg-amber/30">
         <div className="aspect-square overflow-hidden bg-parchment">

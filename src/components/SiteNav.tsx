@@ -16,7 +16,7 @@ export function SiteNav() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur border-b border-amber">
+    <header className="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-amber shadow-[0_2px_24px_rgba(92,58,34,0.09)]">
       <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
         <Link to="/" className="font-script text-3xl text-burgundy">
           G &amp; N

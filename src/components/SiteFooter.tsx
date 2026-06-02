@@ -53,7 +53,7 @@ function CopyButton({
 
 export function SiteFooter() {
   return (
-    <footer id="contact" className="mt-24 border-t border-amber bg-cream">
+    <footer id="contact" className="mt-24 border-t border-amber bg-cream shadow-[0_-4px_32px_rgba(92,58,34,0.06)]">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="text-center">
           <p className="font-script text-3xl text-burgundy">Gwendolyn &amp; Noah</p>
