@@ -99,9 +99,11 @@ function Registry() {
     <section className="mx-auto max-w-4xl px-6 py-20">
       <SectionHeader eyebrow="If you'd like to gift" title="Registry" icon={Gift}>
         <p>
-          We do not expect gifts. If you would like to send something, below is
-          what we are putting together for our home. Claim an item with your
-          initials to avoid duplicates.
+          If you are interested in contributing something from our wedding
+          registry, consult the list of items below, or please run your gift
+          idea by us before purchasing. Make sure to claim the item with your
+          initials to avoid any confusion. We very much appreciate your
+          generosity, thank you!
         </p>
       </SectionHeader>
 
