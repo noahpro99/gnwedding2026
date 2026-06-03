@@ -29,7 +29,8 @@ function Home() {
         <img
           src="/images/hug-edited.jpg"
           alt="Gwendolyn and Noah"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute left-0 right-0 bottom-0 w-full object-cover"
+          style={{ top: '-10%', height: '110%' }}
         />
         <div className="absolute inset-0 bg-ink/35" />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6 text-cream">

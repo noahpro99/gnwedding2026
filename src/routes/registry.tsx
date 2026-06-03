@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Check, Gift, X } from 'lucide-react'
+import { Check, Gift, MapPin, X } from 'lucide-react'
 import { useState } from 'react'
 import { SectionHeader } from '~/components/SectionHeader'
 import { claimItem, listClaims, unclaimItem } from '~/server/registry'
@@ -105,6 +105,8 @@ function Registry() {
         </p>
       </SectionHeader>
 
+      <ShippingAddress />
+
       <div className="mt-16 space-y-14">
         {REGISTRY.map((section) => (
           <div key={section.title}>
@@ -140,6 +142,30 @@ function Registry() {
         Made a mistake? Click the initials on your claim to release it.
       </p>
     </section>
+  )
+}
+
+function ShippingAddress() {
+  const [revealed, setRevealed] = useState(false)
+  return (
+    <div className="mt-8 flex flex-col items-center gap-3">
+      <p className="text-sm text-ink/60 text-center">Prefer to ship directly? You can send gifts to our home.</p>
+      {revealed ? (
+        <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-parchment border border-amber rounded-full text-ink/80 text-sm">
+          <MapPin className="w-3.5 h-3.5 text-gold shrink-0" strokeWidth={1.75} />
+          <span>2100 Shadow Lake Rd</span>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setRevealed(true)}
+          className="inline-flex items-center gap-2 px-5 py-2 border border-burgundy text-burgundy uppercase tracking-widest text-xs rounded-full hover:bg-burgundy hover:text-cream transition-colors"
+        >
+          <MapPin className="w-3.5 h-3.5" strokeWidth={1.75} />
+          Reveal shipping address
+        </button>
+      )}
+    </div>
   )
 }
 
