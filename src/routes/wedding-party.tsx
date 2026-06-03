@@ -22,8 +22,8 @@ const PARTY: Side[] = [
   {
     title: 'Bridesmaids',
     members: [
-      { name: 'Sophie Swannell', role: 'Maid of Honor', headshot: LEAF, together: LEAF },
-      { name: 'Cora Chapman', role: 'Bridesmaid', headshot: LEAF, together: LEAF },
+      { name: '', role: 'Maid of Honor', undisclosed: true, headshot: LEAF, together: LEAF },
+      { name: '', role: 'Bridesmaid', undisclosed: true, headshot: LEAF, together: LEAF },
       { name: '', role: 'Bridesmaid', undisclosed: true, headshot: LEAF, together: LEAF },
       { name: '', role: 'Bridesmaid', undisclosed: true, headshot: LEAF, together: LEAF },
     ],
@@ -39,8 +39,8 @@ const PARTY: Side[] = [
         blurb: "Noah and Elijah met in Cub Scouts when Noah's family moved to Blacksburg. Their families clicked right away. They bonded over Magic: The Gathering and more Boy Scout trips than either can count. They both left their pack to join the same Boy Scout troop, where they pushed each other all the way to Eagle Scout. Elijah helped with the proposal and is now in Alaska for graduate school, studying kelp.",
       },
       { name: 'Seth Provenzano', role: 'Groomsman', headshot: '/images/seth.png', together: '/images/seth-noah.png' },
-      { name: 'Aanish Pradhan', role: 'Groomsman', headshot: LEAF, together: LEAF },
-      { name: 'Rituraj Sharma', role: 'Groomsman', headshot: LEAF, together: LEAF },
+      { name: '', role: 'Groomsman', undisclosed: true, headshot: LEAF, together: LEAF },
+      { name: '', role: 'Groomsman', undisclosed: true, headshot: LEAF, together: LEAF },
     ],
   },
 ]
