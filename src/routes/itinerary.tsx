@@ -9,7 +9,7 @@ export const Route = createFileRoute('/itinerary')({
 })
 
 const GOOGLE_CAL_VIEW_URL =
-  'https://calendar.google.com/calendar/embed?src=8c9da5b0ab48578ed31aaa66f7584b368339ac73e165e58c9d1f7c01fe05c26c%40group.calendar.google.com&ctz=America%2FNew_York&mode=AGENDA'
+  'https://calendar.google.com/calendar/embed?src=8c9da5b0ab48578ed31aaa66f7584b368339ac73e165e58c9d1f7c01fe05c26c%40group.calendar.google.com&ctz=America%2FNew_York&mode=WEEK&dates=20261018/20261025'
 
 const GOOGLE_CAL_ADD_URL =
   'https://calendar.google.com/calendar/u/0?cid=OGM5ZGE1YjBhYjQ4NTc4ZWQzMWFhYTY2Zjc1ODRiMzY4MzM5YWM3M2UxNjVlNThjOWQxZjdjMDFmZTA1YzI2Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t'
@@ -86,7 +86,7 @@ function EventRow({ event }: { event: CalendarEvent }) {
   return (
     <li className="bg-parchment border border-amber rounded-2xl p-5 shadow-card">
       <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
-        <div className="text-xs uppercase tracking-[0.2em] text-gold font-mono sm:pt-1 sm:w-32 sm:shrink-0 mb-2 sm:mb-0">
+        <div className="text-xs uppercase tracking-[0.2em] text-gold font-mono whitespace-nowrap sm:pt-1 sm:w-44 sm:shrink-0 mb-2 sm:mb-0">
           {time}
         </div>
         <div className="flex-1 min-w-0">
@@ -193,7 +193,7 @@ function formatDayLabel(dateKey: string): string {
 function formatTimeRange(start: string, end: string): string {
   const s = formatTime(start)
   const e = formatTime(end)
-  return s === e ? s : `${s} – ${e}`
+  return s === e ? s : `${s} to ${e}`
 }
 
 function formatTime(wall: string): string {

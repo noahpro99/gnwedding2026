@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Check, Gift, MapPin, X } from 'lucide-react'
+import { Check, ExternalLink, Gift, MapPin, X } from 'lucide-react'
 import { useState } from 'react'
 import { SectionHeader } from '~/components/SectionHeader'
 import { claimItem, listClaims, unclaimItem } from '~/server/registry'
@@ -9,47 +9,37 @@ export const Route = createFileRoute('/registry')({
   component: Registry,
 })
 
-type Item = { name: string; price?: number }
+type Item = { name: string; price?: number; url?: string }
 type Section = { title: string; note?: string; items: Item[] }
 
 const REGISTRY: Section[] = [
   {
     title: 'Kitchen',
     items: [
-      { name: 'Spatula', price: 14 },
-      { name: 'Cheese grater', price: 12 },
-      { name: 'Silicone spatula' },
-      { name: 'Mixing Pyrex bowls', price: 18 },
-      { name: 'Oven mitts', price: 15 },
-      { name: 'Tongs', price: 11 },
-      { name: 'Panini press', price: 35 },
-      { name: 'Cooking pans', price: 45 },
-      { name: 'Cookie sheets', price: 23 },
-      { name: 'Brownie pan', price: 13 },
-      { name: 'Shower water filter' },
-      { name: 'Reverse osmosis water filter', price: 219 },
-      { name: 'Vitamix blender' },
-      { name: 'Le Creuset Dutch oven' },
-      { name: 'Metal colander', price: 13 },
+      { name: 'Cheese grater', price: 12, url: 'https://www.amazon.com/Spring-Chef-Stainless-Parmesan-Vegetables/dp/B011B8M2GO' },
+      { name: 'Silicone spatula', url: 'https://www.amazon.com/OXO-11280300-Medium-Silicone-Spatula-Jam/dp/B08HV272BN' },
+      { name: 'Mixing pyrex bowls', price: 18, url: 'https://www.amazon.com/Pyrex-Prepping-Preheated-Dishwasher-Microwave/dp/B00LGLHUA0' },
+      { name: 'Oven mitts', price: 15, url: 'https://www.amazon.com/KitchenAid-Kitchen-Beacon-Milkshake-Beige/dp/B09NZS88D6' },
+      { name: 'Tongs', price: 11, url: 'https://www.amazon.com/KitchenAid-KO091OHSSA-Gourmet-10-63-Inch-Stainless/dp/B07Q5CJDM9' },
+      { name: 'Panini press', price: 35, url: 'https://www.amazon.com/Chefman-Panini-Press-Non-Stick-Stainless/dp/B077YR9FFG' },
+      { name: 'Cooking pans', price: 45, url: 'https://www.amazon.com/EWFEN-Stainless-Induction-Dishwasher-Detachable/dp/B0F9FB9448' },
+      { name: 'Cookie sheets', price: 23, url: 'https://www.amazon.com/Commercial-Stainless-Resistant-Nonstick-18X13Inch/dp/B0DCVQPG8B' },
+      { name: 'Brownie pan', price: 13, url: 'https://www.amazon.com/KitchenAid-Nonstick-Extended-Aluminized-Dishwasher/dp/B0CJP1G3PW' },
+      { name: 'Shower water filter', url: 'https://www.amazon.com/Weddell-Duo-Shower-Filter-Microplastics/dp/B0CGLZLMNP' },
+      { name: 'Reverse osmosis water filter', price: 219, url: 'https://www.amazon.com/iSpring-5-Stage-Prestige-Drinking-Certified/dp/B003XELTTG' },
+      { name: 'Metal colander', price: 13, url: 'https://www.amazon.com/ExcelSteel-5-Quart-Stainless-Steel-Colander/dp/B00555ETXY' },
       { name: 'Microwave' },
-      { name: 'Stainless steel pan set' },
-      { name: 'KitchenAid artisan mixer' },
-      { name: 'Toaster oven' },
-      { name: 'Coffee machine' },
-      { name: 'Waffle maker' },
-      { name: 'Instant Pot' },
-      { name: 'Air fryer' },
-      { name: 'Table linen' },
+      { name: 'Cutting board' },
     ],
   },
   {
-    title: 'Bath & Linens',
+    title: 'Bath',
     items: [
       { name: 'Bath towels' },
       { name: 'Hand towels' },
       { name: 'Stone bath mat' },
       { name: 'Comforter (Gwen)' },
-      { name: 'Cotton sheet set' },
+      { name: 'Cotton sheet set', price: 37, url: 'https://www.amazon.com/California-Design-Den-Natural-Pockets/dp/B09X1P1L9F' },
       { name: 'Dish set' },
       { name: 'Utensil set' },
       { name: 'Knife set' },
@@ -64,14 +54,6 @@ const REGISTRY: Section[] = [
       { name: 'Vacuum' },
       { name: 'Broom' },
       { name: 'Mop' },
-    ],
-  },
-  {
-    title: 'Maybe',
-    note: 'Smaller items, entirely optional.',
-    items: [
-      { name: 'Oil dispenser / sprayer', price: 16 },
-      { name: 'Electric kettle' },
     ],
   },
 ]
@@ -129,6 +111,7 @@ function Registry() {
                     itemKey={key}
                     name={it.name}
                     price={it.price}
+                    url={it.url}
                     claimedBy={claims[key]}
                     onClaim={onClaim}
                     onUnclaim={onUnclaim}
@@ -175,6 +158,7 @@ function RegistryRow({
   itemKey,
   name,
   price,
+  url,
   claimedBy,
   onClaim,
   onUnclaim,
@@ -182,6 +166,7 @@ function RegistryRow({
   itemKey: string
   name: string
   price?: number
+  url?: string
   claimedBy?: string
   onClaim: (key: string, initials: string) => void
   onUnclaim: (key: string) => void
@@ -227,19 +212,34 @@ function RegistryRow({
 
   return (
     <li
-      className={`px-4 py-3 rounded-xl border transition-colors ${
+      className={`relative px-4 py-3 rounded-xl border transition-colors ${
         isClaimed
           ? 'bg-amber/20 border-amber/60'
           : 'bg-parchment border-amber hover:border-burgundy'
       }`}
     >
-      <div className="flex items-center gap-3">
+      {url && mode === 'idle' && (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${name} in a new tab`}
+          className="absolute inset-0 rounded-xl"
+        />
+      )}
+      <div className="relative flex items-center gap-3 pointer-events-none">
         <span
-          className={`flex-1 ${
+          className={`flex-1 inline-flex items-center gap-1.5 ${
             isClaimed ? 'line-through text-ink/50' : 'text-ink/85'
           }`}
         >
           {name}
+          {url && (
+            <ExternalLink
+              className="w-3.5 h-3.5 text-gold shrink-0"
+              strokeWidth={1.75}
+            />
+          )}
         </span>
         {price && (
           <span className="text-ink/60 font-mono text-sm">${price}</span>
@@ -253,7 +253,7 @@ function RegistryRow({
                 setMode('releasing')
                 setError(null)
               }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-widest rounded-full bg-burgundy text-cream hover:bg-pumpkin transition-colors"
+              className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-widest rounded-full bg-burgundy text-cream hover:bg-pumpkin transition-colors"
               title="Release this claim with the same initials"
             >
               <Check className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -267,7 +267,7 @@ function RegistryRow({
               setMode('claiming')
               setError(null)
             }}
-            className="px-3 py-1 text-xs uppercase tracking-widest rounded-full border border-burgundy text-burgundy hover:bg-burgundy hover:text-cream transition-colors"
+            className="pointer-events-auto px-3 py-1 text-xs uppercase tracking-widest rounded-full border border-burgundy text-burgundy hover:bg-burgundy hover:text-cream transition-colors"
           >
             Claim
           </button>
