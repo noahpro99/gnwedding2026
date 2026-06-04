@@ -180,7 +180,7 @@ function Faq() {
       </div>
 
       <div className="mt-16 flex flex-wrap items-center justify-center gap-3 text-lg text-ink/75">
-        <span>More questions?</span>
+        <span>More questions? Contact us</span>
         <CopyButton value="noahpro@gmail.com" icon={Mail} label="Copy email" size="md" />
         <CopyButton value="5403156063" icon={Phone} label="Copy phone number" size="md" />
       </div>
