@@ -39,6 +39,17 @@ export const claimItem = createServerFn({ method: "POST" })
       }
       throw err;
     }
+    const webhook = process.env.DISCORD_WEBHOOK_URL;
+    if (webhook) {
+      await fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `**Registry claim:** ${data.itemKey} claimed by ${data.initials}`,
+        }),
+      }).catch(() => {});
+    }
+
     return {
       ok: true as const,
       itemKey: data.itemKey,

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Users } from "lucide-react";
+import { User, Users } from "lucide-react";
 import { SectionHeader } from "~/components/SectionHeader";
 
 export const Route = createFileRoute("/wedding-party")({
@@ -16,40 +16,14 @@ type Member = {
 };
 type Side = { title: string; members: Member[] };
 
-const LEAF = "/images/leaf.png";
-
 const PARTY: Side[] = [
   {
     title: "Bridesmaids",
     members: [
-      {
-        name: "",
-        role: "Maid of Honor",
-        undisclosed: true,
-        headshot: LEAF,
-        together: LEAF,
-      },
-      {
-        name: "",
-        role: "Bridesmaid",
-        undisclosed: true,
-        headshot: LEAF,
-        together: LEAF,
-      },
-      {
-        name: "",
-        role: "Bridesmaid",
-        undisclosed: true,
-        headshot: LEAF,
-        together: LEAF,
-      },
-      {
-        name: "",
-        role: "Bridesmaid",
-        undisclosed: true,
-        headshot: LEAF,
-        together: LEAF,
-      },
+      { name: "", role: "Maid of Honor", undisclosed: true },
+      { name: "", role: "Bridesmaid", undisclosed: true },
+      { name: "", role: "Bridesmaid", undisclosed: true },
+      { name: "", role: "Bridesmaid", undisclosed: true },
     ],
   },
   {
@@ -69,20 +43,8 @@ const PARTY: Side[] = [
         headshot: "/images/seth.webp",
         together: "/images/seth-noah.webp",
       },
-      {
-        name: "",
-        role: "Groomsman",
-        undisclosed: true,
-        headshot: LEAF,
-        together: LEAF,
-      },
-      {
-        name: "",
-        role: "Groomsman",
-        undisclosed: true,
-        headshot: LEAF,
-        together: LEAF,
-      },
+      { name: "", role: "Groomsman", undisclosed: true },
+      { name: "", role: "Groomsman", undisclosed: true },
     ],
   },
 ];
@@ -116,7 +78,7 @@ function MemberCard({ member }: { member: Member }) {
   return (
     <div className="rounded-3xl bg-parchment shadow-card overflow-hidden">
       {/* Both photos side by side, full width — card's overflow-hidden clips all corners */}
-      <div className="grid grid-cols-2 gap-px bg-amber/30">
+      <div className="grid grid-cols-2 gap-px bg-amber/30 border-b border-amber/30">
         <div className="aspect-square overflow-hidden bg-parchment">
           {member.headshot ? (
             <img
@@ -125,7 +87,9 @@ function MemberCard({ member }: { member: Member }) {
               className="w-full h-full object-cover object-top"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-b from-amber/35 via-amber/15 to-parchment" />
+            <div className="w-full h-full flex items-center justify-center bg-parchment">
+              <User className="w-12 h-12 text-amber/50" strokeWidth={1} />
+            </div>
           )}
         </div>
         <div className="aspect-square overflow-hidden bg-parchment">
@@ -136,7 +100,9 @@ function MemberCard({ member }: { member: Member }) {
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-b from-amber/20 to-parchment" />
+            <div className="w-full h-full flex items-center justify-center bg-parchment">
+              <Users className="w-12 h-12 text-amber/40" strokeWidth={1} />
+            </div>
           )}
         </div>
       </div>
