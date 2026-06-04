@@ -10,15 +10,6 @@ export const Route = createFileRoute('/travel')({
 
 const HOTELS = [
   {
-    name: 'Courtyard by Marriott',
-    address: 'Roanoke, VA',
-    blockCode: 'TBD',
-    bookingUrl: 'https://www.marriott.com/',
-    notes: 'Room block held for the nights of Saturday Oct 24 and Sunday Oct 25.',
-    nights: 'Block: night of 10/24 + night of 10/25',
-    pricePerNight: null,
-  },
-  {
     name: 'Home2 Suites by Hilton',
     address: 'Roanoke area, VA',
     blockCode: 'TBD',
@@ -58,7 +49,7 @@ function Travel() {
         <p>
           The wedding is on <strong>Sunday, October 25, 2026</strong> at
           Beliveau Winery in Virginia, with the ceremony at <strong>3:00 PM</strong>.
-          We've blocked the hotels below for the nights of{' '}
+          We've blocked rooms at the hotel below for the nights of{' '}
           <strong>October 24</strong> and <strong>October 25</strong> so you can
           arrive early and stay over.
         </p>
@@ -66,19 +57,28 @@ function Travel() {
 
       <h2 className="mt-20 mb-2 font-script text-4xl text-burgundy text-center flex items-center justify-center gap-3">
         <BedDouble className="w-7 h-7" strokeWidth={1.5} />
-        <span>Hotels</span>
+        <span>Hotel</span>
       </h2>
       <p className="text-center text-ink/70 mb-8 max-w-xl mx-auto">
-        Both options have rooms held for the nights of Oct 24 and Oct 25.
+        Rooms are held for the nights of Oct 24 and Oct 25.
       </p>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="max-w-md mx-auto">
         {HOTELS.map((h) => (
           <div
             key={h.name}
             className="p-8 bg-parchment border border-amber rounded-2xl"
           >
-            <h3 className="font-script text-3xl text-burgundy">{h.name}</h3>
+            <h3 className="font-script text-3xl">
+              <a
+                href={h.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-burgundy hover:text-pumpkin underline decoration-amber/60 underline-offset-2 hover:decoration-pumpkin transition-colors"
+              >
+                {h.name}
+              </a>
+            </h3>
             <p className="text-sm text-ink/70 mt-1 inline-flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5" strokeWidth={1.75} />
               {h.address}
@@ -138,7 +138,7 @@ function Travel() {
         <span>Shuttle</span>
       </h2>
       <p className="text-center text-ink/70 mb-2 max-w-xl mx-auto">
-        We're considering a shuttle between the hotel blocks and the venue.
+        We're considering a shuttle between the hotel block and the venue.
         If enough guests are interested, we'll arrange it.
       </p>
       <p className="text-center text-ink/50 text-sm mb-10 max-w-xl mx-auto">
@@ -167,7 +167,7 @@ function TransportForm() {
             data: {
               name: String(fd.get('name') ?? ''),
               email: String(fd.get('email') ?? ''),
-              hotel: String(fd.get('hotel') ?? ''),
+              hotel: HOTELS[0]?.name ?? '',
               partySize: Number(fd.get('partySize') ?? 1),
               notes: String(fd.get('notes') ?? ''),
             },
@@ -189,7 +189,6 @@ function TransportForm() {
         <>
           <Field label="Name" name="name" required />
           <Field label="Email" name="email" type="email" />
-          <SelectField label="Which hotel?" name="hotel" required options={HOTELS.map((h) => h.name)} />
           <Field label="How many seats?" name="partySize" type="number" defaultValue="1" min={1} max={10} />
           <TextArea label="Anything else?" name="notes" />
 
@@ -218,29 +217,6 @@ function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: str
         {...rest}
         className="w-full bg-cream border border-amber focus:border-burgundy rounded-lg outline-none px-3 py-2 text-ink"
       />
-    </label>
-  )
-}
-
-function SelectField({
-  label,
-  options,
-  ...rest
-}: React.SelectHTMLAttributes<HTMLSelectElement> & { label: string; options: string[] }) {
-  return (
-    <label className="block">
-      <span className="block uppercase tracking-widest text-xs text-ink/60 mb-1">{label}</span>
-      <select
-        {...rest}
-        className="w-full bg-cream border border-amber focus:border-burgundy rounded-lg outline-none px-3 py-2 text-ink"
-      >
-        <option value="">Select…</option>
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
     </label>
   )
 }
