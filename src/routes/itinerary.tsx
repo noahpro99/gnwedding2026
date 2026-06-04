@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ExternalLink, MapPin } from 'lucide-react'
+import { Calendar, ExternalLink, MapPin } from 'lucide-react'
 import { siApple, siGooglecalendar } from 'simple-icons'
+import { SectionHeader } from '~/components/SectionHeader'
 import { type CalendarEvent, getEvents } from '~/server/calendar'
 
 export const Route = createFileRoute('/itinerary')({
@@ -28,8 +29,10 @@ function Itinerary() {
   const days = groupByDay(events)
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-12">
-      <div className="flex flex-wrap justify-center gap-3 mb-4">
+    <section className="mx-auto max-w-3xl px-6 py-20">
+      <SectionHeader eyebrow="The Weekend" title="Itinerary" icon={Calendar} />
+
+      <div className="flex flex-wrap justify-center gap-3 mt-10 mb-4">
         <PillButton href={GOOGLE_CAL_ADD_URL} icon={siGooglecalendar}>
           Add to Google Calendar
         </PillButton>

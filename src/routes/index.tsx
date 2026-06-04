@@ -25,7 +25,7 @@ const VENUE_LOCATION = 'Virginia'
 function Home() {
   return (
     <>
-      <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
+      <section className="hero-section relative h-screen min-h-[640px] w-full overflow-hidden">
         <img
           src="/images/hug-edited.jpg"
           alt="Gwendolyn and Noah"
@@ -46,11 +46,15 @@ function Home() {
               <Calendar className="w-5 h-5" strokeWidth={1.5} />
               <span>{WEDDING_DATE}</span>
             </div>
-            <div className="flex items-center gap-3 text-sm md:text-base text-cream/90 uppercase tracking-[0.3em]">
-              <Wine className="w-4 h-4" strokeWidth={1.5} />
-              <span>{VENUE}</span>
-              <MapPin className="w-4 h-4 ml-1" strokeWidth={1.5} />
-              <span>{VENUE_LOCATION}</span>
+            <div className="flex flex-col md:flex-row items-center gap-1 md:gap-3 text-sm md:text-base text-cream/90 uppercase tracking-[0.3em]">
+              <div className="flex items-center gap-2">
+                <Wine className="w-4 h-4" strokeWidth={1.5} />
+                <span>{VENUE}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4" strokeWidth={1.5} />
+                <span>{VENUE_LOCATION}</span>
+              </div>
             </div>
           </div>
 
@@ -115,7 +119,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="bg-amber/30 py-20">
+      <section className="photo-album-section bg-amber/30 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <p className="uppercase tracking-[0.3em] text-xs text-gold mb-4">
             Share the day

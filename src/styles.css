@@ -26,13 +26,72 @@
   --font-script: "Times New Roman", Times, serif;
 }
 
-html, body {
+
+/* Background lives on html so body can be transparent (critters sit between them) */
+html {
   background-color: var(--color-cream);
-  /* Warm amber glow at the top, fading to pure cream */
   background-image: radial-gradient(ellipse 120% 60% at 50% -5%, rgba(212,164,88,0.09) 0%, transparent 65%);
+}
+
+body {
+  background: transparent;
   color: var(--color-ink);
   font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
+  /* Stacking context so z-index: -1 children sit above html bg but below body children */
+  position: relative;
+  isolation: isolate;
+}
+
+/* Critters — shared properties */
+body::before,
+.critters-right {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url('/images/critters.png');
+  background-repeat: repeat;
+  background-size: 700px;
+  opacity: 0.13;
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 767px) {
+  body::before,
+  .critters-right {
+    opacity: 0.05;
+  }
+}
+
+/* Left gutter */
+body::before {
+  content: '';
+  background-position: 0px 0px;
+  mask-image: linear-gradient(to right, black 0%, black calc(50% - 560px), transparent calc(50% - 440px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 0%, black calc(50% - 560px), transparent calc(50% - 440px), transparent 100%);
+}
+
+/* Right gutter (rendered as a div in __root__.tsx, offset vertically) */
+.critters-right {
+  background-position: 0px 350px;
+  mask-image: linear-gradient(to right, transparent 0%, transparent calc(50% + 440px), black calc(50% + 560px), black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent calc(50% + 440px), black calc(50% + 560px), black 100%);
+}
+
+/* Mobile: critters cover full background, cream text-shadow clears them near content */
+@media (max-width: 767px) {
+  body::before {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .critters-right { display: none; }
+
+  /* Nav fully opaque */
+  header { background-color: var(--color-cream) !important; }
+
+  /* Treat like a card — solid equivalent of amber/30 over cream */
+  .photo-album-section { background-color: #ebd5ad; }
 }
 
 

@@ -77,6 +77,8 @@ function RootDocument({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {/* Right-side critters — z-index:-1 keeps it behind all body children */}
+        <div aria-hidden="true" className="critters-right" />
         {/* Inline SVG grain — reliable cross-browser paper texture */}
         <div
           aria-hidden="true"
