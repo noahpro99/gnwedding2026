@@ -72,7 +72,7 @@ function Rsvp() {
             </div>
           )}
 
-          {/* Mailbox — below card on mobile, right of card on desktop */}
+          {/* Send button — below card on mobile, right of card on desktop */}
           <button
             type="submit"
             form="rsvp-form"
@@ -93,12 +93,11 @@ function Rsvp() {
             }}
           >
             <img
-              src="/images/mailbox.png"
+              src="/images/bird-letter.png"
               alt="Send RSVP"
-              className="select-none"
+              className="select-none w-36 md:w-[clamp(5rem,10vw,10rem)]"
               style={{
                 mixBlendMode: "multiply",
-                width: "clamp(5rem, 10vw, 10rem)",
                 maxWidth: "none",
               }}
             />
