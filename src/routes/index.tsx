@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from "@tanstack/react-router";
 import {
   Calendar,
   ChevronDown,
@@ -10,17 +10,17 @@ import {
   Users,
   Wine,
   type LucideIcon,
-} from 'lucide-react'
-import { LeafDivider } from '~/components/LeafDivider'
-import { PhotoAlbumButton } from '~/components/PhotoAlbumButton'
+} from "lucide-react";
+import { LeafDivider } from "~/components/LeafDivider";
+import { PhotoAlbumButton } from "~/components/PhotoAlbumButton";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: Home,
-})
+});
 
-const WEDDING_DATE = 'October 25, 2026'
-const VENUE = 'Beliveau Winery'
-const VENUE_LOCATION = 'Virginia'
+const WEDDING_DATE = "October 25, 2026";
+const VENUE = "Beliveau Winery";
+const VENUE_LOCATION = "Virginia";
 
 function Home() {
   return (
@@ -30,7 +30,7 @@ function Home() {
           src="/images/hug-edited.jpg"
           alt="Gwendolyn and Noah"
           className="absolute left-0 right-0 bottom-0 w-full object-cover"
-          style={{ top: '-10%', height: '110%' }}
+          style={{ top: "-10%", height: "110%" }}
         />
         <div className="absolute inset-0 bg-ink/35" />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6 text-cream">
@@ -100,7 +100,10 @@ function Home() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div className="rounded-2xl overflow-hidden border-4 border-amber/70 shadow-card ring-1 ring-amber/20" style={{ aspectRatio: '15 / 16' }}>
+          <div
+            className="rounded-2xl overflow-hidden border-4 border-amber/70 shadow-card ring-1 ring-amber/20"
+            style={{ aspectRatio: "15 / 16" }}
+          >
             <img
               src="/images/us.jpg"
               alt="Gwendolyn and Noah"
@@ -109,12 +112,42 @@ function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <QuickLink to="/our-story" icon={Heart} title="Our Story" body="How we got here." />
-            <QuickLink to="/travel" icon={Plane} title="Travel" body="Hotels, airports, shuttles." />
-            <QuickLink to="/itinerary" icon={Calendar} title="Itinerary" body="The weekend schedule." />
-            <QuickLink to="/wedding-party" icon={Users} title="Wedding Party" body="The people standing with us." />
-            <QuickLink to="/registry" icon={Gift} title="Registry" body="Gift ideas, if you wish." />
-            <QuickLink to="/faq" icon={HelpCircle} title="FAQ" body="Common questions answered." />
+            <QuickLink
+              to="/our-story"
+              icon={Heart}
+              title="Our Story"
+              body="How we got here."
+            />
+            <QuickLink
+              to="/travel"
+              icon={Plane}
+              title="Travel"
+              body="Hotels, airports, shuttles."
+            />
+            <QuickLink
+              to="/itinerary"
+              icon={Calendar}
+              title="Itinerary"
+              body="The weekend schedule."
+            />
+            <QuickLink
+              to="/wedding-party"
+              icon={Users}
+              title="Wedding Party"
+              body="The people standing with us."
+            />
+            <QuickLink
+              to="/registry"
+              icon={Gift}
+              title="Registry"
+              body="Gift ideas, if you wish."
+            />
+            <QuickLink
+              to="/faq"
+              icon={HelpCircle}
+              title="FAQ"
+              body="Common questions answered."
+            />
           </div>
         </div>
       </section>
@@ -137,7 +170,7 @@ function Home() {
         </div>
       </section>
     </>
-  )
+  );
 }
 
 function QuickLink({
@@ -146,10 +179,10 @@ function QuickLink({
   title,
   body,
 }: {
-  to: string
-  icon: LucideIcon
-  title: string
-  body: string
+  to: string;
+  icon: LucideIcon;
+  title: string;
+  body: string;
 }) {
   return (
     <Link
@@ -167,5 +200,5 @@ function QuickLink({
       </h3>
       <p className="text-ink/70 text-sm">{body}</p>
     </Link>
-  )
+  );
 }

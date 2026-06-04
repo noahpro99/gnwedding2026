@@ -1,4 +1,4 @@
-import { Leaf } from 'lucide-react'
+import { Leaf } from "lucide-react";
 
 export function LeafDivider() {
   return (
@@ -9,5 +9,5 @@ export function LeafDivider() {
       <span className="w-1 h-1 rounded-full bg-gold/50" />
       <span className="flex-1 h-px bg-gradient-to-r from-gold/55 to-transparent" />
     </div>
-  )
+  );
 }

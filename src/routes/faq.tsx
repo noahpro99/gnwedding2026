@@ -1,28 +1,28 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { HelpCircle, Mail, Phone } from 'lucide-react'
-import { type ReactNode, useState } from 'react'
-import { CopyButton } from '~/components/CopyButton'
-import { SectionHeader } from '~/components/SectionHeader'
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { HelpCircle, Mail, Phone } from "lucide-react";
+import { type ReactNode, useState } from "react";
+import { CopyButton } from "~/components/CopyButton";
+import { SectionHeader } from "~/components/SectionHeader";
 
-export const Route = createFileRoute('/faq')({
+export const Route = createFileRoute("/faq")({
   component: Faq,
-})
+});
 
 const linkCls =
-  'text-burgundy hover:text-pumpkin underline decoration-amber/60 underline-offset-2 hover:decoration-pumpkin transition-colors'
+  "text-burgundy hover:text-pumpkin underline decoration-amber/60 underline-offset-2 hover:decoration-pumpkin transition-colors";
 
-const HOME2_URL = 'https://www.hilton.com/en/brands/home2-suites/'
+const HOME2_URL = "https://www.hilton.com/en/brands/home2-suites/";
 
 // Stop click propagation on inline links so clicking a link inside an
 // expanded answer doesn't also toggle the card closed.
-const stop = (e: React.MouseEvent) => e.stopPropagation()
+const stop = (e: React.MouseEvent) => e.stopPropagation();
 
 function FaqLink({ to, children }: { to: string; children: ReactNode }) {
   return (
     <Link to={to} className={linkCls} onClick={stop}>
       {children}
     </Link>
-  )
+  );
 }
 
 function ExtLink({ href, children }: { href: string; children: ReactNode }) {
@@ -36,7 +36,7 @@ function ExtLink({ href, children }: { href: string; children: ReactNode }) {
     >
       {children}
     </a>
-  )
+  );
 }
 
 function ReachOut() {
@@ -44,22 +44,22 @@ function ReachOut() {
     <a href="#contact" className={linkCls} onClick={stop}>
       reach out
     </a>
-  )
+  );
 }
 
 const faqs: Array<{ q: string; a: ReactNode }> = [
   {
-    q: 'When and where is the wedding?',
+    q: "When and where is the wedding?",
     a: (
       <>
-        Sunday, October 25, 2026 at Beliveau Winery in Virginia. See the{' '}
+        Sunday, October 25, 2026 at Beliveau Winery in Virginia. See the{" "}
         <FaqLink to="/itinerary">itinerary</FaqLink> for the full weekend
         schedule.
       </>
     ),
   },
   {
-    q: 'What is the dress code?',
+    q: "What is the dress code?",
     a: (
       <>
         Formal. Fall colors if the mood strikes you. The ceremony is planned
@@ -68,10 +68,10 @@ const faqs: Array<{ q: string; a: ReactNode }> = [
     ),
   },
   {
-    q: 'Where should I stay?',
+    q: "Where should I stay?",
     a: (
       <>
-        Our room block is at{' '}
+        Our room block is at{" "}
         <ExtLink href={HOME2_URL}>Home2 Suites by Hilton</ExtLink>. The suites
         have mini kitchens. See the <FaqLink to="/travel">Travel</FaqLink> page
         for details.
@@ -79,7 +79,7 @@ const faqs: Array<{ q: string; a: ReactNode }> = [
     ),
   },
   {
-    q: 'Which airport should I fly into?',
+    q: "Which airport should I fly into?",
     a: (
       <>
         Roanoke (ROA) is closest, at roughly 45 minutes. Greensboro (GSO) is
@@ -90,7 +90,7 @@ const faqs: Array<{ q: string; a: ReactNode }> = [
     ),
   },
   {
-    q: 'Can I bring a plus one?',
+    q: "Can I bring a plus one?",
     a: (
       <>
         Your invitation lists the names of everyone we have a spot for. If you
@@ -99,26 +99,26 @@ const faqs: Array<{ q: string; a: ReactNode }> = [
     ),
   },
   {
-    q: 'Are kids welcome?',
+    q: "Are kids welcome?",
     a: (
       <>
-        Your invitation will let you know. If you have any questions, please{' '}
+        Your invitation will let you know. If you have any questions, please{" "}
         <ReachOut />.
       </>
     ),
   },
   {
-    q: 'Will there be parking and a shuttle?',
+    q: "Will there be parking and a shuttle?",
     a: (
       <>
         Free parking at the venue. If we run a shuttle between the hotel block
-        and the venue, request a seat on the{' '}
+        and the venue, request a seat on the{" "}
         <FaqLink to="/travel">Travel</FaqLink> page.
       </>
     ),
   },
   {
-    q: 'What if I have a dietary restriction?',
+    q: "What if I have a dietary restriction?",
     a: (
       <>
         Note it on your <FaqLink to="/rsvp">RSVP</FaqLink> and we'll pass it
@@ -126,18 +126,18 @@ const faqs: Array<{ q: string; a: ReactNode }> = [
       </>
     ),
   },
-]
+];
 
 function Faq() {
-  const [openSet, setOpenSet] = useState<Set<number>>(new Set())
+  const [openSet, setOpenSet] = useState<Set<number>>(new Set());
 
   function toggle(i: number) {
     setOpenSet((prev) => {
-      const next = new Set(prev)
-      if (next.has(i)) next.delete(i)
-      else next.add(i)
-      return next
-    })
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   }
 
   return (
@@ -146,7 +146,7 @@ function Faq() {
 
       <div className="mt-16 space-y-3">
         {faqs.map((f, i) => {
-          const open = openSet.has(i)
+          const open = openSet.has(i);
           return (
             <div
               key={i}
@@ -155,17 +155,19 @@ function Faq() {
               tabIndex={0}
               aria-expanded={open}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  toggle(i)
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggle(i);
                 }
               }}
               className="bg-parchment border border-amber rounded-2xl p-6 cursor-pointer select-none"
             >
               <div className="flex justify-between items-center gap-4">
-                <span className="font-script text-2xl text-burgundy">{f.q}</span>
+                <span className="font-script text-2xl text-burgundy">
+                  {f.q}
+                </span>
                 <span
-                  className={`text-gold text-2xl leading-none transition-transform duration-200 shrink-0 ${open ? 'rotate-45' : ''}`}
+                  className={`text-gold text-2xl leading-none transition-transform duration-200 shrink-0 ${open ? "rotate-45" : ""}`}
                   aria-hidden="true"
                 >
                   +
@@ -175,15 +177,25 @@ function Faq() {
                 <div className="mt-4 text-ink/80 leading-relaxed">{f.a}</div>
               )}
             </div>
-          )
+          );
         })}
       </div>
 
       <div className="mt-16 flex flex-wrap items-center justify-center gap-3 text-lg text-ink/75">
         <span>More questions? Contact us</span>
-        <CopyButton value="noahpro@gmail.com" icon={Mail} label="Copy email" size="md" />
-        <CopyButton value="5403156063" icon={Phone} label="Copy phone number" size="md" />
+        <CopyButton
+          value="noahpro@gmail.com"
+          icon={Mail}
+          label="Copy email"
+          size="md"
+        />
+        <CopyButton
+          value="5403156063"
+          icon={Phone}
+          label="Copy phone number"
+          size="md"
+        />
       </div>
     </section>
-  )
+  );
 }

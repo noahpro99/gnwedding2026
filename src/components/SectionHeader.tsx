@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
-import type { LucideIcon } from 'lucide-react'
-import { LeafDivider } from './LeafDivider'
+import type { ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
+import { LeafDivider } from "./LeafDivider";
 
 export function SectionHeader({
   eyebrow,
@@ -8,10 +8,10 @@ export function SectionHeader({
   icon: Icon,
   children,
 }: {
-  eyebrow?: string
-  title: string
-  icon?: LucideIcon
-  children?: ReactNode
+  eyebrow?: string;
+  title: string;
+  icon?: LucideIcon;
+  children?: ReactNode;
 }) {
   return (
     <div className="text-center max-w-2xl mx-auto">
@@ -31,7 +31,9 @@ export function SectionHeader({
       <div className="mt-5 mb-1">
         <LeafDivider />
       </div>
-      {children && <div className="mt-5 text-ink/80 leading-relaxed">{children}</div>}
+      {children && (
+        <div className="mt-5 text-ink/80 leading-relaxed">{children}</div>
+      )}
     </div>
-  )
+  );
 }

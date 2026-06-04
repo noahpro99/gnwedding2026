@@ -1,30 +1,33 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
-import { useState } from 'react'
-import { CardFrame } from '~/components/CardFrame'
-import { RsvpForm } from '~/components/RsvpForm'
-import { getInvite } from '~/server/rsvp'
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import { useState } from "react";
+import { CardFrame } from "~/components/CardFrame";
+import { RsvpForm } from "~/components/RsvpForm";
+import { getInvite } from "~/server/rsvp";
 
-export const Route = createFileRoute('/invite/$id')({
+export const Route = createFileRoute("/invite/$id")({
   loader: async ({ params }) => {
-    const invite = await getInvite({ data: { id: params.id } })
-    if (!invite) throw notFound()
-    return { invite }
+    const invite = await getInvite({ data: { id: params.id } });
+    if (!invite) throw notFound();
+    return { invite };
   },
   component: InvitePage,
   notFoundComponent: () => (
     <section className="mx-auto max-w-xl px-6 py-32 text-center">
       <h1 className="font-script text-5xl text-burgundy">Invite not found</h1>
       <p className="mt-4 text-ink/70">
-        Double-check the link you were given, or head{' '}
-        <a href="/" className="underline">home</a>.
+        Double-check the link you were given, or head{" "}
+        <a href="/" className="underline">
+          home
+        </a>
+        .
       </p>
     </section>
   ),
-})
+});
 
 function InvitePage() {
-  const { invite } = Route.useLoaderData()
-  const [showRsvp, setShowRsvp] = useState(false)
+  const { invite } = Route.useLoaderData();
+  const [showRsvp, setShowRsvp] = useState(false);
 
   if (showRsvp) {
     return (
@@ -37,7 +40,7 @@ function InvitePage() {
         </h1>
         <RsvpForm inviteId={invite.id} />
       </section>
-    )
+    );
   }
 
   return (
@@ -80,5 +83,5 @@ function InvitePage() {
         </CardFrame>
       </div>
     </section>
-  )
+  );
 }

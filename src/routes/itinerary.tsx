@@ -1,32 +1,32 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Calendar, ExternalLink, MapPin } from 'lucide-react'
-import { siApple, siGooglecalendar } from 'simple-icons'
-import { SectionHeader } from '~/components/SectionHeader'
-import { type CalendarEvent, getEvents } from '~/server/calendar'
+import { createFileRoute } from "@tanstack/react-router";
+import { Calendar, ExternalLink, MapPin } from "lucide-react";
+import { siApple, siGooglecalendar } from "simple-icons";
+import { SectionHeader } from "~/components/SectionHeader";
+import { type CalendarEvent, getEvents } from "~/server/calendar";
 
-export const Route = createFileRoute('/itinerary')({
+export const Route = createFileRoute("/itinerary")({
   loader: async () => {
     try {
-      return { events: await getEvents() }
+      return { events: await getEvents() };
     } catch {
-      return { events: [] as CalendarEvent[] }
+      return { events: [] as CalendarEvent[] };
     }
   },
   component: Itinerary,
-})
+});
 
 const GOOGLE_CAL_VIEW_URL =
-  'https://calendar.google.com/calendar/embed?src=8c9da5b0ab48578ed31aaa66f7584b368339ac73e165e58c9d1f7c01fe05c26c%40group.calendar.google.com&ctz=America%2FNew_York&mode=WEEK&dates=20261018/20261025'
+  "https://calendar.google.com/calendar/embed?src=8c9da5b0ab48578ed31aaa66f7584b368339ac73e165e58c9d1f7c01fe05c26c%40group.calendar.google.com&ctz=America%2FNew_York&mode=WEEK&dates=20261018/20261025";
 
 const GOOGLE_CAL_ADD_URL =
-  'https://calendar.google.com/calendar/u/0?cid=OGM5ZGE1YjBhYjQ4NTc4ZWQzMWFhYTY2Zjc1ODRiMzY4MzM5YWM3M2UxNjVlNThjOWQxZjdjMDFmZTA1YzI2Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t'
+  "https://calendar.google.com/calendar/u/0?cid=OGM5ZGE1YjBhYjQ4NTc4ZWQzMWFhYTY2Zjc1ODRiMzY4MzM5YWM3M2UxNjVlNThjOWQxZjdjMDFmZTA1YzI2Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t";
 
 const APPLE_CAL_URL =
-  'https://calendar.google.com/calendar/ical/8c9da5b0ab48578ed31aaa66f7584b368339ac73e165e58c9d1f7c01fe05c26c%40group.calendar.google.com/public/basic.ics'
+  "https://calendar.google.com/calendar/ical/8c9da5b0ab48578ed31aaa66f7584b368339ac73e165e58c9d1f7c01fe05c26c%40group.calendar.google.com/public/basic.ics";
 
 function Itinerary() {
-  const { events = [] } = Route.useLoaderData() ?? {}
-  const days = groupByDay(events)
+  const { events = [] } = Route.useLoaderData() ?? {};
+  const days = groupByDay(events);
 
   return (
     <section className="mx-auto max-w-3xl px-6 py-20">
@@ -39,7 +39,11 @@ function Itinerary() {
         <PillButton href={APPLE_CAL_URL} icon={siApple}>
           Add to Apple Calendar
         </PillButton>
-        <PillButton href={GOOGLE_CAL_VIEW_URL} variant="outline" lucide={ExternalLink}>
+        <PillButton
+          href={GOOGLE_CAL_VIEW_URL}
+          variant="outline"
+          lucide={ExternalLink}
+        >
           View in Google Calendar
         </PillButton>
       </div>
@@ -66,7 +70,7 @@ function Itinerary() {
         </div>
       )}
     </section>
-  )
+  );
 }
 
 function DayBlock({ day }: { day: Day }) {
@@ -84,13 +88,13 @@ function DayBlock({ day }: { day: Day }) {
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
 function EventRow({ event }: { event: CalendarEvent }) {
   const time = event.allDay
-    ? 'All day'
-    : formatTimeRange(event.start, event.end)
+    ? "All day"
+    : formatTimeRange(event.start, event.end);
 
   return (
     <li className="bg-parchment border border-amber rounded-2xl p-5 shadow-card">
@@ -104,7 +108,10 @@ function EventRow({ event }: { event: CalendarEvent }) {
           </h3>
           {event.location && (
             <p className="text-sm text-ink/65 mt-1.5 inline-flex items-start gap-1.5">
-              <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" strokeWidth={1.75} />
+              <MapPin
+                className="w-3.5 h-3.5 mt-0.5 shrink-0"
+                strokeWidth={1.75}
+              />
               <span className="leading-snug">{event.location}</span>
             </p>
           )}
@@ -116,32 +123,35 @@ function EventRow({ event }: { event: CalendarEvent }) {
         </div>
       </div>
     </li>
-  )
+  );
 }
 
 // ---------- Buttons ----------
 
-type LucideIconLike = (props: { className?: string; strokeWidth?: number }) => React.ReactNode
+type LucideIconLike = (props: {
+  className?: string;
+  strokeWidth?: number;
+}) => React.ReactNode;
 
 function PillButton({
   href,
   icon,
   lucide: Lucide,
-  variant = 'filled',
+  variant = "filled",
   children,
 }: {
-  href: string
-  icon?: { path: string }
-  lucide?: LucideIconLike
-  variant?: 'filled' | 'outline'
-  children: React.ReactNode
+  href: string;
+  icon?: { path: string };
+  lucide?: LucideIconLike;
+  variant?: "filled" | "outline";
+  children: React.ReactNode;
 }) {
   const base =
-    'inline-flex items-center gap-2.5 px-6 py-2.5 uppercase tracking-widest text-xs rounded-full transition-colors'
+    "inline-flex items-center gap-2.5 px-6 py-2.5 uppercase tracking-widest text-xs rounded-full transition-colors";
   const variantClass =
-    variant === 'filled'
-      ? 'bg-burgundy text-cream hover:bg-pumpkin'
-      : 'border border-burgundy text-burgundy hover:bg-burgundy hover:text-cream'
+    variant === "filled"
+      ? "bg-burgundy text-cream hover:bg-pumpkin"
+      : "border border-burgundy text-burgundy hover:bg-burgundy hover:text-cream";
   return (
     <a
       href={href}
@@ -150,31 +160,35 @@ function PillButton({
       className={`${base} ${variantClass}`}
     >
       {icon && (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          className="w-4 h-4 fill-current"
+          aria-hidden="true"
+        >
           <path d={icon.path} />
         </svg>
       )}
       {Lucide && <Lucide className="w-4 h-4" strokeWidth={2} />}
       <span>{children}</span>
     </a>
-  )
+  );
 }
 
 // ---------- Grouping & formatting ----------
 
 type Day = {
-  dateKey: string
-  label: string
-  events: CalendarEvent[]
-}
+  dateKey: string;
+  label: string;
+  events: CalendarEvent[];
+};
 
 function groupByDay(events: CalendarEvent[]): Day[] {
-  const map = new Map<string, CalendarEvent[]>()
+  const map = new Map<string, CalendarEvent[]>();
   for (const e of events) {
-    const dateKey = e.start.slice(0, 10) // YYYY-MM-DD
-    const arr = map.get(dateKey) ?? []
-    arr.push(e)
-    map.set(dateKey, arr)
+    const dateKey = e.start.slice(0, 10); // YYYY-MM-DD
+    const arr = map.get(dateKey) ?? [];
+    arr.push(e);
+    map.set(dateKey, arr);
   }
   return Array.from(map.entries())
     .sort(([a], [b]) => a.localeCompare(b))
@@ -182,37 +196,37 @@ function groupByDay(events: CalendarEvent[]): Day[] {
       dateKey,
       label: formatDayLabel(dateKey),
       events: evs,
-    }))
+    }));
 }
 
-const dayFormat = new Intl.DateTimeFormat('en-US', {
-  weekday: 'long',
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-})
+const dayFormat = new Intl.DateTimeFormat("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 function formatDayLabel(dateKey: string): string {
   // dateKey is "YYYY-MM-DD" — interpret as UTC noon so the day doesn't shift.
-  const [y, m, d] = dateKey.split('-').map(Number)
-  return dayFormat.format(new Date(Date.UTC(y!, m! - 1, d!, 12)))
+  const [y, m, d] = dateKey.split("-").map(Number);
+  return dayFormat.format(new Date(Date.UTC(y!, m! - 1, d!, 12)));
 }
 
 function formatTimeRange(start: string, end: string): string {
-  const s = formatTime(start)
-  const e = formatTime(end)
-  return s === e ? s : `${s} to ${e}`
+  const s = formatTime(start);
+  const e = formatTime(end);
+  return s === e ? s : `${s} to ${e}`;
 }
 
 function formatTime(wall: string): string {
   // wall: "YYYY-MM-DDTHH:MM"
-  const t = wall.split('T')[1]
-  if (!t) return ''
-  let h = Number(t.slice(0, 2))
-  const mi = t.slice(3, 5)
-  const period = h >= 12 ? 'PM' : 'AM'
-  h = h % 12
-  if (h === 0) h = 12
-  return mi === '00' ? `${h} ${period}` : `${h}:${mi} ${period}`
+  const t = wall.split("T")[1];
+  if (!t) return "";
+  let h = Number(t.slice(0, 2));
+  const mi = t.slice(3, 5);
+  const period = h >= 12 ? "PM" : "AM";
+  h = h % 12;
+  if (h === 0) h = 12;
+  return mi === "00" ? `${h} ${period}` : `${h}:${mi} ${period}`;
 }

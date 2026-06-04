@@ -1,11 +1,11 @@
-import { siGooglephotos } from 'simple-icons'
+import { siGooglephotos } from "simple-icons";
 
-const ALBUM_URL = 'https://photos.app.goo.gl/y36aLTqf3mL31vHx9'
+const ALBUM_URL = "https://photos.app.goo.gl/y36aLTqf3mL31vHx9";
 
 export function PhotoAlbumButton({
-  label = 'Open Google Photos Album',
+  label = "Open Google Photos Album",
 }: {
-  label?: string
+  label?: string;
 }) {
   return (
     <a
@@ -24,5 +24,5 @@ export function PhotoAlbumButton({
       </svg>
       <span>{label}</span>
     </a>
-  )
+  );
 }

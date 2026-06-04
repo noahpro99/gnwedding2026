@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
 /**
  * A decorative card layout: PNG overlay (the floral / border art) sits on top
@@ -7,10 +7,10 @@ import type { ReactNode } from 'react'
  */
 export function CardFrame({
   children,
-  frameSrc = '/card-frame.png',
+  frameSrc = "/card-frame.png",
 }: {
-  children: ReactNode
-  frameSrc?: string
+  children: ReactNode;
+  frameSrc?: string;
 }) {
   return (
     <div className="relative mx-auto w-full max-w-2xl aspect-[3/4] bg-cream rounded-3xl shadow-2xl shadow-walnut/20">
@@ -24,5 +24,5 @@ export function CardFrame({
         className="pointer-events-none absolute inset-0 w-full h-full object-cover"
       />
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { CardFrame } from '~/components/CardFrame'
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { CardFrame } from "~/components/CardFrame";
 
-export const Route = createFileRoute('/save-the-date')({
+export const Route = createFileRoute("/save-the-date")({
   component: SaveTheDate,
-})
+});
 
 function SaveTheDate() {
   return (
@@ -44,5 +44,5 @@ function SaveTheDate() {
         </CardFrame>
       </div>
     </section>
-  )
+  );
 }

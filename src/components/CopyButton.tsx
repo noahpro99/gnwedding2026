@@ -1,48 +1,48 @@
-'use client'
-import { type LucideIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
+"use client";
+import { type LucideIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const SIZES = {
   sm: {
-    button: 'w-7 h-7',
-    icon: 'w-3.5 h-3.5',
-    pill: 'h-7 px-3 text-[10px] gap-1.5',
-    pillIcon: 'w-3 h-3',
+    button: "w-7 h-7",
+    icon: "w-3.5 h-3.5",
+    pill: "h-7 px-3 text-[10px] gap-1.5",
+    pillIcon: "w-3 h-3",
   },
   md: {
-    button: 'w-10 h-10',
-    icon: 'w-4 h-4',
-    pill: 'h-10 px-4 text-xs gap-2',
-    pillIcon: 'w-3.5 h-3.5',
+    button: "w-10 h-10",
+    icon: "w-4 h-4",
+    pill: "h-10 px-4 text-xs gap-2",
+    pillIcon: "w-3.5 h-3.5",
   },
-} as const
+} as const;
 
 export function CopyButton({
   value,
   icon: Icon,
   label,
-  size = 'sm',
+  size = "sm",
 }: {
-  value: string
-  icon: LucideIcon
-  label: string
-  size?: keyof typeof SIZES
+  value: string;
+  icon: LucideIcon;
+  label: string;
+  size?: keyof typeof SIZES;
 }) {
-  const [copied, setCopied] = useState(false)
-  const s = SIZES[size]
+  const [copied, setCopied] = useState(false);
+  const s = SIZES[size];
 
   useEffect(() => {
-    if (!copied) return
+    if (!copied) return;
     function reset() {
-      setCopied(false)
+      setCopied(false);
     }
-    document.addEventListener('click', reset, { once: true })
-    return () => document.removeEventListener('click', reset)
-  }, [copied])
+    document.addEventListener("click", reset, { once: true });
+    return () => document.removeEventListener("click", reset);
+  }, [copied]);
 
   function handleClick(e: React.MouseEvent) {
-    e.stopPropagation()
-    navigator.clipboard.writeText(value).then(() => setCopied(true))
+    e.stopPropagation();
+    navigator.clipboard.writeText(value).then(() => setCopied(true));
   }
 
   if (copied) {
@@ -55,7 +55,7 @@ export function CopyButton({
         <Icon className={s.pillIcon} strokeWidth={2} />
         Copied
       </button>
-    )
+    );
   }
 
   return (
@@ -68,5 +68,5 @@ export function CopyButton({
     >
       <Icon className={s.icon} strokeWidth={1.75} />
     </button>
-  )
+  );
 }

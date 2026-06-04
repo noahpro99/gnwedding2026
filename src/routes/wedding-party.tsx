@@ -1,54 +1,100 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Users } from 'lucide-react'
-import { SectionHeader } from '~/components/SectionHeader'
+import { createFileRoute } from "@tanstack/react-router";
+import { Users } from "lucide-react";
+import { SectionHeader } from "~/components/SectionHeader";
 
-export const Route = createFileRoute('/wedding-party')({
+export const Route = createFileRoute("/wedding-party")({
   component: WeddingParty,
-})
+});
 
 type Member = {
-  name: string
-  role: string
-  headshot?: string
-  together?: string
-  blurb?: string
-  undisclosed?: boolean
-}
-type Side = { title: string; members: Member[] }
+  name: string;
+  role: string;
+  headshot?: string;
+  together?: string;
+  blurb?: string;
+  undisclosed?: boolean;
+};
+type Side = { title: string; members: Member[] };
 
-const LEAF = '/images/leaf.png'
+const LEAF = "/images/leaf.png";
 
 const PARTY: Side[] = [
   {
-    title: 'Bridesmaids',
+    title: "Bridesmaids",
     members: [
-      { name: '', role: 'Maid of Honor', undisclosed: true, headshot: LEAF, together: LEAF },
-      { name: '', role: 'Bridesmaid', undisclosed: true, headshot: LEAF, together: LEAF },
-      { name: '', role: 'Bridesmaid', undisclosed: true, headshot: LEAF, together: LEAF },
-      { name: '', role: 'Bridesmaid', undisclosed: true, headshot: LEAF, together: LEAF },
+      {
+        name: "",
+        role: "Maid of Honor",
+        undisclosed: true,
+        headshot: LEAF,
+        together: LEAF,
+      },
+      {
+        name: "",
+        role: "Bridesmaid",
+        undisclosed: true,
+        headshot: LEAF,
+        together: LEAF,
+      },
+      {
+        name: "",
+        role: "Bridesmaid",
+        undisclosed: true,
+        headshot: LEAF,
+        together: LEAF,
+      },
+      {
+        name: "",
+        role: "Bridesmaid",
+        undisclosed: true,
+        headshot: LEAF,
+        together: LEAF,
+      },
     ],
   },
   {
-    title: 'Groomsmen',
+    title: "Groomsmen",
     members: [
       {
-        name: 'Elijah Colliver',
-        role: 'Best Man',
-        headshot: '/images/eliajh.png',
-        together: '/images/noah-elijah.png',
-        blurb: "Noah and Elijah met in Cub Scouts when Noah's family moved to Blacksburg. Their families clicked right away. They bonded over Magic: The Gathering and more Boy Scout trips than either can count. They both left their pack to join the same Boy Scout troop, where they pushed each other all the way to Eagle Scout. Elijah helped with the proposal and is now in Alaska for graduate school, studying kelp.",
+        name: "Elijah Colliver",
+        role: "Best Man",
+        headshot: "/images/eliajh.png",
+        together: "/images/noah-elijah.png",
+        blurb:
+          "Noah and Elijah met in Cub Scouts when Noah's family moved to Blacksburg. Their families clicked right away. They bonded over Magic: The Gathering and more Boy Scout trips than either can count. They both left their pack to join the same Boy Scout troop, where they pushed each other all the way to Eagle Scout. Elijah helped with the proposal and is now in Alaska for graduate school, studying kelp.",
       },
-      { name: 'Seth Provenzano', role: 'Groomsman', headshot: '/images/seth.png', together: '/images/seth-noah.png' },
-      { name: '', role: 'Groomsman', undisclosed: true, headshot: LEAF, together: LEAF },
-      { name: '', role: 'Groomsman', undisclosed: true, headshot: LEAF, together: LEAF },
+      {
+        name: "Seth Provenzano",
+        role: "Groomsman",
+        headshot: "/images/seth.png",
+        together: "/images/seth-noah.png",
+      },
+      {
+        name: "",
+        role: "Groomsman",
+        undisclosed: true,
+        headshot: LEAF,
+        together: LEAF,
+      },
+      {
+        name: "",
+        role: "Groomsman",
+        undisclosed: true,
+        headshot: LEAF,
+        together: LEAF,
+      },
     ],
   },
-]
+];
 
 function WeddingParty() {
   return (
     <section className="mx-auto max-w-4xl px-6 py-20">
-      <SectionHeader eyebrow="Standing With Us" title="Wedding Party" icon={Users} />
+      <SectionHeader
+        eyebrow="Standing With Us"
+        title="Wedding Party"
+        icon={Users}
+      />
 
       {PARTY.map((side) => (
         <div key={side.title} className="mt-16">
@@ -63,7 +109,7 @@ function WeddingParty() {
         </div>
       ))}
     </section>
-  )
+  );
 }
 
 function MemberCard({ member }: { member: Member }) {
@@ -75,7 +121,7 @@ function MemberCard({ member }: { member: Member }) {
           {member.headshot ? (
             <img
               src={member.headshot}
-              alt={member.undisclosed ? 'Undisclosed' : member.name}
+              alt={member.undisclosed ? "Undisclosed" : member.name}
               className="w-full h-full object-cover object-top"
             />
           ) : (
@@ -98,9 +144,11 @@ function MemberCard({ member }: { member: Member }) {
       {/* Name + role */}
       <div className="px-6 pt-5 pb-4 text-center">
         <h3 className="font-script text-3xl text-burgundy leading-tight">
-          {member.undisclosed ? 'To be announced' : member.name}
+          {member.undisclosed ? "To be announced" : member.name}
         </h3>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-gold mt-1">{member.role}</p>
+        <p className="text-[10px] uppercase tracking-[0.3em] text-gold mt-1">
+          {member.role}
+        </p>
       </div>
 
       {member.blurb && (
@@ -109,5 +157,5 @@ function MemberCard({ member }: { member: Member }) {
         </div>
       )}
     </div>
-  )
+  );
 }

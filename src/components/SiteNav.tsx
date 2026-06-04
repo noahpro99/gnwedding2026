@@ -1,35 +1,37 @@
-import { Link } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
+import { Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/our-story', label: 'Our Story' },
-  { to: '/travel', label: 'Travel' },
-  { to: '/itinerary', label: 'Itinerary' },
-  { to: '/wedding-party', label: 'Wedding Party' },
-  { to: '/registry', label: 'Registry' },
-  { to: '/faq', label: 'FAQ' },
-  { to: '/rsvp', label: 'RSVP' },
-] as const
+  { to: "/", label: "Home" },
+  { to: "/our-story", label: "Our Story" },
+  { to: "/travel", label: "Travel" },
+  { to: "/itinerary", label: "Itinerary" },
+  { to: "/wedding-party", label: "Wedding Party" },
+  { to: "/registry", label: "Registry" },
+  { to: "/faq", label: "FAQ" },
+  { to: "/rsvp", label: "RSVP" },
+] as const;
 
 export function SiteNav() {
-  const [open, setOpen] = useState(false)
-  const headerRef = useRef<HTMLElement>(null)
+  const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
     const handler = (e: MouseEvent) => {
       if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
-        setOpen(false)
+        setOpen(false);
       }
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [open])
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-amber shadow-[0_2px_24px_rgba(92,58,34,0.09)]">
-
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-amber shadow-[0_2px_24px_rgba(92,58,34,0.09)]"
+    >
       {/* Mobile top bar */}
       <div className="flex md:hidden h-14">
         <Link
@@ -45,11 +47,21 @@ export function SiteNav() {
         >
           {open ? (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <path
+                d="M6 6l12 12M6 18L18 6"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
             </svg>
           ) : (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
             </svg>
           )}
         </button>
@@ -67,7 +79,7 @@ export function SiteNav() {
               key={l.to}
               to={l.to}
               className="text-ink/70 hover:text-burgundy transition-colors"
-              activeProps={{ className: 'text-burgundy' }}
+              activeProps={{ className: "text-burgundy" }}
             >
               {l.label}
             </Link>
@@ -83,7 +95,7 @@ export function SiteNav() {
                 key={l.to}
                 to={l.to}
                 className="text-ink/70 hover:text-burgundy"
-                activeProps={{ className: 'text-burgundy' }}
+                activeProps={{ className: "text-burgundy" }}
                 onClick={() => setOpen(false)}
               >
                 {l.label}
@@ -93,5 +105,5 @@ export function SiteNav() {
         </nav>
       )}
     </header>
-  )
+  );
 }

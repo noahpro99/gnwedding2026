@@ -1,17 +1,17 @@
-import { Database } from 'bun:sqlite'
-import { mkdirSync, existsSync } from 'node:fs'
-import { dirname } from 'node:path'
+import { Database } from "bun:sqlite";
+import { mkdirSync, existsSync } from "node:fs";
+import { dirname } from "node:path";
 
-const DB_PATH = process.env.DB_PATH ?? './data/wedding.sqlite'
+const DB_PATH = process.env.DB_PATH ?? "./data/wedding.sqlite";
 
 if (!existsSync(dirname(DB_PATH))) {
-  mkdirSync(dirname(DB_PATH), { recursive: true })
+  mkdirSync(dirname(DB_PATH), { recursive: true });
 }
 
-export const db = new Database(DB_PATH, { create: true })
+export const db = new Database(DB_PATH, { create: true });
 
-db.run('PRAGMA journal_mode = WAL;')
-db.run('PRAGMA foreign_keys = ON;')
+db.run("PRAGMA journal_mode = WAL;");
+db.run("PRAGMA foreign_keys = ON;");
 
 db.run(`
   CREATE TABLE IF NOT EXISTS invites (
@@ -20,7 +20,7 @@ db.run(`
     party_size_max INTEGER NOT NULL DEFAULT 2,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
-`)
+`);
 
 db.run(`
   CREATE TABLE IF NOT EXISTS rsvps (
@@ -36,7 +36,7 @@ db.run(`
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (invite_id) REFERENCES invites(id) ON DELETE SET NULL
   );
-`)
+`);
 
 db.run(`
   CREATE TABLE IF NOT EXISTS transport_requests (
@@ -48,10 +48,10 @@ db.run(`
     notes TEXT,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
-`)
+`);
 
 try {
-  db.run(`ALTER TABLE rsvps ADD COLUMN guest_names TEXT;`)
+  db.run(`ALTER TABLE rsvps ADD COLUMN guest_names TEXT;`);
 } catch {
   // column already exists
 }
@@ -62,11 +62,11 @@ db.run(`
     initials TEXT NOT NULL,
     claimed_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
-`)
+`);
 
 export type Invite = {
-  id: string
-  guest_names: string
-  party_size_max: number
-  created_at: string
-}
+  id: string;
+  guest_names: string;
+  party_size_max: number;
+  created_at: string;
+};

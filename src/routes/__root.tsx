@@ -5,32 +5,32 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
-} from '@tanstack/react-router'
-import type { ReactNode } from 'react'
-import { SiteNav } from '~/components/SiteNav'
-import { SiteFooter } from '~/components/SiteFooter'
-import appCss from '~/styles.css?url'
+} from "@tanstack/react-router";
+import type { ReactNode } from "react";
+import { SiteNav } from "~/components/SiteNav";
+import { SiteFooter } from "~/components/SiteFooter";
+import appCss from "~/styles.css?url";
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'Gwendolyn & Noah · October 25, 2026' },
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "Gwendolyn & Noah · October 25, 2026" },
       {
-        name: 'description',
+        name: "description",
         content:
-          'Join us as we celebrate our wedding on October 25, 2026 at Beliveau Winery.',
+          "Join us as we celebrate our wedding on October 25, 2026 at Beliveau Winery.",
       },
     ],
     links: [
-      { rel: 'stylesheet', href: appCss },
-      { rel: 'icon', href: '/images/leaf.png', type: 'image/png' },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/images/leaf.png", type: "image/png" },
     ],
   }),
   component: RootComponent,
   notFoundComponent: NotFound,
-})
+});
 
 function NotFound() {
   return (
@@ -55,7 +55,7 @@ function NotFound() {
         </Link>
       </div>
     </section>
-  )
+  );
 }
 
 function RootComponent() {
@@ -67,7 +67,7 @@ function RootComponent() {
       </main>
       <SiteFooter />
     </RootDocument>
-  )
+  );
 }
 
 function RootDocument({ children }: { children: ReactNode }) {
@@ -83,11 +83,16 @@ function RootDocument({ children }: { children: ReactNode }) {
         <div
           aria-hidden="true"
           className="fixed inset-0 pointer-events-none overflow-hidden"
-          style={{ zIndex: 9998, opacity: 0.21, mixBlendMode: 'multiply' }}
+          style={{ zIndex: 9998, opacity: 0.21, mixBlendMode: "multiply" }}
         >
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <filter id="paper-grain">
-              <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.65"
+                numOctaves="3"
+                stitchTiles="stitch"
+              />
               <feColorMatrix type="saturate" values="0" />
             </filter>
             <rect width="100%" height="100%" filter="url(#paper-grain)" />
@@ -97,5 +102,5 @@ function RootDocument({ children }: { children: ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
