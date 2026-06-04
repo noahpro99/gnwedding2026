@@ -23,7 +23,7 @@ function Rsvp() {
       : "Thank you. We will miss you.";
 
   return (
-    <div className="mx-auto max-w-5xl px-2 md:px-4 py-8">
+    <div className="mx-auto max-w-5xl px-2 md:px-4 pt-6 pb-2">
       <div className="flex justify-center">
         {/* Card + mailbox container — flex-col on mobile, block+relative on desktop */}
         <div
