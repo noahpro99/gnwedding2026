@@ -41,7 +41,11 @@ function Itinerary() {
         <PillButton href={APPLE_CAL_URL} icon={siApple}>
           Add to Apple Calendar
         </PillButton>
-        <PillButton href={GOOGLE_CAL_VIEW_URL} variant="outline" lucide={ExternalLink}>
+        <PillButton
+          href={GOOGLE_CAL_VIEW_URL}
+          variant="outline"
+          lucide={ExternalLink}
+        >
           Detailed view in Google Calendar
         </PillButton>
       </div>
@@ -67,7 +71,6 @@ function Itinerary() {
           ))}
         </div>
       )}
-
     </section>
   );
 }
@@ -76,9 +79,9 @@ function DayBlock({ day }: { day: Day }) {
   return (
     <div>
       <div className="flex items-center gap-3 mb-5">
-        <span className="h-px flex-1 bg-gradient-to-l from-amber/60 to-transparent" />
+        <span className="h-px flex-1 bg-linear-to-l from-amber/60 to-transparent" />
         <h2 className="font-script text-3xl text-burgundy">{day.label}</h2>
-        <span className="h-px flex-1 bg-gradient-to-r from-amber/60 to-transparent" />
+        <span className="h-px flex-1 bg-linear-to-r from-amber/60 to-transparent" />
       </div>
 
       <ul className="space-y-3">

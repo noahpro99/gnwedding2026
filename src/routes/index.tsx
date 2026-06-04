@@ -5,6 +5,7 @@ import {
   Gift,
   Heart,
   HelpCircle,
+  Mail,
   MapPin,
   Plane,
   Users,
@@ -25,7 +26,7 @@ const VENUE_LOCATION = "Virginia";
 function Home() {
   return (
     <>
-      <section className="hero-section relative h-screen min-h-[640px] w-full overflow-hidden">
+      <section className="hero-section relative h-screen min-h-160 w-full overflow-hidden">
         <img
           src="/images/hug-edited.jpg"
           alt="Gwendolyn and Noah"
@@ -63,7 +64,7 @@ function Home() {
               to="/rsvp"
               className="inline-flex items-center gap-2 px-8 py-3 bg-burgundy text-cream uppercase tracking-widest text-sm rounded-full hover:bg-pumpkin transition-colors"
             >
-              <Heart className="w-4 h-4" strokeWidth={2} />
+              <Mail className="w-4 h-4" strokeWidth={2} />
               <span>RSVP</span>
             </Link>
             <Link
@@ -89,7 +90,7 @@ function Home() {
           <h2 className="font-script text-5xl text-burgundy mb-4">
             Glad you are here
           </h2>
-          <div className="mb-8 flex justify-center">
+          <div className="mb-8">
             <LeafDivider />
           </div>
           <p className="text-ink/80 leading-relaxed text-lg max-w-2xl mx-auto">

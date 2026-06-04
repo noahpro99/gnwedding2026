@@ -16,7 +16,6 @@
     "noEmit": true,
     "allowJs": false,
     "types": ["bun-types", "vite/client"],
-    "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
     }
