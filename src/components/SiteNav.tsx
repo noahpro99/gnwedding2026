@@ -1,16 +1,25 @@
 import { Link } from "@tanstack/react-router";
+import {
+  Calendar,
+  Gift,
+  Heart,
+  HelpCircle,
+  Mail,
+  Plane,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/our-story", label: "Our Story" },
-  { to: "/travel", label: "Travel" },
-  { to: "/itinerary", label: "Itinerary" },
-  { to: "/wedding-party", label: "Wedding Party" },
-  { to: "/registry", label: "Registry" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/rsvp", label: "RSVP" },
-] as const;
+const navLinks: { to: string; label: string; icon: LucideIcon }[] = [
+  { to: "/our-story", label: "Our Story", icon: Heart },
+  { to: "/travel", label: "Travel", icon: Plane },
+  { to: "/itinerary", label: "Itinerary", icon: Calendar },
+  { to: "/wedding-party", label: "Wedding Party", icon: Users },
+  { to: "/registry", label: "Registry", icon: Gift },
+  { to: "/faq", label: "FAQ", icon: HelpCircle },
+  { to: "/rsvp", label: "RSVP", icon: Mail },
+];
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
@@ -73,15 +82,16 @@ export function SiteNav() {
           G &amp; N
         </Link>
 
-        <nav className="flex items-center gap-7 text-sm uppercase tracking-widest">
-          {navLinks.map((l) => (
+        <nav className="flex items-center gap-6 text-sm uppercase tracking-widest">
+          {navLinks.map(({ to, label, icon: Icon }) => (
             <Link
-              key={l.to}
-              to={l.to}
-              className="text-ink/70 hover:text-burgundy transition-colors"
-              activeProps={{ className: "text-burgundy" }}
+              key={to}
+              to={to}
+              className="flex items-center gap-1.5 text-ink/70 hover:text-burgundy transition-colors"
+              activeProps={{ className: "flex items-center gap-1.5 text-burgundy border-b border-burgundy pb-px" }}
             >
-              {l.label}
+              <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
+              {label}
             </Link>
           ))}
         </nav>
@@ -90,15 +100,16 @@ export function SiteNav() {
       {open && (
         <nav className="md:hidden border-t border-amber bg-cream">
           <div className="px-6 py-4 flex flex-col gap-3 text-sm uppercase tracking-widest">
-            {navLinks.map((l) => (
+            {navLinks.map(({ to, label, icon: Icon }) => (
               <Link
-                key={l.to}
-                to={l.to}
-                className="text-ink/70 hover:text-burgundy"
-                activeProps={{ className: "text-burgundy" }}
+                key={to}
+                to={to}
+                className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy"
+                activeProps={{ className: "flex items-center gap-2.5 text-burgundy font-medium" }}
                 onClick={() => setOpen(false)}
               >
-                {l.label}
+                <Icon className="w-4 h-4" strokeWidth={1.75} />
+                {label}
               </Link>
             ))}
           </div>
