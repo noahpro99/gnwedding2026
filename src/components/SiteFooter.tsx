@@ -1,55 +1,5 @@
-'use client'
 import { Mail, Phone } from 'lucide-react'
-import { useEffect, useState } from 'react'
-
-function CopyButton({
-  value,
-  icon: Icon,
-  label,
-}: {
-  value: string
-  icon: typeof Mail
-  label: string
-}) {
-  const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    if (!copied) return
-    function reset() { setCopied(false) }
-    document.addEventListener('click', reset, { once: true })
-    return () => document.removeEventListener('click', reset)
-  }, [copied])
-
-  function handleClick(e: React.MouseEvent) {
-    e.stopPropagation()
-    navigator.clipboard.writeText(value).then(() => setCopied(true))
-  }
-
-  if (copied) {
-    return (
-      <button
-        type="button"
-        onClick={(e) => e.stopPropagation()}
-        className="inline-flex items-center gap-1.5 px-3 h-7 rounded-full bg-olive/80 text-cream text-[10px] uppercase tracking-widest transition-colors"
-      >
-        <Icon className="w-3 h-3" strokeWidth={2} />
-        Copied
-      </button>
-    )
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={handleClick}
-      aria-label={label}
-      title={label}
-      className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-amber/60 text-ink/40 hover:border-burgundy hover:text-burgundy transition-colors"
-    >
-      <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
-    </button>
-  )
-}
+import { CopyButton } from './CopyButton'
 
 export function SiteFooter() {
   return (

@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { HelpCircle } from 'lucide-react'
+import { HelpCircle, Mail, Phone } from 'lucide-react'
 import { type ReactNode, useState } from 'react'
+import { CopyButton } from '~/components/CopyButton'
 import { SectionHeader } from '~/components/SectionHeader'
 
 export const Route = createFileRoute('/faq')({
@@ -178,12 +179,11 @@ function Faq() {
         })}
       </div>
 
-      <p className="mt-16 text-center text-lg text-ink/75">
-        More questions?{' '}
-        <a href="#contact" className={linkCls}>
-          reach out.
-        </a>
-      </p>
+      <div className="mt-16 flex flex-wrap items-center justify-center gap-3 text-lg text-ink/75">
+        <span>More questions?</span>
+        <CopyButton value="noahpro@gmail.com" icon={Mail} label="Copy email" size="md" />
+        <CopyButton value="5403156063" icon={Phone} label="Copy phone number" size="md" />
+      </div>
     </section>
   )
 }
