@@ -17,7 +17,7 @@ const HOTELS = [
     notes:
       "Suites with mini kitchens (plates, pots, pans). A good option if you plan to pick up groceries at the nearby Kroger. Block details coming soon.",
     nights: "Block: night of 10/24 + night of 10/25",
-    pricePerNight: 129,
+    pricePerNight: 115,
   },
 ];
 
