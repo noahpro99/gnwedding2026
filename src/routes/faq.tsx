@@ -12,9 +12,13 @@ const linkCls =
 
 const HOME2_URL = 'https://www.hilton.com/en/brands/home2-suites/'
 
+// Stop click propagation on inline links so clicking a link inside an
+// expanded answer doesn't also toggle the card closed.
+const stop = (e: React.MouseEvent) => e.stopPropagation()
+
 function FaqLink({ to, children }: { to: string; children: ReactNode }) {
   return (
-    <Link to={to} className={linkCls}>
+    <Link to={to} className={linkCls} onClick={stop}>
       {children}
     </Link>
   )
@@ -22,7 +26,13 @@ function FaqLink({ to, children }: { to: string; children: ReactNode }) {
 
 function ExtLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={linkCls}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={linkCls}
+      onClick={stop}
+    >
       {children}
     </a>
   )
@@ -30,7 +40,7 @@ function ExtLink({ href, children }: { href: string; children: ReactNode }) {
 
 function ReachOut() {
   return (
-    <a href="#contact" className={linkCls}>
+    <a href="#contact" className={linkCls} onClick={stop}>
       reach out
     </a>
   )
@@ -139,14 +149,19 @@ function Faq() {
           return (
             <div
               key={i}
-              className="bg-parchment border border-amber rounded-2xl p-6"
+              onClick={() => toggle(i)}
+              role="button"
+              tabIndex={0}
+              aria-expanded={open}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  toggle(i)
+                }
+              }}
+              className="bg-parchment border border-amber rounded-2xl p-6 cursor-pointer select-none"
             >
-              <button
-                type="button"
-                onClick={() => toggle(i)}
-                aria-expanded={open}
-                className="w-full flex justify-between items-center gap-4 text-left cursor-pointer select-none"
-              >
+              <div className="flex justify-between items-center gap-4">
                 <span className="font-script text-2xl text-burgundy">{f.q}</span>
                 <span
                   className={`text-gold text-2xl leading-none transition-transform duration-200 shrink-0 ${open ? 'rotate-45' : ''}`}
@@ -154,7 +169,7 @@ function Faq() {
                 >
                   +
                 </span>
-              </button>
+              </div>
               {open && (
                 <div className="mt-4 text-ink/80 leading-relaxed">{f.a}</div>
               )}
