@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Calendar, ExternalLink, MapPin } from "lucide-react";
+import { Calendar, ChevronDown, ExternalLink, MapPin } from "lucide-react";
+import { useState } from "react";
 import { siApple, siGooglecalendar } from "simple-icons";
 import { SectionHeader } from "~/components/SectionHeader";
 import { type CalendarEvent, getEvents } from "~/server/calendar";
@@ -26,7 +27,8 @@ const APPLE_CAL_URL =
 
 function Itinerary() {
   const { events = [] } = Route.useLoaderData() ?? {};
-  const days = groupByDay(events);
+  const filtered = removeOverlaps(events);
+  const days = groupByDay(filtered);
 
   return (
     <section className="mx-auto max-w-3xl px-6 py-20">
@@ -39,17 +41,13 @@ function Itinerary() {
         <PillButton href={APPLE_CAL_URL} icon={siApple}>
           Add to Apple Calendar
         </PillButton>
-        <PillButton
-          href={GOOGLE_CAL_VIEW_URL}
-          variant="outline"
-          lucide={ExternalLink}
-        >
-          View in Google Calendar
+        <PillButton href={GOOGLE_CAL_VIEW_URL} variant="outline" lucide={ExternalLink}>
+          Detailed view in Google Calendar
         </PillButton>
       </div>
 
       <p className="text-center text-xs text-ink/50 uppercase tracking-widest mb-10">
-        Pulled live from our calendar — updates reflect automatically.
+        Pulled live from our calendar. Updates reflect automatically.
       </p>
 
       {days.length === 0 ? (
@@ -69,6 +67,7 @@ function Itinerary() {
           ))}
         </div>
       )}
+
     </section>
   );
 }
@@ -92,36 +91,53 @@ function DayBlock({ day }: { day: Day }) {
 }
 
 function EventRow({ event }: { event: CalendarEvent }) {
+  const [expanded, setExpanded] = useState(false);
   const time = event.allDay
     ? "All day"
     : formatTimeRange(event.start, event.end);
+  const hasDetails = !!event.description;
 
   return (
-    <li className="bg-parchment border border-amber rounded-2xl p-5 shadow-card">
-      <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
-        <div className="text-xs uppercase tracking-[0.2em] text-gold font-mono whitespace-nowrap sm:pt-1 sm:w-44 sm:shrink-0 mb-2 sm:mb-0">
-          {time}
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="font-script text-2xl text-burgundy leading-tight">
-            {event.summary}
-          </h3>
-          {event.location && (
-            <p className="text-sm text-ink/65 mt-1.5 inline-flex items-start gap-1.5">
-              <MapPin
-                className="w-3.5 h-3.5 mt-0.5 shrink-0"
-                strokeWidth={1.75}
+    <li className="bg-parchment border border-amber rounded-2xl shadow-card overflow-hidden">
+      <button
+        type="button"
+        className="w-full text-left p-5"
+        onClick={() => hasDetails && setExpanded((v) => !v)}
+        aria-expanded={expanded}
+      >
+        <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
+          <div className="text-[13px] uppercase tracking-[0.2em] text-gold font-mono whitespace-nowrap sm:w-44 sm:shrink-0 mb-1 sm:mb-0 sm:pt-1">
+            {time}
+          </div>
+          <div className="flex flex-1 items-start justify-between gap-3 min-w-0">
+            <div className="min-w-0">
+              <h3 className="font-script text-2xl text-burgundy leading-tight">
+                {event.summary}
+              </h3>
+              {event.location && (
+                <p className="text-sm text-ink/65 mt-1 inline-flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.75} />
+                  <span className="leading-snug">{event.location}</span>
+                </p>
+              )}
+            </div>
+            {hasDetails && (
+              <ChevronDown
+                className={`w-4 h-4 shrink-0 text-amber mt-1.5 transition-transform ${expanded ? "rotate-180" : ""}`}
+                strokeWidth={2}
               />
-              <span className="leading-snug">{event.location}</span>
-            </p>
-          )}
-          {event.description && (
-            <p className="text-sm text-ink/70 mt-3 whitespace-pre-line leading-relaxed">
-              {event.description}
-            </p>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      </button>
+
+      {expanded && event.description && (
+        <div className="px-5 pb-5 pt-0 border-t border-amber/40">
+          <p className="text-sm text-ink/70 mt-3 whitespace-pre-line leading-relaxed">
+            {event.description}
+          </p>
+        </div>
+      )}
     </li>
   );
 }
@@ -174,6 +190,31 @@ function PillButton({
   );
 }
 
+// ---------- Overlap filtering ----------
+
+function eventDurationMs(e: CalendarEvent): number {
+  if (e.allDay) return 0;
+  return new Date(e.end).getTime() - new Date(e.start).getTime();
+}
+
+function eventsOverlap(a: CalendarEvent, b: CalendarEvent): boolean {
+  if (a.allDay || b.allDay) return false;
+  return a.start < b.end && b.start < a.end;
+}
+
+function removeOverlaps(events: CalendarEvent[]): CalendarEvent[] {
+  const sorted = [...events].sort(
+    (a, b) => eventDurationMs(b) - eventDurationMs(a),
+  );
+  const kept: CalendarEvent[] = [];
+  for (const e of sorted) {
+    if (!kept.some((k) => eventsOverlap(k, e))) {
+      kept.push(e);
+    }
+  }
+  return kept.sort((a, b) => a.start.localeCompare(b.start));
+}
+
 // ---------- Grouping & formatting ----------
 
 type Day = {
@@ -185,7 +226,7 @@ type Day = {
 function groupByDay(events: CalendarEvent[]): Day[] {
   const map = new Map<string, CalendarEvent[]>();
   for (const e of events) {
-    const dateKey = e.start.slice(0, 10); // YYYY-MM-DD
+    const dateKey = e.start.slice(0, 10);
     const arr = map.get(dateKey) ?? [];
     arr.push(e);
     map.set(dateKey, arr);
@@ -208,7 +249,6 @@ const dayFormat = new Intl.DateTimeFormat("en-US", {
 });
 
 function formatDayLabel(dateKey: string): string {
-  // dateKey is "YYYY-MM-DD" — interpret as UTC noon so the day doesn't shift.
   const [y, m, d] = dateKey.split("-").map(Number);
   return dayFormat.format(new Date(Date.UTC(y!, m! - 1, d!, 12)));
 }
@@ -220,7 +260,6 @@ function formatTimeRange(start: string, end: string): string {
 }
 
 function formatTime(wall: string): string {
-  // wall: "YYYY-MM-DDTHH:MM"
   const t = wall.split("T")[1];
   if (!t) return "";
   let h = Number(t.slice(0, 2));

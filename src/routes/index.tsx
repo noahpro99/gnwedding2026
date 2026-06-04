@@ -105,7 +105,7 @@ function Home() {
             style={{ aspectRatio: "15 / 16" }}
           >
             <img
-              src="/images/us.jpg"
+              src="/images/us.webp"
               alt="Gwendolyn and Noah"
               className="w-full h-full object-cover object-center"
             />
