@@ -10,7 +10,7 @@ const milestones = [
   {
     date: "Valentine's Day, 2020",
     title: "How we met",
-    body: "Gwendolyn and Noah met for the first time in American Heritage Girls as Noah's sister Delia and Gwendolyn were in the same troop. They briefly met, but Gwendolyn was interested in Noah then. Years later, Noah came across one of Gwendolyn's drawings online and left a comment thinking it was incredible, but he didn't know it was her. Years later in 2020 they friended each other by chance online recommendation through mutuals. After a few long video chats Noah asked Gwendolyn to accompany him to swing dance on Valentines Day. They clicked immediately as both were drawn to conversations about human nature and technology. After a few more dates they became a couple. They have been together as they have grown since then.",
+    body: "Gwendolyn and Noah met for the first time in American Heritage Girls as Noah's sister Delia and Gwendolyn were in the same troop. They briefly met, but Gwendolyn was interested in Noah then. Years passed, and Noah came across one of Gwendolyn's drawings online and left a comment thinking it was incredible, but didn't know it was her. Years after that, in 2020, they friended each other by chance through mutual online recommendations. After a few long video chats Noah asked Gwendolyn on a date swing dancing on Valentine\'s Day. They clicked immediately as both were drawn to conversations about human nature and technology. After a few more dates they became a couple. They have been together ever since.",
   },
   {
     date: "Summer 20XX",
