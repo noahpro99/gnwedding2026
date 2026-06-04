@@ -1,5 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
+import nodemailer from "nodemailer";
 import { db } from "./db";
+
+const mailer = nodemailer.createTransport({
+  host: process.env.SMTP_HOST ?? "localhost",
+  port: Number(process.env.SMTP_PORT ?? 25),
+  secure: false,
+});
 
 export type RsvpPayload = {
   inviteId?: string;
@@ -54,6 +61,23 @@ export const submitRsvp = createServerFn({ method: "POST" })
         data.needsTransport ? 1 : 0,
       ],
     );
+
+    const body = [
+      `Name: ${data.primaryName}`,
+      data.guestNames.length > 1 ? `Party: ${data.guestNames.join(", ")}` : null,
+      `Attending: ${data.attending ? "Yes" : "No"}`,
+      data.email ? `Email: ${data.email}` : null,
+      data.dietary ? `Dietary: ${data.dietary}` : null,
+      data.notes ? `Notes: ${data.notes}` : null,
+    ].filter(Boolean).join("\n");
+
+    await mailer.sendMail({
+      from: "info@gnwedding2026.com",
+      to: "noahpro@gmail.com",
+      subject: `RSVP: ${data.primaryName} — ${data.attending ? "Attending" : "Not attending"}`,
+      text: body,
+    }).catch(() => {});
+
     return { ok: true as const };
   });
 
