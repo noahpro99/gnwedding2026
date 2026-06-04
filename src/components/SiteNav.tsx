@@ -77,21 +77,23 @@ export function SiteNav() {
       </div>
 
       {/* Desktop top bar */}
-      <div className="hidden md:flex mx-auto max-w-6xl px-6 py-4 items-center justify-between">
-        <Link to="/" className="font-script text-3xl text-burgundy">
+      <div className="hidden md:flex h-16 mx-auto max-w-6xl px-6 items-stretch justify-between">
+        <Link to="/" className="flex items-center font-script text-3xl text-burgundy">
           G &amp; N
         </Link>
 
-        <nav className="flex items-center gap-6 text-sm uppercase tracking-widest">
+        <nav className="flex items-stretch gap-6 text-sm uppercase tracking-widest">
           {navLinks.map(({ to, label, icon: Icon }) => (
             <Link
               key={to}
               to={to}
-              className="flex items-center gap-1.5 text-ink/70 hover:text-burgundy transition-colors"
-              activeProps={{ className: "flex items-center gap-1.5 text-burgundy border-b border-burgundy pb-px" }}
+              className="group flex items-center text-ink/70 hover:text-burgundy transition-colors"
+              activeProps={{ className: "group flex items-center text-burgundy is-active" }}
             >
-              <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
-              {label}
+              <span className="flex items-center gap-1.5 border-b border-transparent group-[.is-active]:border-burgundy pb-px">
+                <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
+                {label}
+              </span>
             </Link>
           ))}
         </nav>
