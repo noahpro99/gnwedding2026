@@ -4,7 +4,13 @@ import { siApple, siGooglecalendar } from 'simple-icons'
 import { type CalendarEvent, getEvents } from '~/server/calendar'
 
 export const Route = createFileRoute('/itinerary')({
-  loader: async () => ({ events: await getEvents() }),
+  loader: async () => {
+    try {
+      return { events: await getEvents() }
+    } catch {
+      return { events: [] as CalendarEvent[] }
+    }
+  },
   component: Itinerary,
 })
 
@@ -18,7 +24,7 @@ const APPLE_CAL_URL =
   'https://calendar.google.com/calendar/ical/8c9da5b0ab48578ed31aaa66f7584b368339ac73e165e58c9d1f7c01fe05c26c%40group.calendar.google.com/public/basic.ics'
 
 function Itinerary() {
-  const { events } = Route.useLoaderData()
+  const { events = [] } = Route.useLoaderData() ?? {}
   const days = groupByDay(events)
 
   return (
