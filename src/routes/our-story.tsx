@@ -10,35 +10,53 @@ const milestones = [
   {
     date: "Valentine's Day, 2020",
     title: "How we met",
-    body: "Gwendolyn and Noah met for the first time in American Heritage Girls as Noah's sister Delia and Gwendolyn were in the same troop. They briefly met, but Gwendolyn was interested in Noah then. Years passed, and Noah came across one of Gwendolyn's drawings online and left a comment thinking it was incredible, but didn't know it was her. Years after that, in 2020, they friended each other by chance through mutual online recommendations. After a few long video chats Noah asked Gwendolyn on a date swing dancing on Valentine\'s Day. They clicked immediately as both were drawn to conversations about human nature and technology. After a few more dates they became a couple. They have been together ever since.",
+    body: "Gwendolyn and Noah met for the first time in American Heritage Girls as Noah's sister Delia and Gwendolyn were in the same troop. They briefly met, but Gwendolyn was interested in Noah then. Years passed, and Noah came across one of Gwendolyn's drawings online and left a comment thinking it was incredible, but didn't know it was her. Years after that, in 2020, they friended each other by chance through mutual online recommendations. After a few long video chats Noah asked Gwendolyn on a date swing dancing on Valentine's Day. They clicked immediately as both were drawn to conversations about human nature and technology. After a few more dates they became a couple. They have stood by each other ever since.",
+    image: "/images/us-early.webp",
+    imageAlt: "Gwendolyn and Noah early in their relationship",
   },
   {
-    date: "Summer 20XX",
+    date: "Summer 2022",
     title: "First trip together",
-    body: "A short anecdote about an early shared adventure.",
+    body: "Noah and Gwendolyn took a trip to New York City together in the summer of 2022. They had a great time exploring the city watching a Broadway show, visiting museums, and eating lots of good food. The stress of a trip was mitigated by their ability to support each other.",
+    image: "/images/new-york.webp",
+    imageAlt: "Gwendolyn and Noah in New York City",
   },
   {
-    date: "Winter 20XX",
+    date: "May 18th, 2026",
     title: "The proposal",
-    body: "Where it happened and how it unfolded.",
+    body: "Early on in the relationship, Noah and Gwendolyn went on a sunrise hike at Dragon's Tooth in the Blue Ridge Mountains. The hike was right during when covid was starting and Gwendolyn was feeling anxious finishing high school. That hike was an escape for both of them at the time becoming one of their special places. On May 18th (which is Noah's birthday) they went back to the same spot and Noah proposed to Gwendolyn at sunrise. The best man Elijah was there to capture the moment hidden with a camera. Gwendolyn said yes and they celebrated with a long nap afterwards.",
+    image: "/images/proposal.webp",
+    imageAlt: "The proposal at Dragon's Tooth",
   },
 ];
 
 function OurStory() {
   return (
-    <section className="mx-auto max-w-3xl px-6 py-20">
+    <section className="mx-auto max-w-5xl px-6 py-20">
       <SectionHeader eyebrow="The Beginning" title="Our Story" icon={Heart} />
 
-      <div className="mt-16 space-y-12">
-        {milestones.map((m) => (
-          <article key={m.title} className="border-l-2 border-gold pl-8">
-            <p className="uppercase tracking-[0.25em] text-xs text-gold mb-2">
-              {m.date}
-            </p>
-            <h3 className="font-script text-3xl text-burgundy mb-3">
-              {m.title}
-            </h3>
-            <p className="text-ink/80 leading-relaxed">{m.body}</p>
+      <div className="mt-20 space-y-24">
+        {milestones.map((m, i) => (
+          <article
+            key={m.title}
+            className="grid md:grid-cols-2 gap-10 md:gap-16 items-center"
+          >
+            <div className={i % 2 === 1 ? "md:order-last" : ""}>
+              <img
+                src={m.image}
+                alt={m.imageAlt}
+                className="w-full rounded-2xl shadow-card object-cover aspect-[4/5]"
+              />
+            </div>
+            <div>
+              <p className="uppercase tracking-[0.25em] text-xs text-gold mb-3">
+                {m.date}
+              </p>
+              <h3 className="font-script text-4xl text-burgundy mb-4">
+                {m.title}
+              </h3>
+              <p className="text-ink/80 leading-relaxed">{m.body}</p>
+            </div>
           </article>
         ))}
       </div>

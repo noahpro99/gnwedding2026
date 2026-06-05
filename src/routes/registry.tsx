@@ -320,7 +320,11 @@ function RegistryRow({
               <span>Claimed · {claimedBy}</span>
             </button>
           )
-        ) : mode === "claiming" ? null : (
+        ) : mode === "claiming" ? null : !url ? (
+          <span className="pointer-events-auto px-3 py-1 text-xs uppercase tracking-widest rounded-full border border-amber/50 text-ink/35">
+            Link coming soon
+          </span>
+        ) : (
           <button
             type="button"
             onClick={() => {
