@@ -48,7 +48,7 @@ function Travel() {
       <SectionHeader eyebrow="Getting There" title="Travel" icon={Plane}>
         <p>
           The wedding is on <strong>Sunday, October 25, 2026</strong> at
-          Beliveau Winery in Virginia, with the ceremony at{" "}
+          Beliveau Farm Winery in Virginia, with the ceremony at{" "}
           <strong>3:00 PM</strong>. We've blocked rooms at the hotel below for
           the nights of <strong>October 24</strong> and{" "}
           <strong>October 25</strong> so you can arrive early and stay over.

@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 });
 
 const WEDDING_DATE = "October 25, 2026";
-const VENUE = "Beliveau Winery";
+const VENUE = "Beliveau Farm Winery";
 const VENUE_LOCATION = "Virginia";
 
 function Home() {
@@ -94,7 +94,7 @@ function Home() {
             <LeafDivider />
           </div>
           <p className="text-ink/80 leading-relaxed text-lg max-w-2xl mx-auto">
-            We are getting married on Sunday, October 25 at Beliveau Winery in
+            We are getting married on Sunday, October 25 at Beliveau Farm Winery in
             Virginia. This site has everything you need: our story, hotel and
             travel details, the weekend schedule, and the RSVP form.
           </p>

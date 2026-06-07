@@ -52,7 +52,7 @@ const faqs: Array<{ q: string; a: ReactNode }> = [
     q: "When and where is the wedding?",
     a: (
       <>
-        Sunday, October 25, 2026 at Beliveau Winery in Virginia. See the{" "}
+        Sunday, October 25, 2026 at Beliveau Farm Winery in Virginia. See the{" "}
         <FaqLink to="/itinerary">itinerary</FaqLink> for the full weekend
         schedule.
       </>
@@ -62,8 +62,9 @@ const faqs: Array<{ q: string; a: ReactNode }> = [
     q: "What is the dress code?",
     a: (
       <>
-        Formal. Fall colors if the mood strikes you. The ceremony is planned
-        outdoors on grass, so plan your footwear accordingly.
+        Semi-formal. For gentlemen, a button-down or suit. Fall colors if the
+        mood strikes you. The ceremony is planned outdoors on grass, so plan
+        your footwear accordingly.
       </>
     ),
   },

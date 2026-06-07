@@ -94,7 +94,7 @@ export function RsvpForm({
               className={`text-[9px] md:text-[11px] uppercase tracking-[0.25em] border-b pb-px transition-colors ${
                 attending === v
                   ? "border-burgundy text-burgundy"
-                  : "border-transparent text-ink/35 hover:text-ink/60"
+                  : "border-transparent text-ink/55 hover:text-ink/60"
               }`}
             >
               {v === "yes" ? "Accept" : "Decline"}
@@ -213,7 +213,7 @@ function PaperLine(
   const { label, ...rest } = props;
   return (
     <div className="flex items-baseline gap-2 border-b border-ink/20 focus-within:border-ink/50 transition-colors pb-px">
-      <span className="shrink-0 text-[9px] md:text-[11px] uppercase tracking-[0.2em] text-ink/35">
+      <span className="shrink-0 text-[9px] md:text-[11px] uppercase tracking-[0.2em] text-ink/55">
         {label}
       </span>
       <input
@@ -234,7 +234,7 @@ function PaperArea({ label, name }: { label: string; name: string }) {
   }
   return (
     <div className="border-b border-ink/20 focus-within:border-ink/50 transition-colors pb-px">
-      <span className="text-[9px] md:text-[11px] uppercase tracking-[0.2em] text-ink/35 mr-2">
+      <span className="text-[9px] md:text-[11px] uppercase tracking-[0.2em] text-ink/55 mr-2">
         {label}
       </span>
       <textarea

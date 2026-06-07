@@ -10,7 +10,7 @@ export function SiteFooter() {
         </span>
         <span className="text-amber/60 text-xs">·</span>
         <span className="text-[11px] uppercase tracking-widest text-ink/45">
-          October 25, 2026 · Beliveau Winery
+          October 25, 2026 · Beliveau Farm Winery
         </span>
         <span className="text-amber/60 text-xs">·</span>
         <div className="flex items-center gap-2">

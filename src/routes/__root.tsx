@@ -20,7 +20,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Join us as we celebrate our wedding on October 25, 2026 at Beliveau Winery.",
+          "Join us as we celebrate our wedding on October 25, 2026 at Beliveau Farm Winery.",
       },
     ],
     links: [

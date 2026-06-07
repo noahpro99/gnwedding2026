@@ -191,7 +191,7 @@ function ShippingAddress() {
   const [copied, setCopied] = useState(false);
 
   function copy() {
-    navigator.clipboard.writeText("2100 Shadow Lake Rd").then(() => {
+    navigator.clipboard.writeText("610 Cedar Hill Dr, Blacksburg, VA 24060").then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });

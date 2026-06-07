@@ -65,7 +65,7 @@ function InvitePage() {
             Sunday, October 25, 2026
           </p>
           <p className="mt-2 text-sm uppercase tracking-widest text-ink/70">
-            Beliveau Winery · Virginia
+            Beliveau Farm Winery · Virginia
           </p>
 
           <p className="mt-8 text-xs uppercase tracking-widest text-ink/60">
