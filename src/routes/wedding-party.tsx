@@ -42,6 +42,8 @@ const PARTY: Side[] = [
         role: "Groomsman",
         headshot: "/images/seth.webp",
         together: "/images/seth-noah.webp",
+        blurb:
+          "Seth is Noah's brother and oldest friend. They grew up together in Blacksburg, homeschooled, danced, and both earned their Eagle Scout along the way. From childhood through every season since, they have been there for each other without question. Seth is currently studying business and cybersecurity at Virginia Tech and plans to become a pilot after graduation.",
       },
       { name: "", role: "Groomsman", undisclosed: true },
       { name: "", role: "Groomsman", undisclosed: true },
