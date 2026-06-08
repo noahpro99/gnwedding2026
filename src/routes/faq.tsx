@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { HelpCircle, Mail, Phone } from "lucide-react";
+import { ArrowRight, ExternalLink, HelpCircle, Mail, Phone } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { CopyButton } from "~/components/CopyButton";
 import { SectionHeader } from "~/components/SectionHeader";
@@ -19,8 +19,8 @@ const stop = (e: React.MouseEvent) => e.stopPropagation();
 
 function FaqLink({ to, children }: { to: string; children: ReactNode }) {
   return (
-    <Link to={to} className={linkCls} onClick={stop}>
-      {children}
+    <Link to={to} className={`${linkCls} inline-flex items-center gap-0.5`} onClick={stop}>
+      {children}<ArrowRight className="w-3 h-3 shrink-0" strokeWidth={2} />
     </Link>
   );
 }
@@ -31,10 +31,10 @@ function ExtLink({ href, children }: { href: string; children: ReactNode }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={linkCls}
+      className={`${linkCls} inline-flex items-center gap-0.5`}
       onClick={stop}
     >
-      {children}
+      {children}<ExternalLink className="w-3 h-3 shrink-0" strokeWidth={2} />
     </a>
   );
 }
