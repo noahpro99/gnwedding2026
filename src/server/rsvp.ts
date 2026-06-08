@@ -58,7 +58,7 @@ export const submitRsvp = createServerFn({ method: "POST" })
     const webhook = process.env.DISCORD_WEBHOOK_URL;
     if (webhook) {
       const lines = [
-        `**${data.primaryName}** — ${data.attending ? "Attending" : "Not attending"}`,
+        `**${data.primaryName}** - ${data.attending ? "Attending" : "Not attending"}`,
         data.guestNames.length > 1 ? `Party: ${data.guestNames.join(", ")}` : null,
         data.email ? `Email: ${data.email}` : null,
         data.dietary ? `Dietary: ${data.dietary}` : null,

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BedDouble, Bus, MapPin, Plane } from "lucide-react";
+import { BedDouble, Bus, ExternalLink, MapPin, Plane, Wine } from "lucide-react";
 import { useState } from "react";
 import { SectionHeader } from "~/components/SectionHeader";
 import { requestTransport } from "~/server/rsvp";
@@ -8,18 +8,17 @@ export const Route = createFileRoute("/travel")({
   component: Travel,
 });
 
-const HOTELS = [
-  {
-    name: "Home2 Suites by Hilton",
-    address: "Roanoke area, VA",
-    blockCode: "TBD",
-    bookingUrl: "https://www.hilton.com/en/brands/home2-suites/",
-    notes:
-      "Suites with mini kitchens (plates, pots, pans). A good option if you plan to pick up groceries at the nearby Kroger. Block details coming soon.",
-    nights: "Block: night of 10/24 + night of 10/25",
-    pricePerNight: 115,
-  },
-];
+const HOTEL = {
+  name: "Home2 Suites by Hilton",
+  address: "1321 Rugby Ln, Blacksburg, VA 24060",
+  blockCode: "TBD",
+  bookingUrl: "https://www.hilton.com/en/brands/home2-suites/",
+  mapsUrl: "https://maps.app.goo.gl/1G9qu1cFqdc14EVa8",
+  notes:
+    "Suites with mini kitchens (plates, pots, pans). A good option if you plan to pick up groceries at the nearby Kroger. Block details coming soon.",
+  nights: "Block: night of 10/24 + night of 10/25",
+  pricePerNight: 115,
+};
 
 const AIRPORTS = [
   {
@@ -55,58 +54,79 @@ function Travel() {
         </p>
       </SectionHeader>
 
+      <h2 className="mt-20 mb-6 font-script text-4xl text-burgundy text-center flex items-center justify-center gap-3">
+        <Wine className="w-7 h-7" strokeWidth={1.5} />
+        <span>Venue</span>
+      </h2>
+
+      <a
+        href="https://maps.app.goo.gl/qvABiP4svqpQy4Jk9"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group grid md:grid-cols-2 rounded-2xl overflow-hidden border border-amber hover:border-burgundy transition-colors shadow-card"
+      >
+        <img
+          src="/images/venue.webp"
+          alt="Beliveau Farm Winery"
+          className="w-full h-64 md:h-72 object-cover"
+        />
+        <div className="bg-parchment flex flex-col items-center justify-center gap-3 p-8 text-center">
+          <p className="font-script text-3xl text-burgundy">Beliveau Farm Winery</p>
+          <p className="inline-flex items-center gap-1.5 text-sm text-ink/70">
+            <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.75} />
+            3899 Eakin Farm Rd, Blacksburg, VA 24060
+          </p>
+          <p className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-burgundy underline decoration-burgundy/40 underline-offset-2 mt-1">
+            <ExternalLink className="w-3 h-3" strokeWidth={2} />
+            Open in Google Maps
+          </p>
+        </div>
+      </a>
+
       <h2 className="mt-20 mb-2 font-script text-4xl text-burgundy text-center flex items-center justify-center gap-3">
         <BedDouble className="w-7 h-7" strokeWidth={1.5} />
         <span>Hotel</span>
       </h2>
       <p className="text-center text-ink/70 mb-8 max-w-xl mx-auto">
-        Rooms are held for the nights of Oct 24 and Oct 25.
+        Feel free to stay anywhere. We blocked a room group here for guaranteed availability at a set rate.
       </p>
 
-      <div className="max-w-md mx-auto">
-        {HOTELS.map((h) => (
-          <div
-            key={h.name}
-            className="p-8 bg-parchment border border-amber rounded-2xl"
+      <div className="rounded-2xl overflow-hidden border border-amber shadow-card grid md:grid-cols-2">
+        <img
+          src="/images/hotel.webp"
+          alt={HOTEL.name}
+          className="w-full h-64 md:h-full object-cover"
+        />
+        <div className="bg-parchment flex flex-col gap-3 p-8">
+          <p className="font-script text-3xl text-burgundy">{HOTEL.name}</p>
+          <a
+            href={HOTEL.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm text-ink/70 hover:text-burgundy transition-colors"
           >
-            <h3 className="font-script text-3xl">
-              <a
-                href={h.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-burgundy hover:text-pumpkin underline decoration-amber/60 underline-offset-2 hover:decoration-pumpkin transition-colors"
-              >
-                {h.name}
-              </a>
-            </h3>
-            <p className="text-sm text-ink/70 mt-1 inline-flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5" strokeWidth={1.75} />
-              {h.address}
-            </p>
-            <p className="mt-4 text-ink/80">{h.notes}</p>
-            <p className="mt-4 text-sm">
-              <span className="text-ink/60">{h.nights}</span>
-              {h.pricePerNight && (
-                <>
-                  <span className="text-ink/60"> · </span>
-                  <span className="text-ink/80">${h.pricePerNight}/night</span>
-                </>
-              )}
-            </p>
-            <p className="mt-2 text-sm">
-              <span className="text-ink/60">Block code: </span>
-              <span className="font-mono">{h.blockCode}</span>
-            </p>
-            <a
-              href={h.bookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-6 px-6 py-2 bg-burgundy text-cream uppercase tracking-widest text-xs rounded-full hover:bg-pumpkin transition-colors"
-            >
-              Book
-            </a>
-          </div>
-        ))}
+            <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.75} />
+            {HOTEL.address}
+            <ExternalLink className="w-3 h-3 shrink-0" strokeWidth={2} />
+          </a>
+          <p className="text-ink/80 text-sm mt-1">{HOTEL.notes}</p>
+          <p className="text-sm">
+            <span className="text-ink/60">{HOTEL.nights}</span>
+            {HOTEL.pricePerNight && (
+              <>
+                <span className="text-ink/60"> · </span>
+                <span className="text-ink/80">${HOTEL.pricePerNight}/night</span>
+              </>
+            )}
+          </p>
+          <p className="text-sm">
+            <span className="text-ink/60">Block code: </span>
+            <span className="font-mono">{HOTEL.blockCode}</span>
+          </p>
+          <span className="inline-block mt-2 px-6 py-2 bg-ink/20 text-ink/40 uppercase tracking-widest text-xs rounded-full self-start cursor-not-allowed">
+            Block booking coming soon
+          </span>
+        </div>
       </div>
 
       <h2 className="mt-20 mb-2 font-script text-4xl text-burgundy text-center flex items-center justify-center gap-3">
@@ -169,7 +189,7 @@ function TransportForm() {
             data: {
               name: String(fd.get("name") ?? ""),
               email: String(fd.get("email") ?? ""),
-              hotel: HOTELS[0]?.name ?? "",
+              hotel: HOTEL.name,
               partySize: Number(fd.get("partySize") ?? 1),
               notes: String(fd.get("notes") ?? ""),
             },
@@ -211,7 +231,7 @@ function TransportForm() {
             disabled={status === "submitting"}
             className="w-full px-6 py-3 bg-burgundy text-cream uppercase tracking-widest text-sm rounded-full hover:bg-pumpkin transition-colors disabled:opacity-50"
           >
-            {status === "submitting" ? "Sending…" : "Request Transport"}
+            {status === "submitting" ? "Sending…" : "Indicate Shuttle Interest"}
           </button>
         </>
       )}

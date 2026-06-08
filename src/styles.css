@@ -46,6 +46,10 @@ body {
   isolation: isolate;
 }
 
+button, [role="button"], label[for], summary {
+  cursor: pointer;
+}
+
 /* Critters — shared properties */
 body::before,
 .critters-right {
