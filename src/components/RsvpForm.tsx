@@ -30,6 +30,11 @@ export function RsvpForm({
       setError("Let us know if you can make it.");
       return;
     }
+    const email = String(fd.get("email") ?? "").trim();
+    if (!email) {
+      setError("Please enter your email.");
+      return;
+    }
     setStatus("submitting");
     setError(null);
     const others = String(fd.get("guestNames") ?? "").trim();
@@ -102,7 +107,7 @@ export function RsvpForm({
           ))}
         </div>
 
-        <PaperLine label="Email" name="email" type="email" />
+        <PaperLine label="Email" name="email" type="email" required />
 
         {attending === "yes" && (
           <>
@@ -169,7 +174,7 @@ export function RsvpForm({
           ))}
         </div>
       </fieldset>
-      <Field label="Email" name="email" type="email" />
+      <Field label="Email" name="email" type="email" required />
       {attending === "yes" && (
         <>
           <Field label="Dietary restrictions or allergies" name="dietary" />
