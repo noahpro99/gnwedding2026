@@ -21,9 +21,11 @@ export function RsvpForm({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const primaryName = String(fd.get("primaryName") ?? "").trim();
+    const rawNames = String(fd.get("attendingNames") ?? "").trim();
+    const nameLines = rawNames.split("\n").map((n) => n.trim()).filter(Boolean);
+    const primaryName = nameLines[0] ?? "";
     if (!primaryName) {
-      setError("Please enter your name.");
+      setError("Please enter at least one name.");
       return;
     }
     if (!attending) {
@@ -37,14 +39,7 @@ export function RsvpForm({
     }
     setStatus("submitting");
     setError(null);
-    const others = String(fd.get("guestNames") ?? "").trim();
-    const guestNames = [
-      primaryName,
-      ...others
-        .split("\n")
-        .map((n) => n.trim())
-        .filter(Boolean),
-    ];
+    const guestNames = nameLines;
     try {
       await submitRsvp({
         data: {
@@ -86,8 +81,7 @@ export function RsvpForm({
   if (plain) {
     return (
       <form id="rsvp-form" className="space-y-3" onSubmit={handleSubmit}>
-        <PaperLine label="Name" name="primaryName" type="text" required />
-        <PaperArea label="Others on invite attending" name="guestNames" />
+        <PaperArea label="Attendees" name="attendingNames" />
 
         {/* Accept / Decline */}
         <div className="flex justify-center gap-8 pt-1 pb-1">
@@ -127,19 +121,12 @@ export function RsvpForm({
       className="bg-parchment border border-amber rounded-3xl p-8 space-y-5"
       onSubmit={handleSubmit}
     >
-      <Field
-        label="Your name"
-        name="primaryName"
-        type="text"
-        placeholder="First and last name"
-        required
-      />
       <label className="block">
         <span className="block uppercase tracking-widest text-xs text-ink/60 mb-1">
-          Others on invite attending
+          Attendees
         </span>
         <textarea
-          name="guestNames"
+          name="attendingNames"
           rows={3}
           placeholder="One name per line"
           className="w-full bg-cream border border-amber focus:border-burgundy rounded-lg outline-none px-3 py-2 text-ink"
