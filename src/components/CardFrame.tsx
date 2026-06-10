@@ -1,28 +1,34 @@
 import type { ReactNode } from "react";
 
-/**
- * A decorative card layout: PNG overlay (the floral / border art) sits on top
- * of a cream card. Drop your decoration PNG at /public/card-frame.png with a
- * transparent center.
- */
 export function CardFrame({
   children,
-  frameSrc = "/card-frame.png",
+  frameSrc = "/images/border.png",
 }: {
   children: ReactNode;
   frameSrc?: string;
 }) {
   return (
-    <div className="relative mx-auto w-full max-w-2xl aspect-[3/4] bg-cream rounded-3xl shadow-2xl shadow-walnut/20">
-      <div className="absolute inset-0 flex items-center justify-center p-12 md:p-16 text-center">
-        <div className="w-full">{children}</div>
-      </div>
+    <div
+      className="relative bg-parchment shadow-card rounded-sm animate-fall-in"
+      style={{
+        width: "min(90vw, calc(90svh * 5 / 7))",
+        aspectRatio: "5 / 7",
+        containerType: "inline-size",
+      }}
+    >
       <img
         src={frameSrc}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full pointer-events-none select-none"
+        style={{ objectFit: "fill", zIndex: 10, mixBlendMode: "multiply" }}
       />
+      <div
+        className="absolute inset-0 flex items-center justify-center text-center"
+        style={{ padding: "15% 17%", zIndex: 20 }}
+      >
+        <div className="w-full">{children}</div>
+      </div>
     </div>
   );
 }

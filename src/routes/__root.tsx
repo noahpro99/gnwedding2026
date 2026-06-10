@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
+  useRouterState,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { SiteNav } from "~/components/SiteNav";
@@ -59,6 +60,17 @@ function NotFound() {
 }
 
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const bare = pathname.startsWith("/invite/");
+
+  if (bare) {
+    return (
+      <RootDocument>
+        <Outlet />
+      </RootDocument>
+    );
+  }
+
   return (
     <RootDocument>
       <SiteNav />
