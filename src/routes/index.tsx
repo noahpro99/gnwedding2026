@@ -16,6 +16,9 @@ import { LeafDivider } from "~/components/LeafDivider";
 import { PhotoAlbumButton } from "~/components/PhotoAlbumButton";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [{ rel: "preload", as: "image", href: "/images/hug-edited.jpg" }],
+  }),
   component: Home,
 });
 

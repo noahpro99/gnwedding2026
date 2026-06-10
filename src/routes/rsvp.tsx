@@ -3,6 +3,12 @@ import { useState } from "react";
 import { RsvpForm } from "~/components/RsvpForm";
 
 export const Route = createFileRoute("/rsvp")({
+  head: () => ({
+    links: [
+      { rel: "preload", as: "image", href: "/images/border.png" },
+      { rel: "preload", as: "image", href: "/images/bird-letter.png" },
+    ],
+  }),
   component: Rsvp,
 });
 

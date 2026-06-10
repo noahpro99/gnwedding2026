@@ -27,6 +27,7 @@ export const Route = createRootRoute({
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/images/leaf.png", type: "image/png" },
+      { rel: "preload", as: "image", href: "/images/critters.png" },
     ],
   }),
   component: RootComponent,

@@ -2,6 +2,9 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { CardFrame } from "~/components/CardFrame";
 
 export const Route = createFileRoute("/save-the-date")({
+  head: () => ({
+    links: [{ rel: "preload", as: "image", href: "/images/border.png" }],
+  }),
   component: SaveTheDate,
 });
 

@@ -3,6 +3,9 @@ import { CardFrame } from "~/components/CardFrame";
 import { getInvite } from "~/server/rsvp";
 
 export const Route = createFileRoute("/invite/$id")({
+  head: () => ({
+    links: [{ rel: "preload", as: "image", href: "/images/border.png" }],
+  }),
   loader: async ({ params }) => {
     const invite = await getInvite({ data: { id: params.id } });
     if (!invite) throw notFound();
@@ -122,7 +125,7 @@ function InvitePage() {
           </p>
 
           <Link
-            to="/rsvp"
+            to="/"
             style={{
               marginTop: "5cqw",
               padding: "1.5cqw 6cqw",
