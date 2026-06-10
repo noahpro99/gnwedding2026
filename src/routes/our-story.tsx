@@ -6,27 +6,13 @@ export const Route = createFileRoute("/our-story")({
   component: OurStory,
 });
 
-const milestones = [
+const [howWeMet, proposal] = [
   {
     date: "Valentine's Day, 2020",
     title: "How we met",
     body: "Gwendolyn and Noah met for the first time in American Heritage Girls as Noah's sister Delia and Gwendolyn were in the same troop. They briefly met, but Gwendolyn was interested in Noah then. Years passed, and Noah came across one of Gwendolyn's drawings online and left a comment thinking it was incredible, but didn't know it was her. Years after that, in 2020, they friended each other by chance through mutual online recommendations. After a few long video chats Noah asked Gwendolyn on a date swing dancing on Valentine's Day. They clicked immediately as both were drawn to conversations about human nature and technology. After a few more dates they became a couple. They have stood by each other ever since.",
     image: "/images/us-early.webp",
     imageAlt: "Gwendolyn and Noah early in their relationship",
-  },
-  {
-    date: "Christmas 2020",
-    title: "First Christmas",
-    body: "Their first Christmas together, just months into dating.",
-    image: "/images/us-christmas.webp",
-    imageAlt: "Gwendolyn and Noah at Christmas 2020",
-  },
-  {
-    date: "Summer 2022",
-    title: "First big trip together",
-    body: "Noah and Gwendolyn's first trip together: Broadway, museums, and a lot of good food.",
-    image: "/images/new-york.webp",
-    imageAlt: "Gwendolyn and Noah in New York City",
   },
   {
     date: "May 18th, 2026",
@@ -37,35 +23,61 @@ const milestones = [
   },
 ];
 
+const photos = [
+  { src: "/images/us-christmas.webp", alt: "Gwendolyn and Noah at Christmas", caption: "Christmas 2020" },
+  { src: "/images/new-york.webp", alt: "Gwendolyn and Noah in New York City", caption: "New York 2022" },
+];
+
 function OurStory() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-20">
       <SectionHeader eyebrow="The Beginning" title="Our Story" icon={Heart} />
 
       <div className="mt-20 space-y-24">
-        {milestones.map((m, i) => (
-          <article
-            key={m.title}
-            className="grid md:grid-cols-2 gap-10 md:gap-16 items-center"
-          >
-            <div className={i % 2 === 1 ? "md:order-last" : ""}>
+        <article className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div>
+            <img
+              src={howWeMet!.image}
+              alt={howWeMet!.imageAlt}
+              className="w-full rounded-2xl shadow-card object-cover aspect-[4/5]"
+            />
+          </div>
+          <div>
+            <p className="uppercase tracking-[0.25em] text-xs text-gold mb-3">{howWeMet!.date}</p>
+            <h3 className="font-script text-4xl text-burgundy mb-4">{howWeMet!.title}</h3>
+            <p className="text-ink/80 leading-relaxed">{howWeMet!.body}</p>
+          </div>
+        </article>
+
+        <div className="grid grid-cols-2 gap-4 md:gap-8">
+          {photos.map((p) => (
+            <figure key={p.caption}>
               <img
-                src={m.image}
-                alt={m.imageAlt}
+                src={p.src}
+                alt={p.alt}
                 className="w-full rounded-2xl shadow-card object-cover aspect-[4/5]"
               />
-            </div>
-            <div>
-              <p className="uppercase tracking-[0.25em] text-xs text-gold mb-3">
-                {m.date}
-              </p>
-              <h3 className="font-script text-4xl text-burgundy mb-4">
-                {m.title}
-              </h3>
-              <p className="text-ink/80 leading-relaxed">{m.body}</p>
-            </div>
-          </article>
-        ))}
+              <figcaption className="mt-3 text-center uppercase tracking-[0.25em] text-xs text-gold">
+                {p.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <article className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div className="md:order-last">
+            <img
+              src={proposal!.image}
+              alt={proposal!.imageAlt}
+              className="w-full rounded-2xl shadow-card object-cover aspect-[4/5]"
+            />
+          </div>
+          <div>
+            <p className="uppercase tracking-[0.25em] text-xs text-gold mb-3">{proposal!.date}</p>
+            <h3 className="font-script text-4xl text-burgundy mb-4">{proposal!.title}</h3>
+            <p className="text-ink/80 leading-relaxed">{proposal!.body}</p>
+          </div>
+        </article>
       </div>
     </section>
   );

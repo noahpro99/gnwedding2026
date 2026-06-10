@@ -20,7 +20,7 @@ const PARTY: Side[] = [
   {
     title: "Bridesmaids",
     members: [
-      { name: "", role: "Maid of Honor", undisclosed: true },
+      { name: "Sophie Swannell", role: "Maid of Honor" },
       { name: "", role: "Bridesmaid", undisclosed: true },
       { name: "", role: "Bridesmaid", undisclosed: true },
       { name: "", role: "Bridesmaid", undisclosed: true },

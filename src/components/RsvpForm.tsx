@@ -81,7 +81,7 @@ export function RsvpForm({
   if (plain) {
     return (
       <form id="rsvp-form" className="space-y-3" onSubmit={handleSubmit}>
-        <PaperArea label="Attendees" name="attendingNames" />
+        <PaperArea label="List attendees here:" name="attendingNames" />
 
         {/* Accept / Decline */}
         <div className="flex justify-center gap-8 pt-1 pb-1">
@@ -123,7 +123,7 @@ export function RsvpForm({
     >
       <label className="block">
         <span className="block uppercase tracking-widest text-xs text-ink/60 mb-1">
-          Attendees
+          List attendees here:
         </span>
         <textarea
           name="attendingNames"
