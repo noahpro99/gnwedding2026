@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, ExternalLink, Gift, MapPin, X } from "lucide-react";
+import { siVenmo } from "simple-icons";
 import { useState } from "react";
 import { SectionHeader } from "~/components/SectionHeader";
 import { claimItem, listClaims, unclaimItem } from "~/server/registry";
@@ -23,6 +24,7 @@ const REGISTRY: Section[] = [
       },
       {
         name: "Silicone spatula",
+        price: 12,
         url: "https://www.amazon.com/OXO-11280300-Medium-Silicone-Spatula-Jam/dp/B08HV272BN",
       },
       {
@@ -62,6 +64,7 @@ const REGISTRY: Section[] = [
       },
       {
         name: "Shower water filter",
+        price: 90,
         url: "https://www.amazon.com/Weddell-Duo-Shower-Filter-Microplastics/dp/B0CGLZLMNP",
       },
       {
@@ -74,36 +77,76 @@ const REGISTRY: Section[] = [
         price: 13,
         url: "https://www.amazon.com/ExcelSteel-5-Quart-Stainless-Steel-Colander/dp/B00555ETXY",
       },
-      { name: "Microwave" },
-      { name: "Cutting board" },
+      {
+        name: "Microwave",
+        price: 227,
+        url: "https://www.amazon.com/GE-JVM3160RFSS-Range-Microwave-Stainless/dp/B00F2QFX5O",
+      },
+      { name: "Knife sharpener" },
     ],
   },
   {
     title: "Bath",
     items: [
-      { name: "Bath towels" },
-      { name: "Hand towels" },
-      { name: "Stone bath mat" },
-      { name: "Comforter (Gwen)" },
+      {
+        name: "Bath towels",
+        price: 39,
+        url: "https://www.amazon.com/Tens-Towels-Lighter-Absorbent-Bathroom/dp/B08LBMDRX9",
+      },
+      {
+        name: "Hand towels",
+        price: 20,
+        url: "https://www.amazon.com/Utopia-Towels-Premium-Grey-Hand/dp/B097Q2BFR1",
+      },
+      {
+        name: "Hanging shower organizer",
+        price: 22,
+        url: "https://www.amazon.com/YASONIC-Organizer-Aluminum-Bathroom-Organizers/dp/B0F5QBPKMM",
+      },
+      {
+        name: "Stone bath mat",
+        price: 25,
+        url: "https://www.amazon.com/Drvykkn-Bathroom-Non-Slip-Diatomaceous-Absorbent/dp/B0FQNJZHFP",
+      },
+      { name: "Comforter" },
       {
         name: "Cotton sheet set",
         price: 37,
         url: "https://www.amazon.com/California-Design-Den-Natural-Pockets/dp/B09X1P1L9F",
       },
-      { name: "Dish set" },
-      { name: "Utensil set" },
-      { name: "Knife set" },
-      { name: "Glasses set" },
     ],
   },
   {
     title: "Household",
     items: [
-      { name: "Air purifier" },
+      {
+        name: "Air purifier",
+        price: 85,
+        url: "https://www.amazon.com/LEVOIT-Purifier-Home-Allergies-Pets/dp/B07VVK39F7",
+      },
       { name: "Humidifier" },
       { name: "Vacuum" },
       { name: "Broom" },
-      { name: "Mop" },
+      {
+        name: "Mop",
+        price: 32,
+        url: "https://www.amazon.com/Swiffer-Hardwood-Mopping-Cleaner-Starter/dp/B07YQDD94M",
+      },
+      {
+        name: "Air mattress",
+        price: 63,
+        url: "https://www.amazon.com/Intex-64413ED-Dura-Beam-Comfort-Plush-Elevated/dp/B0869D5PZP",
+      },
+      {
+        name: "Camping chair 1",
+        price: 43,
+        url: "https://www.amazon.com/Amazon-Basics-Folding-Mesh-Back-Carrying/dp/B074YRN643",
+      },
+      {
+        name: "Camping chair 2",
+        price: 43,
+        url: "https://www.amazon.com/Amazon-Basics-Folding-Mesh-Back-Carrying/dp/B074YRN643",
+      },
     ],
   },
 ];
@@ -200,16 +243,30 @@ function ShippingAddress() {
   return (
     <div className="mt-8 flex flex-col items-center gap-3">
       <p className="text-sm text-ink/60 text-center">
-        You can also send gifts directly to us.
+        You can also send gifts directly, or donate to our fund and we'll put it toward whatever's left.
       </p>
-      <button
-        type="button"
-        onClick={copy}
-        className="inline-flex items-center gap-2 px-5 py-2 border border-burgundy text-burgundy uppercase tracking-widest text-xs rounded-full hover:bg-burgundy hover:text-cream transition-colors"
-      >
-        <MapPin className="w-3.5 h-3.5" strokeWidth={1.75} />
-        {copied ? "Copied!" : "Copy shipping address"}
-      </button>
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={copy}
+          className="inline-flex items-center gap-2 px-5 py-2 border border-burgundy text-burgundy uppercase tracking-widest text-xs rounded-full hover:bg-burgundy hover:text-cream transition-colors"
+        >
+          <MapPin className="w-3.5 h-3.5" strokeWidth={1.75} />
+          {copied ? "Copied!" : "Copy shipping address"}
+        </button>
+        <a
+          href="https://venmo.com/u/noahpro"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Venmo @noahpro"
+          className="inline-flex items-center gap-2 px-5 py-2 border border-burgundy text-burgundy uppercase tracking-widest text-xs rounded-full hover:bg-burgundy hover:text-cream transition-colors"
+        >
+          <svg role="img" viewBox="0 9 24 6" className="w-8 h-4 fill-current" aria-hidden="true">
+            <path d={siVenmo.path} />
+          </svg>
+          Donate
+        </a>
+      </div>
     </div>
   );
 }
