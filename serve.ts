@@ -30,13 +30,12 @@ Bun.serve({
         }
       }
     }
-    // SSR responses (HTML pages) — never let Cloudflare cache them so
-    // asset hash mismatches after a deploy can't happen
+    // Dynamic pages with live data must not be cached
+    const dynamic = url.pathname === '/registry' || url.pathname === '/itinerary'
     const res = await server.fetch(req)
+    if (!dynamic) return res
     const headers = new Headers(res.headers)
-    if (!headers.has('Cache-Control')) {
-      headers.set('Cache-Control', 'no-store')
-    }
+    headers.set('Cache-Control', 'no-store')
     return new Response(res.body, { status: res.status, statusText: res.statusText, headers })
   },
 })
