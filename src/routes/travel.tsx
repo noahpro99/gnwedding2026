@@ -11,11 +11,11 @@ export const Route = createFileRoute("/travel")({
 const HOTEL = {
   name: "Home2 Suites by Hilton",
   address: "1321 Rugby Lane, Blacksburg, VA 24060",
-  blockCode: "SPW",
+  blockCode: "CHTSPW",
   phone: "800-445-8667",
   localPhone: "540-726-4242",
   bookingUrl:
-    "https://www.hilton.com/en/book/reservation/rooms/?ctyhocn=ROABBHT&arrivalDate=2026-10-24&departureDate=2026-10-26&groupCode=SPW&room1NumAdults=2",
+    "https://www.hilton.com/en/book/reservation/rooms/?ctyhocn=ROABBHT&arrivalDate=2026-10-22&departureDate=2026-10-26&groupCode=CHTSPW&room1NumAdults=1",
   mapsUrl: "https://maps.app.goo.gl/1G9qu1cFqdc14EVa8",
   notes:
     "Suites with mini kitchens. A good option if you plan to pick up groceries at the nearby Kroger.",
