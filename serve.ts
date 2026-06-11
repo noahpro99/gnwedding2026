@@ -23,11 +23,21 @@ Bun.serve({
       if (candidate.startsWith(CLIENT_DIR + '/') || candidate === CLIENT_DIR) {
         const file = Bun.file(candidate)
         if (await file.exists()) {
-          return new Response(file)
+          // Hashed assets are immutable — cache aggressively
+          return new Response(file, {
+            headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+          })
         }
       }
     }
-    return server.fetch(req)
+    // SSR responses (HTML pages) — never let Cloudflare cache them so
+    // asset hash mismatches after a deploy can't happen
+    const res = await server.fetch(req)
+    const headers = new Headers(res.headers)
+    if (!headers.has('Cache-Control')) {
+      headers.set('Cache-Control', 'no-store')
+    }
+    return new Response(res.body, { status: res.status, statusText: res.statusText, headers })
   },
 })
 
