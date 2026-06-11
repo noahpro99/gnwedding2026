@@ -10,14 +10,19 @@ export const Route = createFileRoute("/travel")({
 
 const HOTEL = {
   name: "Home2 Suites by Hilton",
-  address: "1321 Rugby Ln, Blacksburg, VA 24060",
-  blockCode: "TBD",
-  bookingUrl: "https://www.hilton.com/en/brands/home2-suites/",
+  address: "1321 Rugby Lane, Blacksburg, VA 24060",
+  blockCode: "SPW",
+  phone: "800-445-8667",
+  localPhone: "540-726-4242",
+  bookingUrl:
+    "https://www.hilton.com/en/book/reservation/rooms/?ctyhocn=ROABBHT&arrivalDate=2026-10-24&departureDate=2026-10-26&groupCode=SPW&room1NumAdults=2",
   mapsUrl: "https://maps.app.goo.gl/1G9qu1cFqdc14EVa8",
   notes:
-    "Suites with mini kitchens (plates, pots, pans). A good option if you plan to pick up groceries at the nearby Kroger. Block details coming soon.",
-  nights: "Block: night of 10/24 + night of 10/25",
+    "Suites with mini kitchens. A good option if you plan to pick up groceries at the nearby Kroger.",
+  nights: "Oct 23, 24 & 25",
   pricePerNight: 115,
+  includes: ["Hot breakfast", "Parking", "Wi-Fi"],
+  cutoff: "October 1, 2026",
 };
 
 const AIRPORTS = [
@@ -49,8 +54,8 @@ function Travel() {
           The wedding is on <strong>Sunday, October 25, 2026</strong> at
           Beliveau Farm Winery in Virginia, with the ceremony at{" "}
           <strong>3:00 PM</strong>. We've blocked rooms at the hotel below for
-          the nights of <strong>October 24</strong> and{" "}
-          <strong>October 25</strong> so you can arrive early and stay over.
+          the nights of <strong>October 23, 24, and 25</strong> so you can
+          arrive early and stay over.
         </p>
       </SectionHeader>
 
@@ -109,23 +114,41 @@ function Travel() {
             {HOTEL.address}
             <ExternalLink className="w-3 h-3 shrink-0" strokeWidth={2} />
           </a>
-          <p className="text-ink/80 text-sm mt-1">{HOTEL.notes}</p>
+          <p className="text-ink/80 text-sm">{HOTEL.notes}</p>
           <p className="text-sm">
-            <span className="text-ink/60">{HOTEL.nights}</span>
-            {HOTEL.pricePerNight && (
-              <>
-                <span className="text-ink/60"> · </span>
-                <span className="text-ink/80">${HOTEL.pricePerNight}/night</span>
-              </>
-            )}
+            <span className="text-ink/60">Nights available: </span>
+            <span className="text-ink/80">{HOTEL.nights}</span>
           </p>
           <p className="text-sm">
-            <span className="text-ink/60">Block code: </span>
-            <span className="font-mono">{HOTEL.blockCode}</span>
+            <span className="text-ink/60">Room types: </span>
+            <span className="text-ink/80">1 King or 2 Queens · ${HOTEL.pricePerNight}/night</span>
           </p>
-          <span className="inline-block mt-2 px-6 py-2 bg-ink/20 text-ink/40 uppercase tracking-widest text-xs rounded-full self-start cursor-not-allowed">
-            Block booking coming soon
-          </span>
+          <p className="text-sm">
+            <span className="text-ink/60">Includes: </span>
+            <span className="text-ink/80">{HOTEL.includes.join(", ")}</span>
+          </p>
+          <div className="border-t border-amber/40 pt-3 mt-1 space-y-2">
+            <p className="text-sm">
+              <span className="text-ink/60">Group code: </span>
+              <span className="font-mono font-semibold tracking-wider">{HOTEL.blockCode}</span>
+            </p>
+            <a
+              href={HOTEL.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-burgundy text-cream uppercase tracking-widest text-xs rounded-full hover:bg-pumpkin transition-colors"
+            >
+              Book on Hilton.com
+              <ExternalLink className="w-3 h-3" strokeWidth={2} />
+            </a>
+            <p className="text-ink/60 text-xs mt-1">
+              Or call{" "}
+              <a href={`tel:${HOTEL.phone}`} className="hover:underline">{HOTEL.phone}</a>
+              {" · "}
+              <a href={`tel:${HOTEL.localPhone}`} className="hover:underline">{HOTEL.localPhone}</a>
+            </p>
+            <p className="text-ink/50 text-xs">Group rate applied automatically · Block expires {HOTEL.cutoff} · 48-hr cancellation</p>
+          </div>
         </div>
       </div>
 
