@@ -114,6 +114,11 @@ const REGISTRY: Section[] = [
         price: 37,
         url: "https://www.amazon.com/California-Design-Den-Natural-Pockets/dp/B09X1P1L9F",
       },
+      {
+        name: "Bidet",
+        price: 39,
+        url: "https://www.amazon.com/dp/B00JG2DETM",
+      },
     ],
   },
   {
