@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { PhotoAlbumButton } from "~/components/PhotoAlbumButton";
 import { RsvpForm } from "~/components/RsvpForm";
 
 export const Route = createFileRoute("/rsvp")({
@@ -39,12 +40,20 @@ function Rsvp() {
           {phase === "gone" ? (
             /* Confirmation text — same footprint as the card */
             <div
-              className="w-full flex items-center justify-center animate-fade-in-up"
+              className="w-full flex flex-col items-center justify-center gap-6 animate-fade-in-up"
               style={{ aspectRatio: "2 / 3" }}
             >
               <p className="font-script text-3xl text-burgundy text-center leading-snug italic px-8">
                 {confirmMsg}
               </p>
+              {attendingResult === "yes" && (
+                <div className="flex flex-col items-center gap-3 px-8 text-center">
+                  <p className="text-xs uppercase tracking-widest text-olive">
+                    Don't forget to join the group photo album!
+                  </p>
+                  <PhotoAlbumButton label="Join Photo Album" />
+                </div>
+              )}
             </div>
           ) : (
             /* Paper card */
