@@ -112,6 +112,24 @@ export const requestTransport = createServerFn({ method: "POST" })
         data.notes ?? null,
       ],
     );
+
+    const webhook = process.env.DISCORD_WEBHOOK_URL;
+    if (webhook) {
+      const lines = [
+        `🚌 **Shuttle Request — ${data.name}**`,
+        `Hotel: ${data.hotel}`,
+        `Party size: ${data.partySize}`,
+        data.email ? `Email: ${data.email}` : null,
+        data.notes ? `Notes: ${data.notes}` : null,
+      ].filter(Boolean).join("\n");
+
+      await fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: lines }),
+      }).catch(() => {});
+    }
+
     return { ok: true as const };
   });
 
