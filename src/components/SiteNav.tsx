@@ -10,6 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { NotificationBell } from "~/components/NotificationBell";
 
 const navLinks: { to: string; label: string; icon: LucideIcon }[] = [
   { to: "/our-story", label: "Our Story", icon: Heart },
@@ -49,11 +50,13 @@ export function SiteNav() {
         >
           G &amp; N
         </Link>
-        <button
-          aria-label="Toggle menu"
-          className="flex flex-1 items-center justify-end px-5 h-full text-burgundy"
-          onClick={() => setOpen((v) => !v)}
-        >
+        <div className="flex flex-1 items-center justify-end gap-1 pr-2">
+          <NotificationBell />
+          <button
+            aria-label="Toggle menu"
+            className="flex items-center px-3 h-full text-burgundy"
+            onClick={() => setOpen((v) => !v)}
+          >
           {open ? (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
@@ -73,7 +76,8 @@ export function SiteNav() {
               />
             </svg>
           )}
-        </button>
+          </button>
+        </div>
       </div>
 
       {/* Desktop top bar */}
@@ -82,21 +86,26 @@ export function SiteNav() {
           G &amp; N
         </Link>
 
-        <nav className="flex items-stretch text-sm uppercase tracking-widest">
-          {navLinks.map(({ to, label, icon: Icon }) => (
-            <Link
-              key={to}
-              to={to}
-              className="group flex items-center px-3 text-ink/70 hover:text-burgundy transition-colors"
-              activeProps={{ className: "group flex items-center px-3 text-burgundy is-active" }}
-            >
-              <span className="flex items-center gap-1.5 border-b border-transparent group-[.is-active]:border-burgundy pb-px">
-                <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
-                {label}
-              </span>
-            </Link>
-          ))}
-        </nav>
+        <div className="flex items-stretch gap-2">
+          <nav className="flex items-stretch text-sm uppercase tracking-widest">
+            {navLinks.map(({ to, label, icon: Icon }) => (
+              <Link
+                key={to}
+                to={to}
+                className="group flex items-center px-3 text-ink/70 hover:text-burgundy transition-colors"
+                activeProps={{ className: "group flex items-center px-3 text-burgundy is-active" }}
+              >
+                <span className="flex items-center gap-1.5 border-b border-transparent group-[.is-active]:border-burgundy pb-px">
+                  <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
+                  {label}
+                </span>
+              </Link>
+            ))}
+          </nav>
+          <div className="flex items-center pl-2 border-l border-amber/40">
+            <NotificationBell />
+          </div>
+        </div>
       </div>
 
       {open && (
