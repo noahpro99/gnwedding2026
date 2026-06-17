@@ -76,11 +76,12 @@ export function NotificationBell() {
     return () => document.removeEventListener("mousedown", handler);
   }, [open]);
 
-  if (!mounted) return null;
-
-  const unreadCount = notifications.filter((n) => !readIds.has(String(n.id))).length;
+  const unreadCount = mounted
+    ? notifications.filter((n) => !readIds.has(String(n.id))).length
+    : 0;
 
   function handleToggle() {
+    if (!mounted) return;
     const opening = !open;
     setOpen(opening);
     if (opening) {
@@ -110,7 +111,7 @@ export function NotificationBell() {
         )}
       </button>
 
-      {open && (
+      {mounted && open && (
         <div className="absolute right-0 top-full mt-2 w-80 bg-cream rounded-2xl shadow-[0_8px_40px_rgba(92,58,34,0.18)] border border-amber/40 z-50 overflow-hidden">
           <div className="px-4 py-3 border-b border-amber/30">
             <p className="text-[10px] uppercase tracking-[0.35em] text-gold">Updates</p>
