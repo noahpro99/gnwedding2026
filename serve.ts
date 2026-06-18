@@ -23,13 +23,9 @@ Bun.serve({
       if (candidate.startsWith(CLIENT_DIR + '/') || candidate === CLIENT_DIR) {
         const file = Bun.file(candidate)
         if (await file.exists()) {
-          // Vite hashes JS/CSS bundles — cache forever. Images/fonts keep the
-          // same name across deploys so use a short TTL instead.
-          const isHashed = url.pathname.startsWith('/assets/')
-          const cc = isHashed
-            ? 'public, max-age=31536000, immutable'
-            : 'public, max-age=3600'
-          return new Response(file, { headers: { 'Cache-Control': cc } })
+          return new Response(file, {
+            headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+          })
         }
       }
     }
