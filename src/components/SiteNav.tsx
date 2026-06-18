@@ -59,15 +59,14 @@ export function SiteNav() {
         >
           G &amp; N
         </Link>
-        <div
-          className="flex flex-1 items-center justify-end gap-1 pr-2"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <NotificationBell />
+        <div className="flex flex-1 items-center justify-end gap-1 pr-2">
+          <span onClick={(e) => e.stopPropagation()}>
+            <NotificationBell />
+          </span>
           <button
             aria-label="Toggle menu"
             className="flex items-center px-3 h-full text-burgundy"
-            onClick={() => setOpen((v) => !v)}
+            onClick={(e) => { e.stopPropagation(); setOpen((v) => !v); }}
           >
           {open ? (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
