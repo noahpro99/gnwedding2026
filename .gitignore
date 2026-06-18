@@ -12,3 +12,5 @@ data/
 *.sqlite-journal
 src/routeTree.gen.ts
 .DS_Store
+public/images/*.png
+public/images/*.jpg
