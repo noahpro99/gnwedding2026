@@ -47,15 +47,22 @@ export function SiteNav() {
       ref={headerRef}
       className="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-amber shadow-[0_2px_24px_rgba(92,58,34,0.09)]"
     >
-      {/* Mobile top bar */}
-      <div className="flex md:hidden h-14">
+      {/* Mobile top bar — clicking empty space toggles menu */}
+      <div
+        className="flex md:hidden h-14 cursor-pointer"
+        onClick={() => setOpen((v) => !v)}
+      >
         <Link
           to="/"
           className="flex items-center pl-5 pr-6 h-full font-script text-3xl text-burgundy"
+          onClick={(e) => e.stopPropagation()}
         >
           G &amp; N
         </Link>
-        <div className="flex flex-1 items-center justify-end gap-1 pr-2">
+        <div
+          className="flex flex-1 items-center justify-end gap-1 pr-2"
+          onClick={(e) => e.stopPropagation()}
+        >
           <NotificationBell />
           <button
             aria-label="Toggle menu"
@@ -132,8 +139,11 @@ export function SiteNav() {
         </div>
       </div>
 
-      {open && (
-        <nav className="md:hidden border-t border-amber bg-cream">
+      {/* Mobile menu — always rendered, animated with grid collapse */}
+      <div
+        className={`grid md:hidden transition-[grid-template-rows] duration-300 ease-in-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+      >
+        <nav className="overflow-hidden border-t border-amber bg-cream">
           <div className="px-6 py-4 flex flex-col gap-3 text-sm uppercase tracking-widest">
             {navLinks.map((link) => {
               const { label, icon: Icon } = link;
@@ -144,7 +154,7 @@ export function SiteNav() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy"
+                    className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy transition-colors"
                     onClick={() => setOpen(false)}
                   >
                     <Icon className="w-4 h-4" strokeWidth={1.75} />
@@ -156,7 +166,7 @@ export function SiteNav() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy"
+                  className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy transition-colors"
                   activeProps={{ className: "flex items-center gap-2.5 text-burgundy font-medium" }}
                   onClick={() => setOpen(false)}
                 >
@@ -167,7 +177,7 @@ export function SiteNav() {
             })}
           </div>
         </nav>
-      )}
+      </div>
     </header>
   );
 }
