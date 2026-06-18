@@ -4,20 +4,25 @@ import {
   Gift,
   Heart,
   HelpCircle,
+  Images,
   Mail,
   Plane,
   Users,
-  type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { NotificationBell } from "~/components/NotificationBell";
 
-const navLinks: { to: string; label: string; icon: LucideIcon }[] = [
+type NavLink =
+  | { to: string; href?: never; label: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }> }
+  | { to?: never; href: string; label: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }> };
+
+const navLinks: NavLink[] = [
   { to: "/our-story", label: "Our Story", icon: Heart },
   { to: "/travel", label: "Travel", icon: Plane },
   { to: "/itinerary", label: "Itinerary", icon: Calendar },
   { to: "/wedding-party", label: "Wedding Party", icon: Users },
   { to: "/registry", label: "Registry", icon: Gift },
+  { href: "https://photos.app.goo.gl/y36aLTqf3mL31vHx9", label: "Photos", icon: Images },
   { to: "/faq", label: "FAQ", icon: HelpCircle },
   { to: "/rsvp", label: "RSVP", icon: Mail },
 ];
@@ -86,23 +91,42 @@ export function SiteNav() {
           G &amp; N
         </Link>
 
-        <div className="flex items-stretch gap-2">
+        <div className="flex items-stretch">
           <nav className="flex items-stretch text-sm uppercase tracking-widest">
-            {navLinks.map(({ to, label, icon: Icon }) => (
-              <Link
-                key={to}
-                to={to}
-                className="group flex items-center px-3 text-ink/70 hover:text-burgundy transition-colors"
-                activeProps={{ className: "group flex items-center px-3 text-burgundy is-active" }}
-              >
+            {navLinks.map((link) => {
+              const { label, icon: Icon } = link;
+              const inner = (
                 <span className="flex items-center gap-1.5 border-b border-transparent group-[.is-active]:border-burgundy pb-px">
                   <Icon className="w-3.5 h-3.5" strokeWidth={1.75} />
                   {label}
                 </span>
-              </Link>
-            ))}
+              );
+              if (link.href) {
+                return (
+                  <a
+                    key={label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center px-3 text-ink/70 hover:text-burgundy transition-colors"
+                  >
+                    {inner}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="group flex items-center px-3 text-ink/70 hover:text-burgundy transition-colors"
+                  activeProps={{ className: "group flex items-center px-3 text-burgundy is-active" }}
+                >
+                  {inner}
+                </Link>
+              );
+            })}
           </nav>
-          <div className="flex items-center pl-2 border-l border-amber/40">
+          <div className="flex items-center pl-2">
             <NotificationBell />
           </div>
         </div>
@@ -111,18 +135,36 @@ export function SiteNav() {
       {open && (
         <nav className="md:hidden border-t border-amber bg-cream">
           <div className="px-6 py-4 flex flex-col gap-3 text-sm uppercase tracking-widest">
-            {navLinks.map(({ to, label, icon: Icon }) => (
-              <Link
-                key={to}
-                to={to}
-                className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy"
-                activeProps={{ className: "flex items-center gap-2.5 text-burgundy font-medium" }}
-                onClick={() => setOpen(false)}
-              >
-                <Icon className="w-4 h-4" strokeWidth={1.75} />
-                {label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const { label, icon: Icon } = link;
+              if (link.href) {
+                return (
+                  <a
+                    key={label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy"
+                    onClick={() => setOpen(false)}
+                  >
+                    <Icon className="w-4 h-4" strokeWidth={1.75} />
+                    {label}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="flex items-center gap-2.5 text-ink/70 hover:text-burgundy"
+                  activeProps={{ className: "flex items-center gap-2.5 text-burgundy font-medium" }}
+                  onClick={() => setOpen(false)}
+                >
+                  <Icon className="w-4 h-4" strokeWidth={1.75} />
+                  {label}
+                </Link>
+              );
+            })}
           </div>
         </nav>
       )}
