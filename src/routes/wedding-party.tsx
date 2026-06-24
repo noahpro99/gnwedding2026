@@ -49,7 +49,12 @@ const PARTY: Side[] = [
       },
       { name: "Delia Provenzano", role: "Bridesmaid", headshot: "/images/delia.webp", together: "/images/gwen-delia.webp" },
       { name: "Cora Chapman", role: "Bridesmaid" },
-      { name: "Shirin Mohammedian", role: "Bridesmaid" },
+      {
+        name: "Shirin Mohammedian",
+        role: "Bridesmaid",
+        blurb:
+          "Gwendolyn met Shirin during a summer internship at a science lab in college and they have been friends ever since.",
+      },
     ],
   },
   {
