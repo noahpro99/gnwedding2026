@@ -46,6 +46,7 @@ export const createNotification = createServerFn({ method: "POST" })
       title: String(d.title ?? "").trim(),
       body: String(d.body ?? "").trim(),
       password: String(d.password ?? ""),
+      silent: Boolean(d.silent),
     };
   })
   .handler(async ({ data }) => {
@@ -57,8 +58,10 @@ export const createNotification = createServerFn({ method: "POST" })
 
     db.run(`INSERT INTO notifications (title, body) VALUES (?, ?)`, [data.title, data.body]);
 
-    await sendWebPushes(data.title, data.body);
-    await sendEmails(data.title, data.body);
+    if (!data.silent) {
+      await sendWebPushes(data.title, data.body);
+      await sendEmails(data.title, data.body);
+    }
 
     return { ok: true as const };
   });

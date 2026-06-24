@@ -30,12 +30,11 @@ function AdminPage() {
     try { sessionStorage.setItem("admin-pw", pw); } catch {}
   }
 
-  async function handleSend(e: React.FormEvent) {
-    e.preventDefault();
+  async function submit(silent: boolean) {
     setStatus("sending");
     setError("");
     try {
-      await createNotification({ data: { title, body, password } });
+      await createNotification({ data: { title, body, password, silent } });
       setTitle("");
       setBody("");
       setStatus("sent");
@@ -53,7 +52,7 @@ function AdminPage() {
       <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">Admin</p>
       <h1 className="font-script text-5xl text-burgundy mb-10">Send Update</h1>
 
-      <form onSubmit={handleSend} className="flex flex-col gap-4 mb-14">
+      <form onSubmit={(e) => { e.preventDefault(); submit(false); }} className="flex flex-col gap-4 mb-14">
         <input
           type="password"
           placeholder="Admin password"
@@ -79,17 +78,23 @@ function AdminPage() {
           required
         />
         {error && <p className="text-red-700 text-sm">{error}</p>}
-        <button
-          type="submit"
-          disabled={status === "sending"}
-          className="self-start px-8 py-3 bg-burgundy text-cream uppercase tracking-widest text-sm rounded-full hover:bg-pumpkin transition-colors disabled:opacity-50"
-        >
-          {status === "sending"
-            ? "Sending…"
-            : status === "sent"
-              ? "Sent!"
-              : "Send to Everyone"}
-        </button>
+        <div className="flex gap-3 flex-wrap">
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="px-8 py-3 bg-burgundy text-cream uppercase tracking-widest text-sm rounded-full hover:bg-pumpkin transition-colors disabled:opacity-50"
+          >
+            {status === "sending" ? "Sending…" : status === "sent" ? "Sent!" : "Send to Everyone"}
+          </button>
+          <button
+            type="button"
+            disabled={status === "sending"}
+            onClick={() => submit(true)}
+            className="px-8 py-3 border border-burgundy text-burgundy uppercase tracking-widest text-sm rounded-full hover:bg-burgundy hover:text-cream transition-colors disabled:opacity-50"
+          >
+            {status === "sending" ? "Saving…" : status === "sent" ? "Saved!" : "Add to Page Only"}
+          </button>
+        </div>
       </form>
 
       {notifications.length > 0 && (
