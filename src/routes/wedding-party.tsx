@@ -23,6 +23,10 @@ const PARTY: Side[] = [
       {
         name: "Gwendolyn Swannell",
         role: "Bride",
+        headshot: "/images/gwen.webp",
+        together: "/images/gwen-2.webp",
+        blurb:
+          "Gwendolyn was born in Blacksburg and has lived here her whole life. She spends most of her time laughing, making art, and philosophising. After graduating with her degree in cognitive neuroscience in 2024 she pursued a career combining her two favorite things: art and science.",
       },
       {
         name: "Noah Provenzano",
@@ -39,8 +43,8 @@ const PARTY: Side[] = [
     members: [
       { name: "Sophie Swannell", role: "Maid of Honor" },
       { name: "Delia Provenzano", role: "Bridesmaid", headshot: "/images/delia.webp", together: "/images/gwen-delia.webp" },
-      { name: "", role: "Bridesmaid", undisclosed: true },
-      { name: "", role: "Bridesmaid", undisclosed: true },
+      { name: "Cora Chapman", role: "Bridesmaid" },
+      { name: "Shirin Mohammedian", role: "Bridesmaid" },
     ],
   },
   {
@@ -60,7 +64,7 @@ const PARTY: Side[] = [
         headshot: "/images/seth.webp",
         together: "/images/seth-noah.webp",
         blurb:
-          "Seth is Noah's brother and oldest friend. They grew up together in Blacksburg, homeschooled, danced, and both earned their Eagle Scout along the way. From childhood through every season since, they have been there for each other without question. Seth is currently studying business and cybersecurity at Virginia Tech and plans to become a pilot after graduation.",
+          "Seth is Noah's brother and longest friend. They grew up together in Blacksburg, homeschooled, danced, and both earned their Eagle Scout along the way. From childhood through every season since, they have been there for each other without question. Seth is currently studying business and cybersecurity at Virginia Tech and plans to become a pilot after graduation.",
       },
       {
         name: "Rituraj Sharma",
