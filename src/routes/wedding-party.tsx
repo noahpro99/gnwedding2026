@@ -41,7 +41,12 @@ const PARTY: Side[] = [
   {
     title: "Bridesmaids",
     members: [
-      { name: "Sophie Swannell", role: "Maid of Honor" },
+      {
+        name: "Sophie Swannell",
+        role: "Maid of Honor",
+        blurb:
+          "Sophie and Gwendolyn are sisters with a fat juicy 7 year age gap, but that hasn't stopped them from bonding over memes, music, and endless conversation.",
+      },
       { name: "Delia Provenzano", role: "Bridesmaid", headshot: "/images/delia.webp", together: "/images/gwen-delia.webp" },
       { name: "Cora Chapman", role: "Bridesmaid" },
       { name: "Shirin Mohammedian", role: "Bridesmaid" },
