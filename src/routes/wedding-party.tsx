@@ -45,7 +45,14 @@ const PARTY: Side[] = [
         blurb:
           "Seth is Noah's brother and oldest friend. They grew up together in Blacksburg, homeschooled, danced, and both earned their Eagle Scout along the way. From childhood through every season since, they have been there for each other without question. Seth is currently studying business and cybersecurity at Virginia Tech and plans to become a pilot after graduation.",
       },
-      { name: "", role: "Groomsman", undisclosed: true },
+      {
+        name: "Rituraj Sharma",
+        role: "Groomsman",
+        headshot: "/images/noah-rituraj.webp",
+        together: "/images/noah-rituraj2.webp",
+        blurb:
+          "Noah and Rituraj met at a hackathon at VT and were in the same major. Since then they have participated in many hackathons and projects together, including uncovercardgame.com and InVenture Prize on PBS. They have been roommates and are currently working at the same research lab at VT under Dr. Vu. They play pickleball, poker, and hang out regularly.",
+      },
       { name: "", role: "Groomsman", undisclosed: true },
     ],
   },
