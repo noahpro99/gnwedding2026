@@ -34,7 +34,7 @@ const PARTY: Side[] = [
         headshot: "/images/noah.webp",
         together: "/images/noah-2.webp",
         blurb:
-          "Noah moved to Blacksburg, VA in December 2011 and was homeschooled through middle and high school. He earned his Eagle Scout and danced as the Prince in many ballet Nutcracker productions. He double majored in Computer Science and Physics at Virginia Tech, graduating in 2024. Noah is now a PhD student studying LLM reasoning techniques at VT under Dr. Vu.",
+          "Noah moved to Blacksburg, VA in December 2011 and was homeschooled through middle and high school. He earned his Eagle Scout and double majored in Computer Science and Physics at Virginia Tech, graduating in 2024. Noah is now a PhD student studying LLM reasoning techniques at VT under Dr. Vu.",
       },
     ],
   },
