@@ -53,7 +53,7 @@ const PARTY: Side[] = [
         name: "Shirin Mohammedian",
         role: "Bridesmaid",
         blurb:
-          "Gwendolyn met Shirin during a summer internship at a science lab in college and they have been friends ever since.",
+          "Gwendolyn met Shirin during a summer internship at a science lab while studying at Virginia Tech and they have been friends ever since. Shirin is currently pursuing a PhD in clinical psychology at Binghamton University.",
       },
     ],
   },
