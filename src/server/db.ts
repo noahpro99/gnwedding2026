@@ -52,9 +52,15 @@ db.run(`
 
 try {
   db.run(`ALTER TABLE rsvps ADD COLUMN guest_names TEXT;`);
-} catch {
-  // column already exists
-}
+} catch {}
+
+try {
+  db.run(`ALTER TABLE notifications ADD COLUMN push_sent INTEGER NOT NULL DEFAULT 0;`);
+} catch {}
+
+try {
+  db.run(`ALTER TABLE notifications ADD COLUMN email_sent INTEGER NOT NULL DEFAULT 0;`);
+} catch {}
 
 db.run(`
   CREATE TABLE IF NOT EXISTS registry_claims (

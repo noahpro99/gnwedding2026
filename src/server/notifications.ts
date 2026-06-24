@@ -8,11 +8,13 @@ export type Notification = {
   title: string;
   body: string;
   created_at: string;
+  push_sent: number;
+  email_sent: number;
 };
 
 export const getNotifications = createServerFn({ method: "GET" }).handler(async () => {
   const notifications = db
-    .query("SELECT id, title, body, created_at FROM notifications ORDER BY created_at DESC")
+    .query("SELECT id, title, body, created_at, push_sent, email_sent FROM notifications ORDER BY created_at DESC")
     .all() as Notification[];
   return {
     notifications,
@@ -46,7 +48,7 @@ export const createNotification = createServerFn({ method: "POST" })
       title: String(d.title ?? "").trim(),
       body: String(d.body ?? "").trim(),
       password: String(d.password ?? ""),
-      silent: Boolean(d.silent),
+      mode: String(d.mode ?? "all") as "all" | "push" | "silent",
     };
   })
   .handler(async ({ data }) => {
@@ -56,21 +58,29 @@ export const createNotification = createServerFn({ method: "POST" })
     if (!data.title) throw new Error("Title is required");
     if (!data.body) throw new Error("Message is required");
 
-    db.run(`INSERT INTO notifications (title, body) VALUES (?, ?)`, [data.title, data.body]);
+    const result = db.run(`INSERT INTO notifications (title, body) VALUES (?, ?)`, [data.title, data.body]);
+    const id = result.lastInsertRowid;
 
-    if (!data.silent) {
-      await sendWebPushes(data.title, data.body);
-      await sendEmails(data.title, data.body);
+    let pushCount = 0;
+    let emailCount = 0;
+
+    if (data.mode === "all" || data.mode === "push") {
+      pushCount = await sendWebPushes(data.title, data.body);
     }
+    if (data.mode === "all") {
+      emailCount = await sendEmails(data.title, data.body);
+    }
+
+    db.run(`UPDATE notifications SET push_sent = ?, email_sent = ? WHERE id = ?`, [pushCount, emailCount, id]);
 
     return { ok: true as const };
   });
 
-async function sendWebPushes(title: string, body: string) {
+async function sendWebPushes(title: string, body: string): Promise<number> {
   const pubKey = process.env.VAPID_PUBLIC_KEY;
   const privKey = process.env.VAPID_PRIVATE_KEY;
   const subject = process.env.VAPID_SUBJECT ?? "mailto:noreply@gnwedding2026.com";
-  if (!pubKey || !privKey) return;
+  if (!pubKey || !privKey) return 0;
 
   webpush.setVapidDetails(subject, pubKey, privKey);
   const subs = db
@@ -78,6 +88,7 @@ async function sendWebPushes(title: string, body: string) {
     .all() as { endpoint: string; auth: string; p256dh: string }[];
 
   const expired: string[] = [];
+  let sent = 0;
   await Promise.allSettled(
     subs.map(async (sub) => {
       try {
@@ -85,6 +96,7 @@ async function sendWebPushes(title: string, body: string) {
           { endpoint: sub.endpoint, keys: { auth: sub.auth, p256dh: sub.p256dh } },
           JSON.stringify({ title, body }),
         );
+        sent++;
       } catch (err: any) {
         if (err?.statusCode === 410 || err?.statusCode === 404) {
           expired.push(sub.endpoint);
@@ -95,12 +107,13 @@ async function sendWebPushes(title: string, body: string) {
   for (const ep of expired) {
     db.run("DELETE FROM push_subscriptions WHERE endpoint = ?", [ep]);
   }
+  return sent;
 }
 
-async function sendEmails(title: string, body: string) {
+async function sendEmails(title: string, body: string): Promise<number> {
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
-  if (!smtpUser || !smtpPass) return;
+  if (!smtpUser || !smtpPass) return 0;
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -124,7 +137,7 @@ async function sendEmails(title: string, body: string) {
     </div>
   `;
 
-  await Promise.allSettled(
+  const results = await Promise.allSettled(
     guests.map((g) =>
       transporter.sendMail({
         from: `"Gwendolyn & Noah" <${smtpUser}>`,
@@ -134,4 +147,5 @@ async function sendEmails(title: string, body: string) {
       }),
     ),
   );
+  return results.filter((r) => r.status === "fulfilled").length;
 }
