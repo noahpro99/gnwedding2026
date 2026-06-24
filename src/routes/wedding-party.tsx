@@ -18,6 +18,23 @@ type Side = { title: string; members: Member[] };
 
 const PARTY: Side[] = [
   {
+    title: "The Couple",
+    members: [
+      {
+        name: "Gwendolyn Swannell",
+        role: "Bride",
+      },
+      {
+        name: "Noah Provenzano",
+        role: "Groom",
+        headshot: "/images/noah.webp",
+        together: "/images/noah-2.webp",
+        blurb:
+          "Noah moved to Blacksburg, VA in December 2011 and was homeschooled through middle and high school. He earned his Eagle Scout and danced as the Prince in many ballet Nutcracker productions. He double majored in Computer Science and Physics at Virginia Tech, graduating in 2024. Noah is now a PhD student studying LLM reasoning techniques at VT under Dr. Vu.",
+      },
+    ],
+  },
+  {
     title: "Bridesmaids",
     members: [
       { name: "Sophie Swannell", role: "Maid of Honor" },
