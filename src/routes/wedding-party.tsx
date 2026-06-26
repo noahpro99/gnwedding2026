@@ -44,6 +44,8 @@ const PARTY: Side[] = [
       {
         name: "Sophie Swannell",
         role: "Maid of Honor",
+        headshot: "/images/sophie.webp",
+        together: "/images/gwen-sophie.webp",
         blurb:
           "Sophie and Gwendolyn are sisters with a fat juicy 7 year age gap, but that hasn't stopped them from bonding over memes, music, and endless conversation.",
       },
