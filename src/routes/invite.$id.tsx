@@ -26,6 +26,20 @@ export const Route = createFileRoute("/invite/$id")({
   ),
 });
 
+function formatGuestNames(guestNames: string): string[] {
+  const parts = guestNames.replace(/ & /g, ", ").split(", ");
+  const last = parts[parts.length - 1];
+  const plusMatch = last.match(/^(\d+) Guests?$/i);
+  if (last === "Guest") {
+    parts.pop();
+    parts[parts.length - 1] += " +1";
+  } else if (plusMatch) {
+    parts.pop();
+    parts[parts.length - 1] += ` +${plusMatch[1]}`;
+  }
+  return parts;
+}
+
 function InvitePage() {
   const { invite } = Route.useLoaderData();
 
@@ -93,10 +107,7 @@ function InvitePage() {
               gap: "0.6cqw",
             }}
           >
-            {invite.guest_names
-              .replace(/ & /g, ", ")
-              .split(", ")
-              .map((name, i) => (
+            {formatGuestNames(invite.guest_names).map((line, i) => (
                 <p
                   key={i}
                   style={{
@@ -105,7 +116,7 @@ function InvitePage() {
                     lineHeight: 1.4,
                   }}
                 >
-                  {name}
+                  {line}
                 </p>
               ))}
           </div>
