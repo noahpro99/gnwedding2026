@@ -85,16 +85,30 @@ function InvitePage() {
             }}
           />
 
-          <p
+          <div
             style={{
-              fontSize: "3.8cqw",
-              color: "color-mix(in srgb, var(--color-ink) 85%, transparent)",
-              lineHeight: 1.6,
-              whiteSpace: "pre-line",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.6cqw",
             }}
           >
-            {invite.guest_names}
-          </p>
+            {invite.guest_names
+              .replace(/ & /g, ", ")
+              .split(", ")
+              .map((name, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontSize: "3.8cqw",
+                    color: "color-mix(in srgb, var(--color-ink) 85%, transparent)",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {name}
+                </p>
+              ))}
+          </div>
 
           <div
             style={{
