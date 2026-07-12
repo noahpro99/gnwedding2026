@@ -63,6 +63,7 @@ export const submitRsvp = createServerFn({ method: "POST" })
         data.email ? `Email: ${data.email}` : null,
         data.dietary ? `Dietary: ${data.dietary}` : null,
         data.notes ? `Notes: ${data.notes}` : null,
+        data.needsTransport ? `🚌 Interested in hotel shuttle` : null,
       ].filter(Boolean).join("\n");
 
       await fetch(webhook, {
