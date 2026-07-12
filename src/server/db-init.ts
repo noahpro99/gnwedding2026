@@ -2,242 +2,267 @@ import { db } from "./db";
 
 const invites = [
   {
-    "id": "swannell1",
+    "id": "steven-swannell",
     "guest_names": "Steven Swannell, Brunilda Swannell & Sophie Swannell",
     "party_size_max": 3
   },
   {
-    "id": "provenzano1",
+    "id": "dan-provenzano",
     "guest_names": "Dan Provenzano, Traci Provenzano, Delia Provenzano & Seth Provenzano",
     "party_size_max": 4
   },
   {
-    "id": "colliver",
-    "guest_names": "Elijah Colliver, Lily Braun, Ethan Colliver, Lauren Colliver, Gideon Colliver, Jonah Colliver, Sarahfina Colliver & Guest",
-    "party_size_max": 8
+    "id": "elijah-colliver",
+    "guest_names": "Elijah Colliver & Lily Braun",
+    "party_size_max": 2
   },
   {
-    "id": "chapman",
-    "guest_names": "Scott Chapman, Meghann Chapman, Cora Chapman, Marianne Chapman, Luther Chapman, Lori Chapman, Olivia Chapman, Daniel Chapman, Oliver Chapman, Lyn Currie & Guest",
-    "party_size_max": 11
+    "id": "ethan-colliver",
+    "guest_names": "Ethan Colliver, Lauren Colliver, Gideon Colliver, Jonah Colliver, Sarahfina Colliver & Guest",
+    "party_size_max": 6
   },
   {
-    "id": "swannell",
+    "id": "scott-chapman",
+    "guest_names": "Scott Chapman, Meghann Chapman, Cora Chapman, Marianne Chapman, Luther Chapman, Lori Chapman, Olivia Chapman, Daniel Chapman, Oliver Chapman & Guest",
+    "party_size_max": 10
+  },
+  {
+    "id": "lyn-currie",
+    "guest_names": "Lyn Currie",
+    "party_size_max": 1
+  },
+  {
+    "id": "charles-swannell",
     "guest_names": "Charles Swannell",
     "party_size_max": 1
   },
   {
-    "id": "lyons",
+    "id": "nancy-swannell",
     "guest_names": "Nancy Swannell",
     "party_size_max": 1
   },
   {
-    "id": "rizzi",
+    "id": "mark-rizzi",
     "guest_names": "Mark Rizzi, Rachel Rizzi, Jocelyn Rizzi & Meredith Rizzi",
     "party_size_max": 4
   },
   {
-    "id": "vidal",
+    "id": "paul-vidal",
     "guest_names": "Paul Vidal, Sarah Vidal, Natalie Vidal & Noelle Vidal",
     "party_size_max": 4
   },
   {
-    "id": "simon",
+    "id": "don-simon",
     "guest_names": "Don Simon, Vicki Simon, Julia Simon, Audrey Simon & Thomas Simon",
     "party_size_max": 5
   },
   {
-    "id": "kreeger",
-    "guest_names": "Chris Kreeger & Karen Kreeger",
-    "party_size_max": 2
+    "id": "chris-kreeger",
+    "guest_names": "Chris Kreeger",
+    "party_size_max": 1
   },
   {
-    "id": "mohammedian",
+    "id": "karen-kreeger",
+    "guest_names": "Karen Kreeger",
+    "party_size_max": 1
+  },
+  {
+    "id": "shirin-mohammedian",
     "guest_names": "Shirin Mohammedian & Guest",
     "party_size_max": 2
   },
   {
-    "id": "provenzano",
-    "guest_names": "Joe Provenzano, Linda Provenzano, Gary Provenzano, Pam Provenzano & Scott Provenzano",
-    "party_size_max": 5
+    "id": "joe-provenzano",
+    "guest_names": "Joe Provenzano & Linda Provenzano",
+    "party_size_max": 2
   },
   {
-    "id": "kuypers",
+    "id": "gary-provenzano",
+    "guest_names": "Gary Provenzano, Pam Provenzano & Scott Provenzano",
+    "party_size_max": 3
+  },
+  {
+    "id": "nathan-kuypers",
     "guest_names": "Nathan Kuypers, Anilse Kuypers, Riley Kuypers, Brooke Kuypers, Lucas Kuypers & Ellie Kuypers",
     "party_size_max": 6
   },
   {
-    "id": "robles",
+    "id": "joe-robles-jr",
     "guest_names": "Joe Robles Jr., Emily Robles & Reina Robles",
     "party_size_max": 3
   },
   {
-    "id": "andrews",
+    "id": "paul-lipchak",
     "guest_names": "Paul Lipchak & Megan Andrews",
     "party_size_max": 2
   },
   {
-    "id": "sando",
+    "id": "trisha-sando",
     "guest_names": "Trisha Sando",
     "party_size_max": 1
   },
   {
-    "id": "dema",
-    "guest_names": "Ingrid Dema, Flora Dema, David Dema, Rei Dema & Guest",
-    "party_size_max": 5
+    "id": "ingrid-dema",
+    "guest_names": "Ingrid Dema, Flora Dema & David Dema",
+    "party_size_max": 3
   },
   {
-    "id": "salik",
+    "id": "rei-dema",
+    "guest_names": "Rei Dema & Guest",
+    "party_size_max": 2
+  },
+  {
+    "id": "boaz-salik",
     "guest_names": "Boaz Salik, Erin Salik, Rivka Salik & Miriam Salik",
     "party_size_max": 4
   },
   {
-    "id": "smith",
+    "id": "will-smith",
     "guest_names": "Will Smith, Caitlyn Smith, Lucy Smith & Maisy Smith",
     "party_size_max": 4
   },
   {
-    "id": "o-riordan",
+    "id": "jenna-o-riordan",
     "guest_names": "Jenna O’Riordan & Guest",
     "party_size_max": 2
   },
   {
-    "id": "leaper",
+    "id": "heather-leaper",
     "guest_names": "Heather Leaper & Guest",
     "party_size_max": 2
   },
   {
-    "id": "okie",
+    "id": "katherine-okie",
     "guest_names": "Katherine Okie",
     "party_size_max": 1
   },
   {
-    "id": "hamouda",
+    "id": "sally-hamouda",
     "guest_names": "Sally Hamouda & Guest",
     "party_size_max": 2
   },
   {
-    "id": "vu",
+    "id": "tu-vu",
     "guest_names": "Tu Vu & 3 Guests",
     "party_size_max": 4
   },
   {
-    "id": "brown",
+    "id": "zachary-brown",
     "guest_names": "Zachary Brown, Jennifer Brown, Collin Brown, Kaila Brown, Patrick Brown, Valeria Mercado & Guest",
     "party_size_max": 7
   },
   {
-    "id": "pradhan",
+    "id": "aanish-pradhan",
     "guest_names": "Aanish Pradhan",
     "party_size_max": 1
   },
   {
-    "id": "broughton",
+    "id": "reid-broughton",
     "guest_names": "Reid Broughton",
     "party_size_max": 1
   },
   {
-    "id": "sannikov",
+    "id": "mikhail-sannikov",
     "guest_names": "Mikhail Sannikov & Guest",
     "party_size_max": 2
   },
   {
-    "id": "sharma",
+    "id": "rituraj-sharma",
     "guest_names": "Rituraj Sharma",
     "party_size_max": 1
   },
   {
-    "id": "randolph",
+    "id": "michael-randolph",
     "guest_names": "Michael Randolph",
     "party_size_max": 1
   },
   {
-    "id": "mills",
+    "id": "jacob-mills",
     "guest_names": "Jacob Mills & Guest",
     "party_size_max": 2
   },
   {
-    "id": "bond",
+    "id": "arthur-bond",
     "guest_names": "Arthur Bond",
     "party_size_max": 1
   },
   {
-    "id": "graf",
+    "id": "noam-graf",
     "guest_names": "Noam Graf",
     "party_size_max": 1
   },
   {
-    "id": "shah",
+    "id": "stuti-shah",
     "guest_names": "Stuti Shah & Guest",
     "party_size_max": 2
   },
   {
-    "id": "braak",
+    "id": "jesse-braak",
     "guest_names": "Jesse Braak",
     "party_size_max": 1
   },
   {
-    "id": "turbyfill",
+    "id": "gabe-turbyfill",
     "guest_names": "Gabe Turbyfill",
     "party_size_max": 1
   },
   {
-    "id": "stock",
+    "id": "patrick-stock",
     "guest_names": "Patrick Stock",
     "party_size_max": 1
   },
   {
-    "id": "helsing",
+    "id": "scott-helsing",
     "guest_names": "Scott Helsing, Lee Ann Helsing, Caleb Helsing, Serina Helsing, Ella Grace Helsing & 2 Guests",
     "party_size_max": 7
   },
   {
-    "id": "howe",
+    "id": "robert-howe",
     "guest_names": "Robert Howe, Karen Howe, Alexander Howe, Elijah Howe, Ella Howe & Lucy Howe",
     "party_size_max": 6
   },
   {
-    "id": "white",
-    "guest_names": "Travis White, Kandi White, Garrett Thompson & Kaelyn Thompson",
-    "party_size_max": 4
+    "id": "travis-white",
+    "guest_names": "Travis White & Kandi White",
+    "party_size_max": 2
   },
   {
-    "id": "davis",
+    "id": "garrett-thompson",
+    "guest_names": "Garrett Thompson & Kaelyn Thompson",
+    "party_size_max": 2
+  },
+  {
+    "id": "patrick-davis",
     "guest_names": "Patrick Davis",
     "party_size_max": 1
   },
   {
-    "id": "backus",
+    "id": "dave-backus",
     "guest_names": "Dave Backus, Deborah Backus, Kendall Backus & Guest",
     "party_size_max": 4
   },
   {
-    "id": "hecox",
+    "id": "frank-hecox",
     "guest_names": "Frank Hecox & Susie Hecox",
     "party_size_max": 2
   },
   {
-    "id": "lindsey",
-    "guest_names": "Jessica Lindsey",
-    "party_size_max": 1
+    "id": "jessica-lindsey",
+    "guest_names": "Jessica Lindsey & Mason Sizemore",
+    "party_size_max": 2
   },
   {
-    "id": "sizemore",
-    "guest_names": "Mason Sizemore",
-    "party_size_max": 1
-  },
-  {
-    "id": "johnson",
+    "id": "tom-johnson",
     "guest_names": "Tom Johnson & Linda Johnson",
     "party_size_max": 2
   },
   {
-    "id": "mountjoy",
+    "id": "danny-mountjoy",
     "guest_names": "Danny Mountjoy & Anne Mountjoy",
     "party_size_max": 2
   },
   {
-    "id": "buck",
+    "id": "shawna-buck",
     "guest_names": "Shawna Buck",
     "party_size_max": 1
   }

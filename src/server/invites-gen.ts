@@ -32,45 +32,50 @@ function parseCSV(text: string): string[][] {
 }
 
 const rows = parseCSV(text);
-// columns: 0=Guest, 1=Party, 2=side, 3=Relation/role, 4=Coming, 7=Role
+// columns: 0=Guest, 1=Party, 2=side, 3=Relation/role, 4=Coming, 7=Role, 10=Cards
 const data = rows.slice(1).map(r => ({
   name: (r[0] ?? "").trim(),
   party: (r[1] ?? "").trim(),
   coming: (r[4] ?? "").trim(),
   role: (r[7] ?? "").trim(),
+  card: (r[10] ?? "").trim(),
 }));
 
 const slug = (s: string) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-// Group by Party, skip the couple and no-party rows
-const parties = new Map<string, { name: string; named: string[]; plusOnes: number }>();
+// Group by Card column: "card*" starts a new group, "x" appends to current group,
+// "plus 1" with no card value appends to current group, empty non-plus-1 starts own group.
+type Group = { named: string[]; plusOnes: number };
+const groups: Group[] = [];
+let current: Group | null = null;
 
-let lastPartyKey: string | null = null;
 for (const g of data) {
   if (!g.name) continue;
   if (g.name.toLowerCase() === "maybe below") continue;
-  if (g.party === "New") continue;
+  if (g.party === "New") continue;   // skip the couple
   if (g.coming === "FALSE") continue;
 
   const isPlus1 = g.name.toLowerCase().startsWith("plus 1");
+  const cardVal = g.card.toLowerCase();
+  const startsGroup = cardVal.startsWith("card") || (!isPlus1 && cardVal === "");
 
-  // No-party plus-ones attach to the last seen party
-  const key = g.party || (isPlus1 ? lastPartyKey : null);
-  if (!key) continue;
+  if (startsGroup) {
+    current = { named: [], plusOnes: 0 };
+    groups.push(current);
+  }
 
-  if (!parties.has(key)) parties.set(key, { name: key, named: [], plusOnes: 0 });
-  const p = parties.get(key)!;
+  if (!current) continue;
+
   if (isPlus1) {
-    p.plusOnes++;
+    current.plusOnes++;
   } else {
-    p.named.push(g.name);
-    lastPartyKey = key;
+    current.named.push(g.name);
   }
 }
 
-const invites = Array.from(parties.values()).map(p => {
-  const id = slug(p.name);
+const invites = groups.filter(g => g.named.length > 0).map(p => {
+  const id = slug(p.named[0]);
   const maxParty = p.named.length + p.plusOnes;
   let guestNames: string;
   if (p.plusOnes > 0) {
@@ -82,7 +87,7 @@ const invites = Array.from(parties.values()).map(p => {
   } else {
     guestNames = p.named.slice(0, -1).join(", ") + " & " + p.named[p.named.length - 1];
   }
-  return { id, guestNames, maxParty, party: p.name };
+  return { id, guestNames, maxParty };
 });
 
 // Write db-init.ts
@@ -111,12 +116,12 @@ console.log("Inserted", invites.length, "invites.");
 await Bun.write("src/server/db-init.ts", ts);
 console.log(`Wrote ${invites.length} invite groups to db-init.ts\n`);
 
-console.log("Party".padEnd(16), "Names".padEnd(50), "Max", "URL");
-console.log("─".repeat(110));
+console.log("ID".padEnd(28), "Names".padEnd(55), "Max", "URL");
+console.log("─".repeat(115));
 for (const inv of invites) {
   console.log(
-    inv.party.padEnd(16),
-    inv.guestNames.padEnd(50),
+    inv.id.padEnd(28),
+    inv.guestNames.padEnd(55),
     String(inv.maxParty).padEnd(4),
     `https://gnwedding2026.com/invite/${inv.id}`,
   );
