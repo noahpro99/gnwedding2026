@@ -107,8 +107,13 @@ export function RsvpForm({
           <>
             <PaperLine label="Dietary" name="dietary" />
             <PaperArea label="Notes" name="notes" />
-            <label className="flex items-center gap-2 pt-0.5">
-              <input type="checkbox" name="needsTransport" className="accent-burgundy" />
+            <label className="flex items-center gap-2 pt-0.5 cursor-pointer select-none">
+              <span className="relative flex items-center justify-center">
+                <input type="checkbox" name="needsTransport" className="peer appearance-none w-3.5 h-3.5 border border-ink/30 rounded-sm bg-transparent checked:bg-burgundy checked:border-burgundy transition-colors cursor-pointer" />
+                <svg className="absolute pointer-events-none opacity-0 peer-checked:opacity-100 text-cream w-2.5 h-2.5" viewBox="0 0 10 10" fill="none">
+                  <path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
               <span className="text-[9px] md:text-[11px] uppercase tracking-[0.2em] text-ink/55">
                 Interested in hotel shuttle
               </span>
@@ -181,12 +186,13 @@ export function RsvpForm({
               className="w-full bg-cream border border-amber focus:border-burgundy rounded-lg outline-none px-3 py-2 text-ink"
             />
           </label>
-          <label className="flex items-center gap-3 text-sm text-ink/80">
-            <input
-              type="checkbox"
-              name="needsTransport"
-              className="accent-burgundy"
-            />
+          <label className="flex items-center gap-3 text-sm text-ink/80 cursor-pointer select-none">
+            <span className="relative flex items-center justify-center">
+              <input type="checkbox" name="needsTransport" className="peer appearance-none w-4 h-4 border border-amber checked:border-burgundy rounded-sm bg-cream checked:bg-burgundy transition-colors cursor-pointer" />
+              <svg className="absolute pointer-events-none opacity-0 peer-checked:opacity-100 text-cream w-3 h-3" viewBox="0 0 10 10" fill="none">
+                <path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
             I would like shuttle transportation from the hotel
           </label>
         </>
