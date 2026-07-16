@@ -86,7 +86,14 @@ const PARTY: Side[] = [
         blurb:
           "Noah and Rituraj met at a hackathon at VT and were in the same major. Since then they have participated in many hackathons and projects together, including uncovercardgame.com and InVenture Prize on PBS. They have been roommates and are currently working at the same research lab at VT under Dr. Vu. They play pickleball, poker, and hang out regularly.",
       },
-      { name: "", role: "Groomsman", undisclosed: true },
+      {
+        name: "Aanish Pradhan",
+        role: "Groomsman",
+        headshot: "/images/aanish.webp",
+        together: "/images/noah-aanish.webp",
+        blurb:
+          "Noah and Aanish met at Virginia Tech through multiple computer science classes and hit it off nerding out about data. They competed in a hackathon together and went on a trip through the Monongahela National Forest. Since graduating they have kept up a strong friendship. Aanish now lives in Northern Virginia working as a machine learning engineer for CACI.",
+      },
     ],
   },
 ];
