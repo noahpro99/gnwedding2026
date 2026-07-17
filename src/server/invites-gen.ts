@@ -1,5 +1,5 @@
 /**
- * Generate invite records from the guest CSV.
+ * Generate invite records from the guest CSV and write invites-data.ts.
  * Run with: bun src/server/invites-gen.ts [path-to-csv]
  *
  * Plus-one rows ("plus 1" name) attach to the immediately preceding named
@@ -50,21 +50,20 @@ type Group  = { id: string; members: Member[] };
 
 const groups: Group[] = [];
 let current: Group | null = null;
-let lastMember: Member | null = null;  // the most recent named person in current group
+let lastMember: Member | null = null;
 
 for (const g of data) {
   if (!g.name) continue;
-  if (g.name.toLowerCase() === "maybe below") break;  // stop here
-  if (g.party === "New") continue;    // skip the couple
-  if (g.coming === "FALSE") continue; // definitely not coming
+  if (g.name.toLowerCase() === "maybe below") break;
+  if (g.party === "New") continue;
+  if (g.coming === "FALSE") continue;
 
-  const isPlus1  = g.name.toLowerCase().startsWith("plus 1");
-  const cardVal  = g.card.toLowerCase();
-  const isCard   = cardVal.startsWith("card");
-  const isX      = cardVal === "x" || cardVal.startsWith("x,");
+  const isPlus1 = g.name.toLowerCase().startsWith("plus 1");
+  const cardVal = g.card.toLowerCase();
+  const isCard  = cardVal.startsWith("card");
+  const isX     = cardVal === "x" || cardVal.startsWith("x,");
 
   if (isCard) {
-    // Start a new invite group
     current = { id: slug(g.name), members: [] };
     groups.push(current);
     const member: Member = { name: g.name, plusOnes: 0 };
@@ -72,7 +71,6 @@ for (const g of data) {
     lastMember = member;
   } else if (isX && current) {
     if (isPlus1) {
-      // Attach to the last named person, not the group
       if (lastMember) lastMember.plusOnes++;
     } else {
       const member: Member = { name: g.name, plusOnes: 0 };
@@ -80,34 +78,36 @@ for (const g of data) {
       lastMember = member;
     }
   }
-  // rows with empty card column and no card/x: not part of any group
 }
 
 const invites = groups
   .filter(g => g.members.length > 0)
   .map(g => {
-    const guestNames = g.members
+    const guest_names = g.members
       .map(m => m.plusOnes === 0 ? m.name : `${m.name} +${m.plusOnes}`)
       .join(", ");
-    const partySize = g.members.reduce((s, m) => s + 1 + m.plusOnes, 0);
-    return { id: g.id, guest_names: guestNames, party_size_max: partySize };
+    const party_size_max = g.members.reduce((s, m) => s + 1 + m.plusOnes, 0);
+    return { id: g.id, guest_names, party_size_max };
   });
 
-// Print TypeScript literal ready to paste into db.ts
-console.log("const INVITES: Array<{ id: string; guest_names: string; party_size_max: number }> = [");
-for (const inv of invites) {
-  console.log(`  { id: "${inv.id}", guest_names: "${inv.guest_names}", party_size_max: ${inv.party_size_max} },`);
-}
-console.log("];\n");
+// Write invites-data.ts (imported by db.ts)
+const outPath = join(import.meta.dir, "invites-data.ts");
+const ts = `// AUTO-GENERATED — do not edit by hand.
+// Regenerate: bun src/server/invites-gen.ts
+export const INVITES: Array<{ id: string; guest_names: string; party_size_max: number }> = [
+${invites.map(inv =>
+  `  { id: "${inv.id}", guest_names: "${inv.guest_names}", party_size_max: ${inv.party_size_max} },`
+).join("\n")}
+];
+`;
+
+await Bun.write(outPath, ts);
+console.log(`Wrote ${invites.length} invite groups to src/server/invites-data.ts\n`);
 
 // Human-readable table
 console.log("ID".padEnd(28), "Names".padEnd(70), "Max");
 console.log("─".repeat(102));
 for (const inv of invites) {
-  console.log(
-    inv.id.padEnd(28),
-    inv.guest_names.padEnd(70),
-    inv.party_size_max,
-  );
+  console.log(inv.id.padEnd(28), inv.guest_names.padEnd(70), inv.party_size_max);
 }
 console.log(`\nTotal: ${invites.length} groups`);
