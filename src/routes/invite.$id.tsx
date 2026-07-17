@@ -27,17 +27,7 @@ export const Route = createFileRoute("/invite/$id")({
 });
 
 function formatGuestNames(guestNames: string): string[] {
-  const parts = guestNames.replace(/ & /g, ", ").split(", ");
-  const last = parts[parts.length - 1];
-  const plusMatch = last.match(/^(\d+) Guests?$/i);
-  if (last === "Guest") {
-    parts.pop();
-    parts[parts.length - 1] += " +1";
-  } else if (plusMatch) {
-    parts.pop();
-    parts[parts.length - 1] += ` +${plusMatch[1]}`;
-  }
-  return parts;
+  return guestNames.split(", ");
 }
 
 function InvitePage() {
