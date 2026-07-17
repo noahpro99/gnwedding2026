@@ -49,11 +49,27 @@ const PARTY: Side[] = [
         blurb:
           "Sophie and Gwendolyn are sisters with a fat juicy 7 year age gap, but that hasn't stopped them from bonding over memes, music, and endless conversation.",
       },
-      { name: "Delia Provenzano", role: "Bridesmaid", headshot: "/images/delia.webp", together: "/images/gwen-delia.webp" },
-      { name: "Cora Chapman", role: "Bridesmaid" },
+      {
+        name: "Delia Provenzano",
+        role: "Bridesmaid",
+        headshot: "/images/delia.webp",
+        together: "/images/gwen-delia.webp",
+        blurb:
+          "Delia and Gwendolyn have grown up together over the past 6 years. A huge chunk of their adolescent experience was spent talking about philosophy and building Minecraft houses next to each other. Soon they will both be Provenzanos.",
+      },
+      {
+        name: "Cora Chapman",
+        role: "Bridesmaid",
+        headshot: "/images/cora.webp",
+        together: "/images/gwen-cora.webp",
+        blurb:
+          "Gwen met the Chapman girls at Noah's high school graduation and they immediately hit it off. Around 2024 Cora and Gwen became close, bonding over anything from memes to geopolitics. Cora is currently attending Lamar University and will graduate with her BS in Environmental Science.",
+      },
       {
         name: "Shirin Mohammedian",
         role: "Bridesmaid",
+        headshot: "/images/shirin.webp",
+        together: "/images/gwen-shirin.webp",
         blurb:
           "Gwendolyn met Shirin during a summer internship at a science lab while studying at Virginia Tech and they have been friends ever since. Shirin is currently pursuing a PhD in clinical psychology at Binghamton University.",
       },
