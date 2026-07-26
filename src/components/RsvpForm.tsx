@@ -11,10 +11,21 @@ function makeRow(name = ""): GuestRow {
   return { id: uid(), name, attending: null };
 }
 
+type Prefill = { inviteId?: string; guests?: { name: string }[]; partyMax?: number };
+
+function readPrefill(): Prefill | null {
+  try {
+    const raw = localStorage.getItem("rsvp-prefill");
+    return raw ? (JSON.parse(raw) as Prefill) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function RsvpForm({
-  inviteId,
+  inviteId: inviteIdProp,
   initialGuests,
-  partyMax = 10,
+  partyMax: partyMaxProp,
   plain = false,
   onSent,
 }: {
@@ -24,10 +35,19 @@ export function RsvpForm({
   plain?: boolean;
   onSent?: (attending: "yes" | "no") => void;
 }) {
+  const [{ inviteId, partyMax, guests: initialRows }] = useState(() => {
+    const prefill = !initialGuests?.length ? readPrefill() : null;
+    return {
+      inviteId: inviteIdProp ?? prefill?.inviteId,
+      partyMax: partyMaxProp ?? prefill?.partyMax ?? 10,
+      guests: initialGuests?.length
+        ? initialGuests
+        : (prefill?.guests?.length ? prefill.guests : [{ name: "" }]),
+    };
+  });
+
   const [guests, setGuests] = useState<GuestRow[]>(() =>
-    (initialGuests?.length ? initialGuests : [{ name: "" }]).map((g) =>
-      makeRow(g.name),
-    ),
+    initialRows.map((g) => makeRow(g.name)),
   );
   const [email, setEmail] = useState("");
   const [dietary, setDietary] = useState("");

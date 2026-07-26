@@ -1,6 +1,5 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { CardFrame } from "~/components/CardFrame";
-import { RsvpForm } from "~/components/RsvpForm";
 import { getInvite } from "~/server/rsvp";
 
 export const Route = createFileRoute("/invite/$id")({
@@ -49,123 +48,147 @@ function parseInviteToGuests(guestNames: string): { name: string }[] {
 function InvitePage() {
   const { invite } = Route.useLoaderData();
 
+  function prefillRsvp() {
+    try {
+      localStorage.setItem(
+        "rsvp-prefill",
+        JSON.stringify({
+          inviteId: invite.id,
+          guests: parseInviteToGuests(invite.guest_names),
+          partyMax: invite.party_size_max,
+        }),
+      );
+    } catch {}
+  }
+
   return (
     <div
-      className="flex items-center justify-center py-16"
+      className="flex items-center justify-center"
       style={{ minHeight: "100svh" }}
     >
-      <div className="w-full max-w-2xl px-4 space-y-12">
-        <CardFrame>
+      <CardFrame>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0",
+            width: "100%",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "inherit",
+              fontStyle: "italic",
+              fontSize: "6.8cqw",
+              lineHeight: 1.2,
+              color: "var(--color-burgundy)",
+            }}
+          >
+            Gwendolyn Swannell
+          </p>
+          <p
+            style={{
+              fontFamily: "inherit",
+              fontStyle: "italic",
+              fontSize: "6.8cqw",
+              lineHeight: 1.2,
+              color: "var(--color-burgundy)",
+            }}
+          >
+            &amp; Noah Provenzano
+          </p>
+          <p
+            style={{
+              fontSize: "3.1cqw",
+              marginTop: "3cqw",
+              color: "color-mix(in srgb, var(--color-ink) 75%, transparent)",
+              lineHeight: 1.4,
+            }}
+          >
+            cordially invite you to celebrate their wedding
+          </p>
+
+          <div
+            style={{
+              width: "52%",
+              borderTop:
+                "1px solid color-mix(in srgb, var(--color-burgundy) 40%, transparent)",
+              margin: "4cqw auto",
+            }}
+          />
+
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: "0",
-              width: "100%",
+              gap: "0.6cqw",
             }}
           >
-            <p
-              style={{
-                fontFamily: "inherit",
-                fontStyle: "italic",
-                fontSize: "6.8cqw",
-                lineHeight: 1.2,
-                color: "var(--color-burgundy)",
-              }}
-            >
-              Gwendolyn Swannell
-            </p>
-            <p
-              style={{
-                fontFamily: "inherit",
-                fontStyle: "italic",
-                fontSize: "6.8cqw",
-                lineHeight: 1.2,
-                color: "var(--color-burgundy)",
-              }}
-            >
-              &amp; Noah Provenzano
-            </p>
-            <p
-              style={{
-                fontSize: "3.1cqw",
-                marginTop: "3cqw",
-                color: "color-mix(in srgb, var(--color-ink) 75%, transparent)",
-                lineHeight: 1.4,
-              }}
-            >
-              cordially invite you to celebrate their wedding
-            </p>
-
-            <div
-              style={{
-                width: "52%",
-                borderTop:
-                  "1px solid color-mix(in srgb, var(--color-burgundy) 40%, transparent)",
-                margin: "4cqw auto",
-              }}
-            />
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "0.6cqw",
-              }}
-            >
-              {formatGuestNames(invite.guest_names).map((line, i) => (
-                <p
-                  key={i}
-                  style={{
-                    fontSize: "3.8cqw",
-                    color: "color-mix(in srgb, var(--color-ink) 85%, transparent)",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {line}
-                </p>
-              ))}
-            </div>
-
-            <div
-              style={{
-                width: "52%",
-                borderTop:
-                  "1px solid color-mix(in srgb, var(--color-burgundy) 40%, transparent)",
-                margin: "4cqw auto",
-              }}
-            />
-
-            <p
-              style={{
-                fontSize: "2.8cqw",
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                color: "color-mix(in srgb, var(--color-ink) 80%, transparent)",
-              }}
-            >
-              Sunday, October 25, 2026 at 3pm
-            </p>
-            <p
-              style={{
-                fontSize: "3.1cqw",
-                marginTop: "1.5cqw",
-                color: "color-mix(in srgb, var(--color-ink) 70%, transparent)",
-              }}
-            >
-              Beliveau Farm Winery, Blacksburg, VA
-            </p>
+            {formatGuestNames(invite.guest_names).map((line, i) => (
+              <p
+                key={i}
+                style={{
+                  fontSize: "3.8cqw",
+                  color: "color-mix(in srgb, var(--color-ink) 85%, transparent)",
+                  lineHeight: 1.4,
+                }}
+              >
+                {line}
+              </p>
+            ))}
           </div>
-        </CardFrame>
 
-        <RsvpForm
-          inviteId={invite.id}
-          initialGuests={parseInviteToGuests(invite.guest_names)}
-          partyMax={invite.party_size_max}
-        />
-      </div>
+          <div
+            style={{
+              width: "52%",
+              borderTop:
+                "1px solid color-mix(in srgb, var(--color-burgundy) 40%, transparent)",
+              margin: "4cqw auto",
+            }}
+          />
+
+          <p
+            style={{
+              fontSize: "2.8cqw",
+              textTransform: "uppercase",
+              letterSpacing: "0.12em",
+              color: "color-mix(in srgb, var(--color-ink) 80%, transparent)",
+            }}
+          >
+            Sunday, October 25, 2026 at 3pm
+          </p>
+          <p
+            style={{
+              fontSize: "3.1cqw",
+              marginTop: "1.5cqw",
+              color: "color-mix(in srgb, var(--color-ink) 70%, transparent)",
+            }}
+          >
+            Beliveau Farm Winery, Blacksburg, VA
+          </p>
+
+          <Link
+            to="/rsvp"
+            onClick={prefillRsvp}
+            style={{
+              marginTop: "5cqw",
+              padding: "1.5cqw 6cqw",
+              fontSize: "2.6cqw",
+              backgroundColor: "var(--color-burgundy)",
+              color: "var(--color-cream)",
+              textTransform: "uppercase",
+              letterSpacing: "0.15em",
+              borderRadius: "9999px",
+              display: "inline-block",
+              textDecoration: "none",
+            }}
+          >
+            RSVP
+          </Link>
+        </div>
+      </CardFrame>
     </div>
   );
 }
