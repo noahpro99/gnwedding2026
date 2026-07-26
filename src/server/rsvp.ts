@@ -1,12 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import { db } from "./db";
 
+export type GuestEntry = { name: string; attending: boolean };
+
 export type RsvpPayload = {
   inviteId?: string;
-  primaryName: string;
-  guestNames: string[];
   email?: string;
-  attending: boolean;
+  guests: GuestEntry[];
   dietary?: string;
   notes?: string;
   needsTransport?: boolean;
@@ -14,41 +14,43 @@ export type RsvpPayload = {
 
 export const submitRsvp = createServerFn({ method: "POST" })
   .inputValidator((data: unknown): RsvpPayload => {
-    if (typeof data !== "object" || data === null) {
-      throw new Error("Invalid payload");
-    }
+    if (typeof data !== "object" || data === null) throw new Error("Invalid payload");
     const d = data as Record<string, unknown>;
-    const primaryName =
-      typeof d.primaryName === "string" ? d.primaryName.trim() : "";
-    if (!primaryName) throw new Error("Please enter your name.");
-    const rawNames = Array.isArray(d.guestNames) ? d.guestNames : [primaryName];
-    const guestNames = rawNames
-      .map((n) => (typeof n === "string" ? n.trim() : ""))
-      .filter(Boolean);
-    if (guestNames.length === 0) guestNames.push(primaryName);
+    const rawGuests = Array.isArray(d.guests) ? d.guests : [];
+    const guests: GuestEntry[] = rawGuests
+      .map((g: unknown) => {
+        if (typeof g !== "object" || g === null) return null;
+        const gg = g as Record<string, unknown>;
+        const name = typeof gg.name === "string" ? gg.name.trim() : "";
+        return name ? { name, attending: Boolean(gg.attending) } : null;
+      })
+      .filter((g): g is GuestEntry => g !== null);
+    if (!guests.length) throw new Error("Please enter at least one name.");
     return {
       inviteId: typeof d.inviteId === "string" ? d.inviteId : undefined,
-      primaryName,
-      guestNames,
-      email: typeof d.email === "string" ? d.email : undefined,
-      attending: Boolean(d.attending),
+      email: typeof d.email === "string" ? d.email.trim() : undefined,
+      guests,
       dietary: typeof d.dietary === "string" ? d.dietary : undefined,
       notes: typeof d.notes === "string" ? d.notes : undefined,
       needsTransport: Boolean(d.needsTransport),
     };
   })
   .handler(async ({ data }) => {
+    const attending = data.guests.some(g => g.attending);
+    const primaryName = (data.guests.find(g => g.attending) ?? data.guests[0]!).name;
+    const guestNames = data.guests.map(g => g.name);
+
     db.run(
       `INSERT INTO rsvps
         (invite_id, primary_name, guest_names, email, attending, party_size, dietary, notes, needs_transport)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         data.inviteId ?? null,
-        data.primaryName,
-        data.guestNames.join("\n"),
+        primaryName,
+        guestNames.join("\n"),
         data.email ?? null,
-        data.attending ? 1 : 0,
-        data.guestNames.length,
+        attending ? 1 : 0,
+        guestNames.length,
         data.dietary ?? null,
         data.notes ?? null,
         data.needsTransport ? 1 : 0,
@@ -57,9 +59,11 @@ export const submitRsvp = createServerFn({ method: "POST" })
 
     const webhook = process.env.DISCORD_WEBHOOK_URL;
     if (webhook) {
+      const yes = data.guests.filter(g => g.attending).map(g => g.name);
+      const no  = data.guests.filter(g => !g.attending).map(g => g.name);
       const lines = [
-        `**${data.primaryName}** - ${data.attending ? "Attending" : "Not attending"}`,
-        data.guestNames.length > 1 ? `Party: ${data.guestNames.join(", ")}` : null,
+        yes.length ? `✅ **Attending:** ${yes.join(", ")}` : null,
+        no.length  ? `❌ **Not attending:** ${no.join(", ")}` : null,
         data.email ? `Email: ${data.email}` : null,
         data.dietary ? `Dietary: ${data.dietary}` : null,
         data.notes ? `Notes: ${data.notes}` : null,
@@ -105,13 +109,7 @@ export const requestTransport = createServerFn({ method: "POST" })
     db.run(
       `INSERT INTO transport_requests (name, email, hotel, party_size, notes)
        VALUES (?, ?, ?, ?, ?)`,
-      [
-        data.name,
-        data.email ?? null,
-        data.hotel,
-        data.partySize,
-        data.notes ?? null,
-      ],
+      [data.name, data.email ?? null, data.hotel, data.partySize, data.notes ?? null],
     );
 
     const webhook = process.env.DISCORD_WEBHOOK_URL;
@@ -144,10 +142,6 @@ export const getInvite = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     const row = db
       .query("SELECT id, guest_names, party_size_max FROM invites WHERE id = ?")
-      .get(data.id) as {
-      id: string;
-      guest_names: string;
-      party_size_max: number;
-    } | null;
+      .get(data.id) as { id: string; guest_names: string; party_size_max: number } | null;
     return row;
   });
