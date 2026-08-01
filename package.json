@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build",
+    "dev": "bun node_modules/vite/bin/vite.js dev --port 3000",
+    "build": "bun node_modules/vite/bin/vite.js build",
     "start": "bun serve.ts",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "bun node_modules/typescript/lib/tsc.js --noEmit",
     "db:init": "bun src/server/db-init.ts"
   },
   "dependencies": {
