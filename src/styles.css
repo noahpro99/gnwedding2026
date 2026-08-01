@@ -19,6 +19,14 @@
   --color-ink: #2b1810; /* main text */
   --color-gold: #b18536; /* fine eyebrow accent */
 
+  /* Monochrome set — used ONLY by the black-tie bachelor pages, which are
+     deliberately sharp and black-and-white, unlike the warm rounded site. */
+  --color-onyx: #0b0b0c; /* page black */
+  --color-tux: #141416; /* jacket / panel black */
+  --color-ivory: #f4f3ef; /* white */
+  --color-silver: #c2c5cb; /* metallic hairline / accent */
+  --color-smoke: #7c7e84; /* muted grey text */
+
   /* Everything is Times New Roman — body text, headings, and the names
      that used to be cursive (the .font-script class is kept as an alias
      so existing markup stays put, but it no longer renders as cursive). */

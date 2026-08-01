@@ -2,6 +2,7 @@ import { Database } from "bun:sqlite";
 import { mkdirSync, existsSync } from "node:fs";
 import { dirname } from "node:path";
 import { INVITES } from "./invites-data";
+import { BACHELOR_INVITES } from "./bachelor-invites";
 
 const DB_PATH = process.env.DB_PATH ?? "./data/wedding.sqlite";
 
@@ -109,3 +110,37 @@ export type Invite = {
   party_size_max: number;
   created_at: string;
 };
+
+// ── Bachelor party ──────────────────────────────────────────────────────────
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS bachelor_invites (
+    id TEXT PRIMARY KEY,
+    guest_names TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`);
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS bachelor_availability (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    invite_id TEXT,
+    name TEXT NOT NULL,
+    email TEXT,
+    availability TEXT NOT NULL,
+    interests TEXT,
+    notes TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (invite_id) REFERENCES bachelor_invites(id) ON DELETE SET NULL
+  );
+`);
+
+// Bachelor invite records loaded from bachelor-invites.ts (auto-generated).
+// To update: edit the CSV then run: bun src/server/bachelor-gen.ts
+const upsertBachelorInvite = db.prepare(`
+  INSERT INTO bachelor_invites (id, guest_names) VALUES (?, ?)
+  ON CONFLICT(id) DO UPDATE SET guest_names = excluded.guest_names
+`);
+for (const inv of BACHELOR_INVITES) {
+  upsertBachelorInvite.run(inv.id, inv.guest_names);
+}

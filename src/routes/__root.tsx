@@ -62,7 +62,8 @@ function NotFound() {
 
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const bare = pathname.startsWith("/invite/");
+  const bare =
+    pathname.startsWith("/invite/") || pathname.startsWith("/bachelor");
 
   if (bare) {
     return (
