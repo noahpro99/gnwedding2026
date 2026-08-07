@@ -205,8 +205,15 @@ function eventsOverlap(a: CalendarEvent, b: CalendarEvent): boolean {
   return a.start < b.end && b.start < a.end;
 }
 
+// Overlap filtering only applies on the wedding day itself — other days show
+// every event, even when times overlap.
+const WEDDING_DAY = "2026-10-25";
+
 function removeOverlaps(events: CalendarEvent[]): CalendarEvent[] {
-  const sorted = [...events].sort(
+  const weddingDay = events.filter((e) => e.start.slice(0, 10) === WEDDING_DAY);
+  const otherDays = events.filter((e) => e.start.slice(0, 10) !== WEDDING_DAY);
+
+  const sorted = [...weddingDay].sort(
     (a, b) => eventDurationMs(b) - eventDurationMs(a),
   );
   const kept: CalendarEvent[] = [];
@@ -215,7 +222,7 @@ function removeOverlaps(events: CalendarEvent[]): CalendarEvent[] {
       kept.push(e);
     }
   }
-  return kept.sort((a, b) => a.start.localeCompare(b.start));
+  return [...otherDays, ...kept].sort((a, b) => a.start.localeCompare(b.start));
 }
 
 // ---------- Grouping & formatting ----------
