@@ -31,7 +31,19 @@ Bun.serve({
     }
     // Dynamic pages with live data must not be cached
     const dynamic = url.pathname === '/registry' || url.pathname === '/itinerary'
-    const res = await server.fetch(req)
+
+    // Traefik terminates TLS, so requests reach us as http://. Server functions
+    // compare the browser's `Origin` header against this URL and reject the
+    // scheme mismatch with a 403, so restore the original scheme first.
+    const proto = req.headers.get('x-forwarded-proto')?.split(',')[0]?.trim()
+    let request = req
+    if (proto && `${proto}:` !== url.protocol) {
+      const forwarded = new URL(url)
+      forwarded.protocol = `${proto}:`
+      request = new Request(forwarded, req)
+    }
+
+    const res = await server.fetch(request)
     if (!dynamic) return res
     const headers = new Headers(res.headers)
     headers.set('Cache-Control', 'no-store')
