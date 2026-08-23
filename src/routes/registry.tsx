@@ -108,7 +108,10 @@ const REGISTRY: Section[] = [
         price: 25,
         url: "https://www.amazon.com/Drvykkn-Bathroom-Non-Slip-Diatomaceous-Absorbent/dp/B0FQNJZHFP",
       },
-      { name: "Comforter" },
+      {
+        name: "Comforter",
+        url: "https://www.amazon.com/Exclusivo-Mezcla-Patchwork-Microfiber-Alternative/dp/B0BZZ59PMZ",
+      },
       {
         name: "Cotton sheet set",
         price: 37,
